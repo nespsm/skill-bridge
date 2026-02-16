@@ -1,0 +1,11 @@
+@use '../tokens/radius' as *;
+@use '../tokens/colors' as *;
+
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-bg-auth;
+  padding: 24px;
+}

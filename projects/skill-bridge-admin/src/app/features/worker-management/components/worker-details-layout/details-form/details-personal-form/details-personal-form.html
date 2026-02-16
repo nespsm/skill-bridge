@@ -1,0 +1,154 @@
+<div class="form-layout-personal"> <!-- LEFT : MAIN FORM -->
+    <div class="wrapper-form">
+        <div class="form-header">
+            <span>Personal Details</span>
+        </div>
+        <form [formGroup]="form" class="mat-elevation-z8">
+            <div class="form-grid">
+                <!-- Full Name -->
+                <mat-form-field class="gap-md full" appearance="outline">
+                    <input matInput placeholder="Full Name" formControlName="name" />
+                    @if(isControlInvalid(form.get('name'))) { <mat-error> {{ getError(form.get('name'), 'Full Name') }}
+                    </mat-error> }
+                </mat-form-field>
+                <div>
+                    <label class="field-label">Age</label>
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput type="text" formControlName="age" />
+                    </mat-form-field>
+                </div>
+                <div>
+                    <label class="field-label">Mobile No.</label>
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput type="text" formControlName="mobileNumber" />
+                    </mat-form-field>
+                </div>
+                <div>
+                    <label class="field-label">Contact No.</label>
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput type="text" formControlName="contactNumber" />
+                    </mat-form-field>
+                </div>
+                <div>
+                    <label class="field-label">Aadhaar Card No.</label>
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput type="text" formControlName="aadhaar" />
+                    </mat-form-field>
+                </div>
+                <div>
+                    <label class="field-label">Address</label>
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput type="text" formControlName="address" />
+                    </mat-form-field>
+                </div>
+                <div>
+                    <label class="field-label">Highest Qualification</label>
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <mat-select formControlName="qualification">
+                            <mat-option value="High School">High School
+                            </mat-option>
+                            <mat-option value="Secondary School">
+                                Secondary School
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <label class="field-label">Passport</label>
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <mat-select formControlName="passport">
+                            <mat-option value="Yes">Yes</mat-option>
+                            <mat-option value="No">No</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <label class="field-label">Experience</label>
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="experience" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div> <!-- RIGHT : LINKED COMPANY DETAILS -->
+    <div class="wrapper-side-panel">
+        <div class="company-card"> <!-- HEADER -->
+            <div class="header-2">
+                <span class="title">Linked Company Details</span>
+                <button mat-stroked-button class="btn-blue-gradient">
+                                    <span class="icon-mask icon-sm icon-export-doc color-white"></span>
+                                    Export
+                                </button>
+                            </div>
+                            <!-- COMPANY INFO -->
+                            <div class="wrapper-company-body">
+                                <div class="wrapper-info-row">
+                    <span class="label-info">Company</span>
+                    <span class="label-value">Tech Nutons Pvt. Ltd.</span>
+                </div>
+                <div class="wrapper-info-row">
+                    <span class="label-info">Country</span>
+                    <span class="label-value">Saudi Arabia</span>
+                </div>
+                <div class="wrapper-info-row">
+                    <span class="label-info">Job Title</span>
+                    <span class="label-value">Welder</span>
+                </div>
+                <div class="wrapper-info-row">
+                    <span class="label-info">Salary</span>
+                    <span class="label-value">SAR 4,000 / month</span>
+                </div>
+                <div class="wrapper-info-row">
+                    <span class="label-info">Contract Duration</span>
+                    <span class="label-value">2 Year</span>
+                </div>
+            </div> <!-- OFFER LETTER -->
+            <div class="wrapper-offer-row">
+                <span>
+                    Offer Letter:
+                    <a href="#">Employment Visa</a>
+                </span>
+                <div class="actions">
+                    <button mat-icon-button class="btn-table-action btn-view">
+                        <span class="icon-mask icon-sm icon-eye color-blue"></span> View
+                    </button>
+                    <button mat-icon-button class="btn-table-action btn-edit">
+                        <span class="icon-mask icon-sm icon-pencil color-orange"></span> Edit
+                    </button>
+                </div>
+            </div> <!-- CONTACT PERSON -->
+            <div class="wrapper-contact-section">
+                <div class="contact-row-grid">
+                    Company Contact Person
+                    <strong>Mr. Faisal Khan</strong>
+                </div>
+                <div class="contact-row-grid">
+                    <span class="wrapper-span">
+                        <span class="icon-mask icon-md-sm icon-envelope color-blue-bright"></span>
+                        
+                        faisal@technutons.com
+                    </span>
+                    <span class="wrapper-span">
+                        <span class="icon-mask icon-md-sm icon-phone color-green"></span>
+                        
+                        +966 123455789
+                    </span>
+                </div>
+                <div class="contact-row-grid">
+                    <span class="wrapper-span">
+                        <span class="icon-mask icon-md-sm icon-calendar color-orange"></span>
+                        Apr 10, 2024 </span>
+                        <span class="wrapper-span">
+                            <span class="icon-mask icon-md-sm icon-identification color-cyan"></span>
+                            Offered
+                        <span class="badge badge-blue">10,205</span>
+                    </span>
+                </div>
+            </div>
+            <div class="wrapper-btn-2">
+                <button mat-raised-button color="primary" class="btn-primary btn-green-blue"> +
+                    CHANGE / ADD COMPANY </button>
+            </div>
+        </div>
+    </div>
+</div>

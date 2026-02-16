@@ -1,0 +1,68 @@
+@if (loading$ | async) {
+<primary-loader></primary-loader>
+}
+
+<div class="auth-card">
+    <!-- BRAND -->
+    <div class="brand-block">
+        <h2>Skill Bridge</h2>
+        <p class="subtitle">Client Login</p>
+    </div>
+
+    <form class="mat-elevation-z8" [formGroup]="loginForm" (ngSubmit)="login()">
+
+
+        <!-- USER IDENTIFIER -->
+        <mat-form-field class="sb-field full-width" appearance="outline">
+            <input matInput formControlName="userIdentifier" placeholder="Email or Mobile No."
+                autocomplete="username" />
+            <mat-icon matPrefix>person</mat-icon>
+
+            @if(isControlInvalid(loginForm.get('userIdentifier'))) {
+            <mat-error>
+                {{ getError(loginForm.get('userIdentifier'), 'Email or Mobile No') }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <!-- PASSWORD -->
+        <mat-form-field class="sb-field full-width" appearance="outline">
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+                placeholder="Password" autocomplete="current-password" />
+            <mat-icon matPrefix>lock</mat-icon>
+
+            <button mat-icon-button matSuffix type="button" (click)="togglePassword()"
+                [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'" tabindex="-1">
+                <mat-icon>
+                    {{ hidePassword ? 'visibility' : 'visibility_off' }}
+                </mat-icon>
+            </button>
+
+            @if(isControlInvalid(loginForm.get('password'))) {
+            <mat-error>
+                {{ getError(loginForm.get('password'), 'Password') }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <!-- ACTIONS -->
+        <div class="form-actions">
+            <a routerLink="/auth/forgot-password">Forgot password?</a>
+        </div>
+
+        <!-- LOGIN BUTTON -->
+        <button mat-raised-button color="primary" class="btn-primary" type="submit" [disabled]="isFormInvalid()">
+            Login
+        </button>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <p class="signup">
+            Don’t have an account?
+            <a routerLink="/auth/register">Sign up</a>
+        </p>
+
+    </form>
+</div>

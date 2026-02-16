@@ -1,0 +1,15 @@
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/radius' as *;
+
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-bar {
+    @extend .filter;
+    gap: $space-sm;
+}
+

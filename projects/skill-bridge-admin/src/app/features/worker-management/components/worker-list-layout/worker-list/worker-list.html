@@ -1,0 +1,25 @@
+<div class="container-worker">
+    <!-- HEADER -->
+    <!-- <div class="page-header">
+        <h2 class="page-title">Workers</h2>
+
+
+    </div> -->
+
+
+    <div class="container-main-header">
+        <div class="main-brand-header">
+            <span class="logo bg-mulbery">W</span>
+            <span>Workers</span>
+        </div>
+
+    </div>
+
+    <!-- WORKER TYPE CARDS -->
+    <worker-category-tile [workerTypes]="workerTypes"></worker-category-tile>
+
+    <!-- TABLE -->
+    <worker-list-table [workers]="filteredWorkers" [workersCount]="workersCount" (view)="onViewWorker($event)"
+        (call)="onCallWorker($event)">
+    </worker-list-table>
+</div>

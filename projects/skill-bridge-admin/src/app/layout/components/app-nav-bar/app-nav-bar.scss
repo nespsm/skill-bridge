@@ -1,0 +1,163 @@
+/* CONTAINER */
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    height: 100vh;
+    transition: width 0.3s ease;
+}
+
+/* COLLAPSED WIDTH */
+.sidebar-container.collapsed {
+    width: 72px;
+}
+
+/* TOP BAR */
+/* TOP BAR */
+.info-section {
+    position: relative;
+    /* for absolute positioning of toggle */
+    height: 68px;
+    background: #f7f7f8;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+}
+
+/* TOGGLE BUTTON */
+.toggle-section {
+    position: absolute;
+    right: 12px;
+    /* fixed left position */
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* COLLAPSED STATE */
+.sidebar-container.collapsed {
+    width: 72px;
+
+    
+
+    .info-section {
+        justify-content: flex-start;
+        padding-left: 15px;
+
+        /* keep toggle visible at left */
+        .logo {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+
+    /* hide logo */
+    .toggle-section {
+        opacity: 0;
+        pointer-events: none;
+    }
+    /* Hover: expand sidebar top bar */
+    .info-section:hover {
+        justify-content: flex-start;
+        /* logo will appear on left */
+        padding-left: 20px;
+        
+        .toggle-section {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* toggle remains in same fixed position */
+        .logo {
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}
+
+
+/* SIDEBAR */
+.sidebar {
+    height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    padding: 16px 12px;
+}
+
+.sidebar aside {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* COLLAPSED CONTENT */
+aside.collapsed {
+
+    .label,
+    .info {
+        display: none;
+    }
+}
+
+/* NAV */
+nav {
+    flex: 1;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #374151;
+    text-decoration: none;
+
+    &:hover {
+        background: #f3f4f6;
+        transform: translateY(1px);
+    }
+
+    &.active {
+        background: #eef2ff;
+        color: #2563eb;
+        font-weight: 500;
+    }
+}
+
+
+/* PROFILE */
+.profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 12px;
+    padding: 16px 10px;
+    border-top: 1px solid #e5e7eb;
+
+    &:hover {
+        background: #f3f4f6;
+        transform: translateY(2px);
+    }
+    .info {
+        display: inline-flex;
+        gap: 6px;
+
+        span {
+            font-size: 12px;
+            padding-top: 3px;
+        }
+    }
+}
+
+/* FOOTER */
+.footer {
+    padding-top: 12px;
+}

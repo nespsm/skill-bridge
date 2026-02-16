@@ -1,0 +1,34 @@
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+
+
+
+.table-primary {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+        text-align: left;
+        font-size: 13px;
+        color: $color-text-muted;
+        padding: $space-sm;
+    }
+
+    td {
+        padding: $space-sm;
+        border-top: 1px solid $color-border;
+        vertical-align: middle;
+    }
+
+
+    .col-action {
+        width: 1%;
+        white-space: nowrap;
+    }
+
+    .action-btn {
+        display: inline-flex;
+        gap: $space-xs;
+        white-space: nowrap;
+    }
+}

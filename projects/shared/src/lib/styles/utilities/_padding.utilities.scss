@@ -1,0 +1,51 @@
+@use '../tokens/spacing' as *;
+
+$spaces: (
+  xxs: $space-xxs,
+  xs:  $space-xs,
+  sm:  $space-sm,
+  md:  $space-md,
+  lg:  $space-lg,
+  xl:  $space-xl,
+  xxl: $space-xxl,
+  xxxl: $space-xxxl,
+  100: $space-100
+);
+
+@each $key, $value in $spaces {
+
+  // All sides
+  .p-#{$key} {
+    padding: $value;
+  }
+
+  // Top
+  .pt-#{$key} {
+    padding: $value 0 0 0;
+  }
+
+  // Bottom
+  .pb-#{$key} {
+    padding: 0 0 $value 0;
+  }
+
+  // Left
+  .pl-#{$key} {
+    padding: 0 0 0 $value;
+  }
+
+  // Right
+  .pr-#{$key} {
+    padding: 0 $value 0 0;
+  }
+
+  // Horizontal (left + right)
+  .px-#{$key} {
+    padding: 0 $value;
+  }
+
+  // Vertical (top + bottom)
+  .py-#{$key} {
+    padding: $value 0;
+  }
+}

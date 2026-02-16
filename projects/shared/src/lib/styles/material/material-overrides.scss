@@ -1,0 +1,160 @@
+@use '../tokens/colors' as *;
+@use '../tokens/radius' as *;
+@use '../tokens/shadows' as *;
+@use '../tokens/spacing' as *;
+
+/* FULL RESET */
+.mat-mdc-form-field {
+  width: 100%;
+  padding-top: 8px !important;
+
+  &.gap-sm {
+    margin-bottom: 12px !important;
+  }
+
+  &.gap-md {
+    margin-bottom: 16px !important;
+  }
+
+  &.gap-lg {
+    margin-bottom: 36px !important;
+  }
+
+  &.gap-xl {
+    margin-bottom: 48px !important;
+  }
+}
+
+
+/* Kill default Material visuals */
+.mdc-line-ripple,
+.mat-mdc-form-field-bottom-align::before {
+  display: none !important;
+}
+
+.mdc-notched-outline,
+.mdc-notched-outline__leading,
+.mdc-notched-outline__trailing,
+.mdc-notched-outline__notch {
+  display: none !important;
+}
+
+/* Main shell */
+.mat-mdc-text-field-wrapper {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+/* Custom input container */
+.mat-mdc-form-field-flex {
+  background: $color-white;
+  padding: 0 15px !important;
+  border: 1px solid $color-border !important;
+  border-radius: 14px !important;
+  height: 3rem;
+  transition: all 0.2s ease;
+}
+
+/* Input spacing */
+.mat-mdc-form-field-infix {
+  padding: 13px 0 0 0 !important;
+}
+
+/* Actual input */
+.mat-mdc-input-element {
+  padding: 2px 0 !important;
+  font-size: 14px;
+  color: $color-text-main;
+  background: transparent !important;
+}
+
+/* ===== DISABLED STATE (CORRECT MDC WAY) ===== */
+.mdc-text-field--disabled .mat-mdc-form-field-flex {
+  background: $color-bg-muted !important;
+  border-color: $color-border-muted !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}
+
+.mdc-text-field--disabled .mat-mdc-input-element {
+    background: transparent !important;
+    color: $color-field-muted !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+}
+
+.mdc-text-field--disabled .mat-mdc-select-trigger, .mat-form-field-disabled {
+    background: transparent !important;
+    color: $color-field-muted !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+}
+
+/* Menus */
+.mat-mdc-menu-panel {
+  background-color: $color-white !important;
+  color: $color-black !important;
+  border-radius: 5px !important;
+
+  &:hover {
+    background-color: $color-white-2 !important;
+  }
+}
+
+.mat-mdc-select-panel .mdc-list-item {
+  background-color: $color-white !important;
+  color: $color-black !important;
+
+  &:hover {
+    background-color: $color-white-2 !important;
+  }
+
+}
+
+/* Focus Glow */
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-flex {
+  border-color: $color-blue-deep !important;
+  box-shadow: 0 0 0 4px $shadow-focus !important;
+}
+
+/* Errors */
+.mat-mdc-form-field-error {
+  font-size: 12px;
+  margin-top: 4px;
+  padding-bottom: 20px !important;
+  color: $color-red !important;
+}
+
+/* Progress Bar */
+.mdc-linear-progress__bar-inner {
+  border-top-width: 12px !important;
+  border-radius: 6px !important;
+  color: $color-active;
+}
+
+.mdc-linear-progress__buffer {
+  background-color: $color-progress-buffer;
+  margin-top: 23px !important;
+  border-radius: 6px !important;
+  height: 12px !important;
+}
+
+/* Tabs */
+.mat-mdc-tab-label-container {
+  border-bottom: 1px solid $color-border !important;
+}
+
+.mat-mdc-tab {
+  font-weight: 500;
+  font-size: 15px !important;
+  color: $color-text-muted;
+}
+
+.mdc-tab--active {
+  color: $color-ocean;
+}
+
+.mdc-tab-indicator__content--underline {
+  border-top-width: 5px !important;
+  border-color: $color-ocean;
+}

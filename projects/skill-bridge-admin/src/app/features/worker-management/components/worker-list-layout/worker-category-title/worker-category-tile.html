@@ -1,0 +1,14 @@
+<div class="container-grid-auto">
+  @for(type of workerTypes; track $index) {
+  <div class="tile-card" [ngClass]="type.cardClass">
+
+      <span [ngClass]="type.iconClass"></span>
+
+      <div class="wrapper-right-content">
+          <div class="count">{{ type.count }}</div>
+          <div class="title">{{ type.title }}</div>
+      </div>
+
+  </div>
+  }
+</div>

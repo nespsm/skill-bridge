@@ -1,0 +1,25 @@
+<mat-tab-group class="worker-tabs">
+    <mat-tab label="Personal Details"> <details-personal-form [form]="personalDetailsFG">
+        </details-personal-form>
+    </mat-tab>
+    <mat-tab label="Passport">
+        <details-passport-form [form]="passportFG"> </details-passport-form>
+    </mat-tab>
+    <mat-tab label="Skills">
+        <details-skills-form [form]="skillsFG"> </details-skills-form>
+    </mat-tab> <mat-tab label="Documents">
+        <details-documents-form [form]="documentsFG">
+
+        </details-documents-form>
+    </mat-tab>
+    <mat-tab label="Visa & Medical">
+        <details-visa-medical-form [form]="visaMedicalFG"> </details-visa-medical-form>
+    </mat-tab>
+    <mat-tab label="Hiring History">
+        <details-hiring-history [form]="hiringHistoryFG">
+        </details-hiring-history>
+    </mat-tab>
+    <mat-tab label="Emergency Contact & Notes">
+        <details-emergency-notes [form]="emergencyNotesFG"> </details-emergency-notes>
+    </mat-tab>
+</mat-tab-group>

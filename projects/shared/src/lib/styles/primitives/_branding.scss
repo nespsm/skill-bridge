@@ -1,0 +1,82 @@
+@use '../tokens/colors' as *;
+@use '../tokens/radius' as *;
+@use '../tokens/spacing' as *;
+
+.brand-block {
+    text-align: center;
+    margin-bottom: 32px;
+
+    h2 {
+        font-size: 25px;
+        font-weight: 600;
+        margin-bottom: 0px !important;
+        color: $color-text-main;
+    }
+
+    .subtitle {
+        font-size: 18px;
+        color: $color-text-muted;
+    }
+}
+
+
+.brand-nav {
+    display: flex;
+    align-items: center;
+
+    .logo {
+        width: 36px;
+        height: 36px;
+        border-radius: $radius-xs;
+        background: $color-red-blood;
+        color: $color-white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        transition: opacity 0.2s ease;
+    }
+
+
+    span {
+        border-radius: $radius-xs;
+        font-size: 25px;
+        font-weight: 700;
+    }
+}
+
+
+.brand-header {
+    @extend .brand-nav;
+    gap: $space-sm;
+    font-weight: 600;
+    color: $color-charcoal;
+}
+
+.main-brand-header {
+    @extend .brand-nav;
+    gap: $space-sm;
+    font-weight: 600;
+    color: $color-charcoal;
+
+
+
+     .logo {
+        width: 26px;
+        height: 26px;
+        border-radius: $radius-xs;
+        color: $color-white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        transition: opacity 0.2s ease;
+    }
+
+
+    span {
+        border-radius: $radius-xs;
+        font-size: 20px;
+        font-weight: 600;
+    }
+}

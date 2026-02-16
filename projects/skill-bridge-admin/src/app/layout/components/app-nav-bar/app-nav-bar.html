@@ -1,0 +1,84 @@
+<div class="sidebar-container" [class.collapsed]="collapsed">
+
+    <!-- TOP BAR -->
+    <div class="info-section">
+        <div class="brand-nav">
+            <div class="logo">S</div>
+        </div>
+
+        <div class="toggle-section">
+            <button class="btn-icon" (click)="toggleBtnClicked()">
+                <span class="icon-mask icon-md icon-queue-list color-charcoal"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <aside [class.collapsed]="collapsed">
+
+            <nav>
+                @for (item of filteredNavItems; track $index) {
+                <a class="nav-item" [routerLink]="item.link" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }" [queryParams]="item.queryParams">
+
+                    <span class="icon">
+                        <span [ngClass]="item.iconClass"></span>
+                    </span>
+
+                    @if(!collapsed) {
+                    <span class="label">
+                        {{ item.name }}
+                    </span>
+                    }
+
+                </a>
+                }
+
+            </nav>
+
+            <!-- PROFILE -->
+            <div class="profile">
+                <span class="icon-mask icon-user-sz icon-user-circle color-ocean"></span>
+
+                @if(!collapsed) {
+                <div class="info">
+                    <strong>Jitu Chauhan</strong>
+                    <span class="color-ocean">Admin</span>
+                </div>
+                }
+            </div>
+
+            <!-- FOOTER -->
+            <div class="footer">
+
+                <a class="nav-item" routerLink="settings" routerLinkActive="active">
+
+                    <span class="icon">
+                        <span class="icon-mask icon-md icon-setting color-teal"></span>
+                    </span>
+
+                    @if(!collapsed) {
+                    <span class="label">
+                        Settings
+                    </span>
+                    }
+                </a>
+
+                <a class="nav-item">
+                    <span class="icon">
+                        <span class="icon-mask icon-md icon-logout color-red-blood"></span>
+                    </span>
+
+                    @if(!collapsed) {
+                    <span class="label" (click)="logout()">
+                        Logout
+                    </span>
+                    }
+                </a>
+
+            </div>
+
+        </aside>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+@use '../tokens/colors' as *;
+
+.color-white { color: $color-white; }
+.color-black { color: $color-black; }
+.color-charcoal { color: $color-charcoal; }
+
+.color-blue-light { color: $color-blue-light; }
+.color-blue-bright { color: $color-blue-bright; }
+.color-blue-deep { color: $color-blue-deep; }
+
+.color-indigo { color: $color-indigo; }
+
+.color-ocean { color: $color-ocean; }
+.color-orchid { color: $color-orchid; }
+.color-mulbery { color: $color-mulbery; }
+.color-turquoise { color: $color-turquoise; }
+.color-brown { color: $color-brown; }
+.color-voilet-dim { color: $color-voilet-dim; }
+.color-voilet-bright { color: $color-voilet-bright; }
+
+.color-yellow-light { color: $color-yellow-light; }
+.color-orange-light { color: $color-orange-light; }
+.color-orange { color: $color-orange; }
+.color-orange-dark { color: $color-orange-dark; }
+
+.color-gold { color: $color-gold; }
+
+.color-red-light { color: $color-red-light; }
+.color-red { color: $color-red; }
+.color-red-blood { color: $color-red-blood; }
+
+.color-green-light { color: $color-green-light; }
+.color-active { color: $color-active; }
+.color-green { color: $color-green; }
+.color-green-forest { color: $color-green-forest; }
+
+.color-cyan { color: $color-cyan; }
+.color-teal { color: $color-teal !important; }
+
+
+/* BACKGROUND COLORS */
+.bg-white { background-color: $color-white; }
+.bg-blue-light { background-color: $color-blue-light; }
+.bg-orange-light { background-color: $color-orange-light; }
+.bg-red-light { background-color: $color-red-light; }
+.bg-green-light { background-color: $color-green-light; }
+
+.bg-brown { background-color: $color-brown !important; }
+.bg-voilet-bright { background-color: $color-voilet-bright !important; }
+.bg-turquoise { background-color: $color-turquoise !important; }
+.bg-gold { background-color: $color-gold !important; }
+.bg-ocean { background-color: $color-ocean !important; }
+.bg-mulbery { background-color: $color-mulbery !important;}
+.bg-green-forest { background-color: $color-green-forest !important; }
+.bg-orange-dark { background-color: $color-orange-dark !important; }
+
+
+/* BORDER COLORS */
+.border { color: $color-border; }
+.divider { color: $color-divider; }

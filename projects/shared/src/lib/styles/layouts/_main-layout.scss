@@ -1,0 +1,11 @@
+@use '../tokens/colors' as *;
+
+.main-layout {    
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100vh;
+  background: $color-white-2;
+  transition: grid-template-columns 0.3s ease;
+}
+
+

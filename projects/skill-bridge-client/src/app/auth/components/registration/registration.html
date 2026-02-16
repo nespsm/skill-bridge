@@ -1,0 +1,87 @@
+@if (loading$ | async) {
+<primary-loader></primary-loader>
+}
+
+<div class="auth-card">
+    <!-- Header -->
+    <div class="brand-block">
+        <h2>Client Registration</h2>
+        <div class="subtitle">Create your account</div>
+    </div>
+
+    <form class="mat-elevation-z8" [formGroup]="registrationForm" (ngSubmit)="register()">
+
+        <!-- Full Name -->
+        <mat-form-field class="sb-field full-width" appearance="outline">
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput placeholder="Full Name" formControlName="fullName" />
+
+            @if(isControlInvalid(registrationForm.get('fullName'))) {
+            <mat-error>
+                {{ getError(registrationForm.get('fullName'), 'Full Name') }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Email / Mobile + OTP button -->
+        <div class="otp-row">
+            <mat-form-field class="sb-field full-width" appearance="outline">
+                <mat-icon matPrefix>mail</mat-icon>
+                <input matInput placeholder="Email Address or Mobile Number" formControlName="userIdentifier" />
+
+                @if(isControlInvalid(registrationForm.get('userIdentifier'))) {
+                <mat-error>
+                    {{ getError(registrationForm.get('userIdentifier'), 'Email or Mobile No') }}
+                </mat-error>
+                }
+            </mat-form-field>
+
+            <button type="button" class="otp-btn" (click)="sendOtp()"
+                [disabled]="registrationForm.get('userIdentifier')?.invalid ||  (emailOtpSent$ | async)">
+                Get OTP
+            </button>
+        </div>
+
+        <!-- OTP boxes -->
+        <div class="otp-inputs" formArrayName="otp">
+            @if (emailOtpSent$ | async) {
+            @for(control of otpControls; track $index) {
+            <input [formControlName]="$index" maxlength="1" type="text" inputmode="numeric" autocomplete="one-time-code"
+                appOtpInput [otpIndex]="$index" [otpArray]="otpArray" />
+            }
+            }
+        </div>
+
+        @if (isOtpInvalid()) {
+        <div class="otp-error">
+            OTP is required
+        </div>
+        }
+
+        <!-- Password -->
+        <mat-form-field class="sb-field full-width" appearance="outline">
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput placeholder="Password (Optional)" [type]="hidePassword ? 'password' : 'text'"
+                formControlName="password" />
+            <button mat-icon-button matSuffix type="button" (click)="togglePassword()"
+                [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'" tabindex="-1">
+                <mat-icon>
+                    {{ hidePassword ? 'visibility' : 'visibility_off' }}
+                </mat-icon>
+            </button>
+
+            @if(isControlInvalid(registrationForm.get('password'))) {
+            <mat-error>
+                {{ getError(registrationForm.get('password'), 'Password') }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Submit -->
+        <button class="btn-primary" [disabled]="registrationForm.invalid">
+            Register
+        </button>
+
+    </form>
+
+</div>

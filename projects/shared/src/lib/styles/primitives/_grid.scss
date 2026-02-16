@@ -1,0 +1,32 @@
+@use '../tokens/spacing' as *;
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px $space-sm; // assuming 2px equivalent is $space-2xs
+}
+
+.full {
+  grid-column: 1 / -1; // cleaner way to span 2 columns
+}
+
+.contact-row-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: $space-xs; // replaced 6px with spacing token
+}
+
+.contact-row-grid> :last-child {
+  justify-self: end;
+}
+
+
+
+.container-grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $space-md;
+  padding-top: $space-md;
+}

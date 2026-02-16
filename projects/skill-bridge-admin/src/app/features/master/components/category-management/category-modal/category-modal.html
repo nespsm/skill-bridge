@@ -1,0 +1,100 @@
+<div class="container-modal">
+    <form class="modal-form mat-elevation-z8" [formGroup]="categoryForm" (ngSubmit)="submit()">
+        <button type="button" class="btn-close" (click)="closeModal()">
+            <span class="icon-mask icon-md icon-close"></span>
+        </button>
+        <!-- Header -->
+
+        <div class="brand-block">
+            <h2>Manage Category Details</h2>
+            <p class="subtitle">{{ modeName }}</p>
+        </div>
+
+        <!-- Category Name -->
+        <mat-form-field class="gap-md" appearance="outline">
+            <mat-icon matPrefix>category</mat-icon>
+
+            @if(mode==='add-skills') {
+            <mat-select formControlName="categoryId" (selectionChange)="onCategoryChange($event.value)">
+                <mat-option [value]="0">Please Select Category</mat-option>
+
+                @for(cat of input.categories; track cat.id) {
+                <mat-option [value]="cat.id"> {{cat.categoryName}} </mat-option>
+                }
+            </mat-select>
+            }
+
+            @else {
+            <input matInput formControlName="categoryName" placeholder="Category" />
+            }
+            @if(isControlInvalid(categoryForm.get('categoryName'))) {
+            <mat-error>
+                {{ getError(categoryForm.get('categoryName'), 'Category Name') }}
+            </mat-error> }
+        </mat-form-field>
+
+        <!-- Description -->
+        <mat-form-field class="gap-xl" appearance="outline">
+            <mat-icon matPrefix>description</mat-icon>
+            <input matInput placeholder="Description" formControlName="description" />
+
+            @if(isControlInvalid(categoryForm.get('description'))) {
+            <mat-error> {{ getError(categoryForm.get('description'), 'Description') }}
+
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Skills -->
+
+        <div formArrayName="skills" >
+            <div class="skills-header">
+                <label class="label-field">Skills</label>
+                @if(!categoryForm.disabled) {
+                <button type="button" class="btn-secondary btn-green" (click)="addSkill()">
+                    <span class="icon-mask icon-sm icon-plus"></span> Add Skills
+                </button>
+                }
+
+            </div>
+
+            @for (s of skillsFA.controls; track $index) {
+                
+            <div [formGroupName]="$index">
+                <mat-form-field class="gap-md" appearance="outline">
+
+                    <mat-icon matPrefix>bolt</mat-icon>
+
+                    <input matInput placeholder="Skill Name" formControlName="skillName" />
+
+                    @if(!categoryForm.disabled) {
+
+                    <button type="button" class="btn-close" (click)="removeRow($index)">
+                        <span class="icon-mask icon-md icon-close"></span>
+                    </button>
+
+                    }
+
+                    @if(isControlInvalid(s.get('skillName'))) {
+
+                    <mat-error> {{ getError(s.get('skillName'), 'Skill Name') }}</mat-error>
+
+                    }
+
+                </mat-form-field>
+            </div>
+            }
+        </div>
+
+        <!-- Actions -->
+        <div class="form-actions">
+            <button type="button" class="btn-cancel btn-form" (click)="closeModal()">
+                Cancel
+            </button>
+
+            <button type="submit" class="btn-primary btn-form" [disabled]="categoryForm.invalid">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>

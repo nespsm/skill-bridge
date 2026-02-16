@@ -1,0 +1,68 @@
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    gap: $space-md;
+}
+
+/* Divider */
+.divider {
+    text-align: center;
+    margin: 24px 0;
+    font-size: 12px;
+    color: $color-divider;
+}
+
+.break-line {
+    border-top: 1px solid $color-border;
+}
+
+/* Signup */
+.signup {
+    text-align: center;
+    font-size: 13px;
+    color: $color-text-muted;
+}
+
+.anchor {
+    color: $color-ocean;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.resend {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 13px;
+    color: $color-text-muted;
+
+    span {
+        color: $color-blue-deep;
+        font-weight: 500;
+        cursor: pointer;
+    }
+}
+
+
+
+@keyframes phonePulse {
+  0% {
+    transform: translateY(0);
+    text-shadow: 0 0 0 rgba(22, 163, 74, 0.6);
+  }
+  50% {
+    transform: translateY(-3px);
+    text-shadow: 0 0 10px rgba(22, 163, 74, 0.8);
+  }
+  100% {
+    transform: translateY(0);
+    text-shadow: 0 0 0 rgba(22, 163, 74, 0.6);
+  }
+}
+
+.phone-animated {
+  animation: phonePulse 1.5s ease-in-out infinite;
+}

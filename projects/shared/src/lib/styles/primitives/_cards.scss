@@ -1,0 +1,195 @@
+@use '../tokens/radius' as *;
+@use '../tokens/colors' as *;
+@use '../tokens/shadows' as *;
+@use '../tokens/spacing' as *;
+
+.card {
+  background: $color-primary-bg;
+  backdrop-filter: blur(18px);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  transition: all 0.15s ease;
+}
+
+
+.auth-card {
+  @extend .card;
+  max-width: 420px;
+  width: 420px;
+  padding: 48px 36px;
+  animation: fadeUp 0.4s ease;
+}
+
+.stat-card {
+  @extend .card;
+  height: 100%;
+  // height: 150px;
+  padding: 20px;
+  display: flex;
+  gap: $space-md;
+  align-items: center;
+  cursor: pointer;
+  border-radius: $radius-md;
+
+  strong {
+    font-size: 24px;
+    display: block;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.action-card {
+  @extend .card;
+  border-radius: $radius-md;
+  height: 100%;
+  padding: $space-lg;
+}
+
+.table-card {
+  @extend .card;
+  border-radius: $radius-sm;
+  padding: $space-md;
+  padding-top: $space-lg;
+  box-shadow: $shadow-card-light;
+}
+
+.tile-card {
+  @extend .card;
+  height: 110px;
+  padding: 14px 16px;
+  border-radius: $radius-sm;
+  box-shadow: $shadow-card-light;
+  color: $color-white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.company-card {
+  border-radius: $radius-md;
+  overflow: hidden;
+  border: 1px solid $color-border;
+}
+
+.media-card {
+  padding: 20px 20px 10px 20px;
+
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: $space-lg;
+  align-items: center;
+
+}
+
+
+.card-color-red-gd {
+  background: linear-gradient(135deg, $color-red-dim, $color-red);
+
+  &:hover {
+    color: $color-red-dim;
+    background: $color-red-light;
+  }
+}
+
+.card-color-blue-gd {
+  background: linear-gradient(135deg, $color-blue-bright, $color-blue-dim);
+
+  &:hover {
+    color: $color-blue-dim;
+    background: $color-blue-light;
+  }
+}
+
+.card-color-green-gd {
+  background: linear-gradient(135deg, $color-green-bright, $color-green);
+
+  &:hover {
+    color: $color-green;
+    background: $color-green-light;
+  }
+}
+
+.card-color-gold-gd {
+  background: linear-gradient(135deg, $color-orange-bright, $color-orange-dim);
+
+  &:hover {
+    color: $color-orange-dim;
+    background: $color-orange-light;
+  }
+}
+
+.card-color-voilet-gd {
+  background: linear-gradient(135deg, $color-voilet-bright, $color-voilet-dim);
+
+  &:hover {
+    color: $color-voilet-dim;
+    background: $color-voilet-light;
+  }
+}
+
+.card-color-orange-gd {
+  background: linear-gradient(135deg, $color-orange, $color-orange-dark);
+
+  &:hover {
+    color: $color-orange-dark;
+    background: $color-yellow-light;
+  }
+}
+
+.card-bg-blue-light {
+  background: $color-blue-light;
+
+  &:hover {
+    background: $color-blue-deep;
+
+    // span is responsible for icon so using span so other element if use this class won't affect
+    span.color-blue-deep {
+      color: $color-blue-light;
+    }
+  }
+}
+
+.card-bg-orange-light {
+  background: $color-yellow-light;
+
+  &:hover {
+    background: $color-orange;
+
+    span.color-orange {
+      color: $color-yellow-light;
+    }
+  }
+}
+
+.card-bg-green-light {
+  background: $color-green-light;
+
+  &:hover {
+    background: $color-green;
+
+    span.color-green {
+      color: $color-green-light;
+    }
+  }
+}
+
+.card-bg-red-light {
+  background: $color-red-light;
+
+  &:hover {
+    background: $color-red;
+
+    span.color-red {
+      color: $color-red-light;
+    }
+  }
+}

@@ -1,0 +1,63 @@
+$color-white: #fff;
+$color-white-2: #f7f7f8;
+$color-black: #000;
+$color-charcoal: #374151;
+$color-blue-light: #dbeafe;
+$color-blue-bright: #3b82f6;
+$color-blue-dim: #2563eb;
+$color-blue-deep: #4f46e5;
+$color-indigo: #6366F1;
+
+$color-ocean: #0284C7;
+$color-ocean-dim: #037cb9;
+$color-yellow-light: #fef9c7;
+$color-yellow-dark: #a38b00;
+$color-orange-light: #fee2c7;
+$color-orange: #f59e0b;
+$color-orange-bright: #f97316;
+$color-orange-dim: #ea580c;
+$color-orange-dark: #D97706;
+$color-gold: #b7791f;
+
+$color-red-light: #fee2e2;
+$color-red-dim: #ef4444;
+$color-red: #dc2626;
+$color-red-blood: #991B1B;
+
+$color-green-light: #dcfce7;
+$color-green-bright: #10b981;
+$color-green: #16a34a;
+$color-active: #18a970;
+$color-green-forest: #15803d;
+$color-cyan: #00B3B3;
+$color-teal: #005F73;
+
+$color-voilet-light: #efe2fe;
+$color-voilet-bright: #a855f7;
+$color-voilet-dim: #9333ea;
+$color-orchid: #BA55D3;
+$color-mulbery: #701A75;
+$color-turquoise: #0891B2;
+$color-brown: #822e2e;
+
+
+
+
+$color-primary-bg: rgba(255, 255, 255, 0.88);
+$color-bg-action-btn: #f5f5f5;
+
+
+$color-text-main: #1e293b;
+$color-title: #565656;
+$color-text-muted: #6b7280;
+$color-field-muted: #64748b;
+$color-divider: #9ca3af;
+$color-border-muted: #e2e8f0;
+$color-border: #e5e7eb;
+$color-progress-buffer: #e6e6eb;
+$color-bg-muted-2: #eef2ff;
+$color-bg-muted: #f8fafc;
+
+$color-primary-btn: linear-gradient(135deg,  $color-blue-deep, $color-blue-bright);
+$color-green-blue: linear-gradient(135deg,  $color-green, $color-blue-bright);
+$color-bg-auth: radial-gradient(circle at top, $color-bg-muted-2, $color-bg-muted);

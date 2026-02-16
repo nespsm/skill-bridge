@@ -1,0 +1,59 @@
+@use '../tokens/colors' as *;
+@use '../tokens/radius' as *;
+@use '../tokens/spacing' as *;
+
+.passport-badge {
+    padding: 4px 10px;
+    border-radius: $radius-xs;
+    font-size: 12px;
+    font-weight: 500;
+
+    &.yes {
+        background: $color-green-light;
+        color: $color-green;
+    }
+
+    &.no {
+        background: $color-red-light;
+        color: $color-red;
+    }
+}
+
+
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge-green {
+    background: $color-green-light;
+    color: $color-green;
+}
+
+.badge-red {
+    background: $color-red-light;
+    color: $color-red;
+}
+
+.badge-orange {
+    background: $color-orange-light;
+    color: $color-orange;
+}
+
+.badge-yellow {
+    background: $color-yellow-light;
+    color: $color-yellow-dark;
+}
+
+.badge-blue {
+    background: $color-blue-light;
+    color: $color-blue-deep;
+}
+
+.badge-grey {
+    color: $color-border;
+    background: $color-field-muted;
+}

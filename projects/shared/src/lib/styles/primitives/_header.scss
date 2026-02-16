@@ -1,0 +1,64 @@
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+
+
+%header-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header {
+    @extend %header-base;
+}
+
+.header-2 {
+    @extend %header-base;
+    padding: $space-sm $space-md;
+    background: linear-gradient(90deg, $color-ocean, $color-ocean-dim);
+    color: #fff;
+    height: 28px;
+}
+
+.page-header {
+    @extend %header-base;
+
+    .page-title {
+        font-size: 22px;
+        font-weight: 500;
+        color: $color-title;
+        margin: 0 !important;
+    }
+
+    .page-sub {
+        font-size: 18px;
+        font-weight: 500;
+        color: $color-text-main;
+        margin: 0 !important;
+        margin-top: 2rem;
+    }
+}
+
+.card-header {
+    @extend %header-base;
+    font-weight: 600;
+    margin-bottom: 14px;
+
+    span {
+        cursor: pointer;
+    }
+}
+
+.skills-header {
+    @extend %header-base;
+    margin-bottom: $space-sm;
+}
+
+.form-header {
+    font-size: 18px;
+    font-weight: 500;
+    color: $color-black;
+    margin: 0 !important;
+    padding: 0 0 8px 12px;
+}
+

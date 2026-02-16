@@ -1,0 +1,9 @@
+@use '../tokens/radius' as *;
+@use '../tokens/colors' as *;
+
+.form-layout-personal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+}

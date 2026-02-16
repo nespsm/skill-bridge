@@ -1,0 +1,24 @@
+<div class="container-category">
+    <!-- HEADER -->
+
+
+
+    <div class="container-main-header">
+        <div class="main-brand-header">
+            <span class="logo bg-voilet-bright">C</span>
+            <span>Categories</span>
+        </div>
+
+    </div>
+
+    <!-- <div class="page-header">
+        <h2 class="page-title">Categories</h2>
+    </div> -->
+
+    <!-- TABLE CARD -->
+    <category-table [data]="categories" (edit)="openModal('edit-category',$event)"
+        (view)="openModal('view-category',$event)" (addSkill)="openModal('add-skills')"
+        (addCatSkill)="openModal('add-category-skills',$event)" (addCategory)="openModal('add-category')"
+        (delete)="delete($event)">
+    </category-table>
+</div>

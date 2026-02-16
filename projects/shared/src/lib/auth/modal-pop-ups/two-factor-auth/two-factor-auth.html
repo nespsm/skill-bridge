@@ -1,0 +1,48 @@
+<div class="container-modal">
+    <form class="modal-form" [formGroup]="twoFAForm" (ngSubmit)="verify()">
+        <button type="button" class="btn-close" (click)="close()">
+            <span class="icon-mask icon-md icon-close"></span>
+        </button>
+
+
+        <div class="brand-block">
+            <h2>Verify OTP</h2>
+            <p class="subtitle">Enter the 6-digit code sent to your email / mobile</p>
+
+        </div>
+
+        <!-- OTP boxes -->
+        <div class="otp-inputs" formArrayName="otp">
+            @for (control of otpControls; track $index) {
+            <input [formControlName]="$index" maxlength="1" type="text" inputmode="numeric" autocomplete="one-time-code"
+                appOtpInput [otpIndex]="$index" [otpArray]="otpArray" />
+            }
+        </div>
+
+        @if (isOtpInvalid()) {
+        <div class="otp-error">
+            OTP is required
+        </div>
+        }
+
+
+        <!-- Verify button -->
+        <button type="submit" class="btn-primary" [disabled]="isFormInvalid()">
+            Verify
+        </button>
+
+        <!-- Resend -->
+        <div class="resend">
+            Didn’t receive OTP?
+            <span (click)="resendOtp()">Resend</span>
+        </div>
+
+        @if(resendCooldown > 0) {
+        <span class="cooldown">
+            Resend in {{ resendCooldown }}s
+        </span>
+        }
+
+    </form>
+
+</div>

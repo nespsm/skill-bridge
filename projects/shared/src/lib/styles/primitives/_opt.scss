@@ -1,0 +1,70 @@
+@use '../tokens/radius' as *;
+@use '../tokens/colors' as *;
+@use '../tokens/shadows' as *;
+@use '../tokens/spacing' as *;
+
+.otp-inputs {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+
+  input {
+    width: 44px;
+    height: 48px;
+    text-align: center;
+    font-size: 18px;
+    border-radius: $radius-sm;
+    border: 1px solid $color-border;
+
+    &:focus {
+      border-color: $color-blue-deep;
+      box-shadow: $shadow-focus;
+    }
+  }
+}
+
+.otp-row {
+  display: flex;
+  gap: $space-sm;
+  align-items: center;
+
+}
+
+
+.otp-error {
+  color: $color-red;
+  font-size: 12px;
+  margin-top: -15px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+
+
+/* Get OTP button */
+.otp-btn {
+  height: 3rem;
+  padding: 0 18px;
+  margin-bottom: 0.7rem;
+  border-radius: 14px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, $color-blue-deep, $color-blue-bright);
+  color: #fff;
+
+  box-shadow: $shadow-box;
+  transition: transform 0.15s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+}

@@ -1,0 +1,16 @@
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: $space-sm;
+        padding: 10px 0;
+        border-bottom: 1px solid $color-border;
+    }
+}

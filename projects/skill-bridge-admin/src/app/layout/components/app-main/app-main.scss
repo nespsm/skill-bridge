@@ -1,0 +1,13 @@
+/* Sidebar collapsed */
+.sidebar-collapsed {
+    grid-template-columns: 72px 1fr;
+}
+
+
+/* Content */
+.content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background: #f7f7f8;
+}

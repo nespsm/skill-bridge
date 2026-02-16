@@ -1,0 +1,23 @@
+@use '../tokens/colors' as *;
+
+.label {
+
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.label-field {
+    @extend .label;
+    padding-left: 12px;
+    color: $color-text-muted;
+}
+
+
+.label-info {
+    color: $color-text-muted;
+    width: 180px;
+}
+
+.label-value {
+    font-weight: 500;
+}

@@ -1,0 +1,18 @@
+<div class="container-worker">
+
+
+    <div class="container-main-header">
+        <div class="main-brand-header">
+            <span class="logo bg-turquoise">C</span>
+            <span>Clients</span>
+        </div>
+
+    </div>
+
+
+    
+
+    <!-- TABLE -->
+    <company-list-table [companies]="filteredCompanies" [companyCount]="companyCount" (view)="onViewCompany($event)">
+    </company-list-table>
+</div>

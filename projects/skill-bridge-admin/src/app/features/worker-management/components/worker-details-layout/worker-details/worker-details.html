@@ -1,0 +1,21 @@
+<div class="container-worker">
+    <!-- HEADER -->
+    
+    
+    <div class="container-main-header">
+        <div class="main-brand-header">
+            <span class="logo bg-ocean">W</span>
+            <span>Worker Details</span>
+        </div>
+
+    </div>
+    <details-header [worker]="worker"> </details-header>
+    <div class="card">
+        <details-media-card [worker]="worker" (edit)="toggleEdit()" (export)="exportWorker()">
+
+        </details-media-card>
+        @if(workerForm) {
+        <details-tabs [form]="workerForm" [editMode]="isEditMode"> </details-tabs>
+        }
+    </div>
+</div>

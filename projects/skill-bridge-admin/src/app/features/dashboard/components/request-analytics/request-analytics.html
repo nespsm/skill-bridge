@@ -1,0 +1,14 @@
+<div class="container-stats">
+
+    @for (stat of stats; track $index) {
+    <div class="stat-card" [ngClass]="stat.cardClass" [routerLink]="stat.route" [queryParams]="stat.queryParams" routerLinkActive="active">
+
+        <span [ngClass]="stat.iconClass"></span>
+
+        <div class="info">
+            <span>{{ stat.title }}</span>
+            <strong>{{ stat.value | number }}</strong>
+        </div>
+    </div>
+    }
+</div>

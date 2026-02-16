@@ -1,0 +1,46 @@
+/* shared/src/lib/styles/index.scss */
+
+/* TOKENS */
+@forward './tokens/colors';
+@forward './tokens/radius';
+@forward './tokens/shadows';
+@forward './tokens/spacing';
+@forward './tokens/z-index';
+
+/* BASE */
+@forward './base/reset';
+@forward './base/typography';
+@forward './base/animations';
+
+/* PRIMITIVES */
+@forward './primitives/buttons';
+@forward './primitives/ul';
+@forward './primitives/badge';
+@forward './primitives/filter';
+@forward './primitives/container';
+@forward './primitives/header';
+@forward './primitives/branding';
+@forward './primitives/table';
+@forward './primitives/cards';
+@forward './primitives/forms';
+@forward './primitives/opt';
+@forward './primitives/icons';
+@forward './primitives/tabs';
+@forward './primitives/label';
+@forward './primitives/grid';
+@forward './primitives/video';
+@forward './primitives/wrapper';
+@forward './primitives/dialog';
+
+/* LAYOUTS */
+@forward './layouts/auth-layout';
+@forward './layouts/main-layout';
+@forward './layouts/form-layout';
+
+/* MATERIAL */
+@forward './material/material-overrides';
+
+/* UTILITIES */
+@forward './utilities/color.utilities';
+@forward './utilities/common.utilities';
+@forward './utilities/padding.utilities';

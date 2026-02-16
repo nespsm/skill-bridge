@@ -1,0 +1,92 @@
+<div class="container-table">
+    <!-- FILTER BAR -->
+    <div class="page-header">
+        <h1 class="page-title">Total Workers:
+            {{ workersCount | number }}
+        </h1>
+    </div>
+
+
+    <div class="filter-bar">
+
+        <div class="wrapper-search">
+            <input type="text" placeholder="Search category..." />
+        </div>
+
+
+
+        <div class="wrapper-btn">
+            <button class="btn-icon">
+                <span class="icon-mask icon-md icon-funnel"></span>
+                <span>Filter</span>
+            </button>
+            <button class="btn-icon">
+                <span class="icon-mask icon-md icon-sort"></span>
+                <span>Sort</span>
+            </button>
+
+            <button class="btn-green">
+                <span class="icon-mask icon-sm icon-export-doc"></span> Export
+            </button>
+        </div>
+
+    </div>
+
+    <div class="table-card">
+
+        <table class="table-primary">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Phone</th>
+                    <th>Passport</th>
+                    <th>Interest</th>
+                    <th>Status</th>
+                    <th>Abroad</th>
+                    <th class="col-action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(worker of workers; track $index) {
+                <tr>
+                    <td>{{ worker.name }}</td>
+                    <td>{{ worker.role }}</td>
+                    <td>{{ worker.mobileNumber }}</td>
+                    <td>
+                        <span class="passport-badge" [ngClass]="getBadgeClass(worker.passport)">
+                            {{ worker.passport }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge" [ngClass]="getBadgeClass(worker.interest)">
+                            {{ worker.interest }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge" [ngClass]="getBadgeClass(worker.status)">
+                            {{ worker.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge" [ngClass]="getBadgeClass(worker.hiredAbroad)">
+                            {{ worker.hiredAbroad }}
+                        </span>
+                    </td>
+                    <td class="action-btn">
+                        <button class="btn-table-action btn-view" (click)="viewWorkerDetails(worker.id)">
+                            <span class="icon-mask icon-sm icon-eye"></span>
+                            <span>View</span>
+                        </button>
+
+                        <button class="btn-table-action btn-call" (click)="callWorker(worker)">
+                            <span class="icon-mask icon-sm icon-phone"></span>
+                            <span>Call</span>
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

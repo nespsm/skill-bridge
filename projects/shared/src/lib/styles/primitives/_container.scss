@@ -1,0 +1,117 @@
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+
+.container-col {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.container-col-gap-sm {
+    @extend .container-col;
+    gap: $space-sm;
+}
+
+.container-col-gap-md {
+    @extend .container-col;
+    gap: $space-md;
+}
+
+.container-col-gap-lg {
+    @extend .container-col;
+    gap: $space-lg;
+}
+
+
+.container-table {
+    @extend .container-col-gap-md;
+    padding: $space-sm;
+}
+
+
+.container-dashboard {
+    @extend .container-col-gap-lg;
+
+    padding: $space-md;
+    gap: $space-md;
+
+    .rw {
+        margin-bottom: $space-xxxl;
+    }
+    
+
+
+    .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: $space-lg;
+        // margin-bottom: $space-lg;
+    }
+}
+
+
+.container-worker {
+    @extend .container-col;
+
+    padding: $space-md;
+    gap: $space-md;
+}
+
+.container-main {
+    @extend .container-col;
+    overflow: hidden;
+}
+
+.container-category {
+    @extend .container-col-gap-lg;
+    overflow: hidden;
+
+
+    padding: $space-md;
+    gap: $space-md;
+}
+
+
+
+.container-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    background: $color-white;
+    border-bottom: 1px solid $color-border;
+    padding: 0 24px;
+}
+
+.container-main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 54px;
+    background: $color-white;
+    border-bottom: 1px solid $color-border;
+    padding: 0 24px;
+}
+
+.container-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-md;
+    height: 100%;
+    padding-bottom: $space-lg;
+    padding-top: $space-md;
+}
+
+.container-action {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-sm;
+}
+
+.container-modal-2 {
+    @extend .container-col;
+    padding: $space-sm;
+    align-items: center;
+    justify-content: center;
+    background: $color-bg-auth;
+}

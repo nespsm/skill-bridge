@@ -1,0 +1,96 @@
+@use '../tokens/colors' as *;
+@use '../tokens/radius' as *;
+@use '../tokens/shadows' as *;
+@use '../tokens/spacing' as *;
+
+.dialog-container {
+    background: $color-white;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-card;
+    padding: $space-lg;
+    display: flex;
+    flex-direction: column;
+
+    gap: $space-md;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    align-items: center;
+    justify-content: center;
+
+    h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+        color: $color-text-main;
+    }
+}
+
+/* Accent types */
+.dialog-success {
+    color: $color-green;
+}
+
+.dialog-error {
+    color: $color-red;
+}
+
+.dialog-warning {
+    color: $color-orange;
+}
+
+.dialog-info {
+    color: $color-blue-deep;
+}
+
+.dialog-confirm {
+    color: $color-orange;
+}
+
+.dialog-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: $color-text-muted;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $space-sm;
+}
+
+
+.container-modal {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $color-bg-auth;
+    padding: 10px;
+}
+
+.page-dialog-header {
+    display: flex;
+    flex-direction: column; // 🔥 this is the key
+    align-items: center; // align left
+    gap: $space-xs;
+
+    .page-title {
+        font-size: 22px;
+        font-weight: 500;
+        color: $color-title;
+        margin: 0 !important;
+    }
+
+    .page-sub {
+        font-size: 16px;
+        font-weight: 500;
+        color: $color-text-main;
+        margin: 0 !important;
+    }
+}

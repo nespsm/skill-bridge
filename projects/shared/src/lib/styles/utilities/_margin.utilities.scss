@@ -1,0 +1,46 @@
+@use '../tokens/spacing' as *;
+
+$spaces: (
+    xxs: $space-xxs,
+    xs: $space-xs,
+    sm: $space-sm,
+    md: $space-md,
+    lg: $space-lg,
+    xl: $space-xl,
+    xxl: $space-xxl,
+    xxxl: $space-xxxl,
+    100: $space-100
+);
+
+
+
+@each $key, $value in $spaces {
+
+    .m-#{$key} {
+        margin: $value;
+    }
+
+    .mt-#{$key} {
+        margin: $value 0 0 0;
+    }
+
+    .mb-#{$key} {
+        margin: 0 0 $value 0;
+    }
+
+    .ml-#{$key} {
+        margin: 0 0 0 $value;
+    }
+
+    .mr-#{$key} {
+        margin: 0 $value 0 0;
+    }
+
+    .mx-#{$key} {
+        margin: 0 $value;
+    }
+
+    .my-#{$key} {
+        margin: $value 0;
+    }
+}

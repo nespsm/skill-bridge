@@ -1,0 +1,55 @@
+<div class="container-table">
+
+    <div class="filter-bar">
+        <div class="wrapper-search">
+            <input type="text" placeholder="Search category..." />
+        </div>
+
+        <div class="wrapper-btn">
+            <button class="btn-icon">
+                <span class="icon-mask icon-md icon-funnel"></span>
+                <span>Filter</span>
+            </button>
+            <button class="btn-icon">
+                <span class="icon-mask icon-md icon-sort"></span>
+                <span>Sort</span>
+            </button>
+            <button class="btn-secondary btn-green" (click)="addCategory.emit()">
+                <span class="icon-mask icon-sm icon-plus color-white "></span> Add Category
+            </button>
+            <button class="btn-secondary btn-blue" (click)="addSkill.emit()">
+                <span class="icon-mask icon-sm icon-plus color-white "></span> Add Skills
+            </button>
+        </div>
+    </div>
+
+
+    <div class="table-card">
+        <table class="table-primary">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th class="col-action">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (row of data; track $index) {
+                <tr>
+                    <td>{{ row.categoryName }}</td>
+                    <td>{{ row.description }}</td>
+                    <td>
+                        <div class="action-btn">
+                            <button class="btn-table-action btn-view" (click)="view.emit(row)"> View </button>
+                            <button class="btn-table-action btn-add" (click)="addCatSkill.emit(row)"> Add Skills
+                            </button>
+                            <button class="btn-table-action btn-edit" (click)="edit.emit(row)"> Edit </button>
+                            <button class="btn-table-action badge-red" (click)="deleteCategory(row)"> Delete </button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="container-table">
+
+    <div class="page-header">
+        <h1 class="page-title">Total Clients: {{ companyCount | number }}
+        </h1>
+    </div>
+    
+    <div class="filter-bar">
+
+        <div class="wrapper-search">
+            <input type="text" placeholder="Search category..." />
+        </div>
+
+
+
+        <div class="wrapper-btn">
+            <button class="btn-icon">
+                <span class="icon-mask icon-md icon-funnel"></span>
+                <span>Filter</span>
+            </button>
+            <button class="btn-icon">
+                <span class="icon-mask icon-md icon-sort"></span>
+                <span>Sort</span>
+            </button>
+
+            <button class="btn-green">
+                <span class="icon-mask icon-sm icon-export-doc"></span> Export
+            </button>
+        </div>
+
+    </div>
+
+    <div class="table-card">
+        <table class="table-primary">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Order No.</th>
+                    <th>Date of Order</th>
+                    <th>Required Workers</th>
+                    <th>Status</th>
+                    <th class="col-action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(company of companies; track $index) {
+                <tr>
+                    <td>{{ company.name }}</td>
+                    <td>{{ company.orderNumber }}</td>
+                    <td>{{ company.dateOfOrder }}</td>
+                    <td>{{ company.workerNumber }}</td>
+                    <td>
+                        <span class="badge" [ngClass]="getBadgeClass(company.status)">
+                            {{ company.status }}
+                        </span>
+                    </td>
+                    <td class="action-btn">
+                        <button class="btn-table-action btn-view" (click)="viewCompanyDetails(company.id)">
+                            <span class="icon-mask icon-sm icon-eye"></span>
+                            <span>View</span>
+                        </button>
+
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

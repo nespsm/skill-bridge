@@ -1,0 +1,29 @@
+<div class="dialog-container">
+
+  <div class="dialog-header" [ngClass]="getHeaderClass()">
+    <span class="icon-mask icon-lg" [ngClass]="getIcon()"></span>
+    <h2>{{ data.title }}</h2>
+  </div>
+
+  <div class="dialog-body">
+    <p>{{ data.message }}</p>
+  </div>
+
+  <div class="dialog-actions">
+
+    @if(data.showCancel) {
+        <button
+                class="btn-cancel"
+                (click)="close()">
+          {{ data.cancelText || 'Cancel' }}
+        </button>
+    }
+
+    <button class="btn-confirm"
+            (click)="confirm()">
+      {{ data.confirmText || 'OK' }}
+    </button>
+
+  </div>
+
+</div>

@@ -1,0 +1,31 @@
+<div class="media-card">
+    <div class="video-thumb">
+        <img [src]="getThumb(worker)" (error)="onThumbError($event)" alt="Worker Video Thumbnail" />
+        <button class="play-btn">
+            <span class="icon-mask icon-xl icon-play-circle color-charcoal"></span>
+        </button>
+    </div>
+    <div class="wrapper-media-info">
+        <span class="title">{{worker.name}}</span>
+        <span class="sub">Worker ID: {{worker.workerId}}</span>
+        <span class="sub">{{worker.createdDate}}</span>
+        <div class="progress-wrapper">
+            <span>Profile Completion</span>
+            <div class="progress-bar-wrapper">
+                <span class="color-active">
+                    {{ worker.profileCompletion }} %
+                </span>
+                <mat-progress-bar class="progress-bar" [value]="worker.profileCompletion">
+                </mat-progress-bar>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-media-actions">
+        <button class="btn-blue" (click)="edit.emit()">
+            <span class="icon-mask icon-sm icon-pencil"></span> Edit
+        </button>
+        <button class="btn-green" (click)="export.emit()">
+            <span class="icon-mask icon-sm icon-export-doc"></span> Export
+        </button>
+    </div>
+</div>
