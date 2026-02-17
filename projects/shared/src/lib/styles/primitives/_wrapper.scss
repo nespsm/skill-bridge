@@ -14,7 +14,6 @@
     flex-direction: column;
 }
 
-
 .wrapper-media-info {
     @extend %flex-col;
     gap: 2px;
@@ -174,6 +173,78 @@
 }
 
 
+.wrapper-profile {
+    @extend .wrapper-status-group;
+    cursor: pointer;
+    padding: 16px 10px;
+    border-top: 1px solid $color-border;
+
+    &:hover {
+        background: $color-hover;
+        transform: translateY(2px);
+    }
+
+    .info {
+        display: inline-flex;
+        gap: 6px;
+
+        span {
+            font-size: 12px;
+            padding-top: 3px;
+        }
+    }
+}
+
+.wrapper-nav {
+    flex: 1;
+}
+
+.wrapper-footer {
+    padding-top: 12px;
+}
+
+.wrapper-anchor {
+    @extend %flex-row;
+    gap: $space-md;
+    padding: 10px 12px;
+    border-radius: $space-xs;
+    font-size: 14px;
+    cursor: pointer;
+    color: $color-charcoal;
+    text-decoration: none;
+
+    &:hover {
+        background: $color-hover;
+        transform: translateY(1px);
+    }
+
+    &.active {
+        background: $color-bg-muted-2;
+        color: $color-blue-dim;
+        font-weight: 500;
+    }
+}
+
+
+.wrapper-info {
+    position: relative;
+    /* for absolute positioning of toggle */
+    height: 68px;
+    background: #f7f7f8;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+}
+
+.wrapper-toggle {
+    position: absolute;
+    right: 12px;
+    /* fixed left position */
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
 
 .wrapper-right-content {
     position: absolute;

@@ -1,12 +1,12 @@
-<div class="sidebar-container" [class.collapsed]="collapsed">
+<div class="container-sidebar" [class.collapsed]="collapsed">
 
     <!-- TOP BAR -->
-    <div class="info-section">
+    <div class="wrapper-info">
         <div class="brand-nav">
             <div class="logo">S</div>
         </div>
 
-        <div class="toggle-section">
+        <div class="wrapper-toggle">
             <button class="btn-icon" (click)="toggleBtnClicked()">
                 <span class="icon-mask icon-md icon-queue-list color-charcoal"></span>
             </button>
@@ -14,12 +14,12 @@
     </div>
 
     <!-- SIDEBAR -->
-    <div class="sidebar">
+    <div class="sub-container-sidebar">
         <aside [class.collapsed]="collapsed">
 
-            <nav>
+            <nav class="wrapper-nav">
                 @for (item of filteredNavItems; track $index) {
-                <a class="nav-item" [routerLink]="item.link" routerLinkActive="active"
+                <a class="wrapper-anchor" [routerLink]="item.link" routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact: true }" [queryParams]="item.queryParams">
 
                     <span class="icon">
@@ -38,7 +38,7 @@
             </nav>
 
             <!-- PROFILE -->
-            <div class="profile">
+            <div class="wrapper-profile">
                 <span class="icon-mask icon-user-sz icon-user-circle color-ocean"></span>
 
                 @if(!collapsed) {
@@ -50,9 +50,9 @@
             </div>
 
             <!-- FOOTER -->
-            <div class="footer">
+            <div class="wrapper-footer">
 
-                <a class="nav-item" routerLink="settings" routerLinkActive="active">
+                <a class="wrapper-anchor" routerLink="settings" routerLinkActive="active">
 
                     <span class="icon">
                         <span class="icon-mask icon-md icon-setting color-teal"></span>
@@ -65,7 +65,7 @@
                     }
                 </a>
 
-                <a class="nav-item">
+                <a class="wrapper-anchor">
                     <span class="icon">
                         <span class="icon-mask icon-md icon-logout color-red-blood"></span>
                     </span>

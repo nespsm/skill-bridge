@@ -6,7 +6,6 @@
     flex-direction: column;
 }
 
-
 .container-col-gap-sm {
     @extend .container-col;
     gap: $space-sm;
@@ -38,7 +37,7 @@
     .rw {
         margin-bottom: $space-xxxl;
     }
-    
+
 
 
     .grid {
@@ -71,7 +70,36 @@
     gap: $space-md;
 }
 
+.container-sidebar {
+    @extend .container-col;
+    width: 260px;
+    height: 100vh;
+    transition: width 0.3s ease;
+}
 
+.sub-container-sidebar {
+    @extend .container-col;
+    height: calc(100vh - 64px);
+    background: $color-white;
+    border-right: 1px solid $color-border;
+    padding: 16px 12px;
+
+
+
+    aside {
+        @extend .container-col;
+        height: 100%;
+    }
+
+    /* COLLAPSED CONTENT */
+    aside.collapsed {
+
+        .label,
+        .info {
+            display: none;
+        }
+    }
+}
 
 .container-header {
     display: flex;
@@ -82,6 +110,8 @@
     border-bottom: 1px solid $color-border;
     padding: 0 24px;
 }
+
+
 
 .container-main-header {
     display: flex;
