@@ -88,7 +88,7 @@
   @extend .btn;
   
   position: absolute;
-  top: 0px;
+  top: 5px;
   right: 0px;
   background: transparent;
   font-size: 35px;
@@ -109,7 +109,17 @@
 
 }
 
+.btn-icon-danger {
+  @extend .btn-icon;
 
+  color: $color-red;
+  margin-top: 12px;
+  border-radius: 50%;
+
+  &:hover {
+    background: rgba(255,0,0,.08);
+  }
+}
 
 .btn-secondary {
   @extend .btn;

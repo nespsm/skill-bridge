@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -7,12 +8,16 @@ import { inject, Injectable } from '@angular/core';
 export class WorkerManagementService {
 
 
-  private workerApi = 'master/worker';
+  private workerApi = `${environment.apiEndPoint}user/master/workers`;
   private http = inject(HttpClient);
 
 
   getWorker(payload: any) {
-    return this.http.post<any>(`${this.workerApi}/get`, payload);
+    return this.http.post<any>(`${this.workerApi}/getWorker`, payload);
+  }
+
+  seacrhWorker(payload: any) {
+    return this.http.post<any>(`${this.workerApi}/search`, payload);
   }
 
   updateWorker(id:number, workerData: any) {

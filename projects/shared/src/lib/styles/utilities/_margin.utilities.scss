@@ -17,30 +17,30 @@ $spaces: (
 @each $key, $value in $spaces {
 
     .m-#{$key} {
-        margin: $value;
+        margin: $value !important;
     }
 
     .mt-#{$key} {
-        margin: $value 0 0 0;
+        margin: $value 0 0 0 !important;
     }
 
     .mb-#{$key} {
-        margin: 0 0 $value 0;
+        margin: 0 0 $value 0 !important;
     }
 
     .ml-#{$key} {
-        margin: 0 0 0 $value;
+        margin: 0 0 0 $value !important;
     }
 
     .mr-#{$key} {
-        margin: 0 $value 0 0;
+        margin: 0 $value 0 0 !important;
     }
 
     .mx-#{$key} {
-        margin: 0 $value;
+        margin: 0 $value !important;
     }
 
     .my-#{$key} {
-        margin: $value 0;
+        margin: $value 0 !important;
     }
 }

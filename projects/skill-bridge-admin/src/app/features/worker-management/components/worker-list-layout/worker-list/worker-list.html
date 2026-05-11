@@ -19,7 +19,7 @@
     <worker-category-tile [workerTypes]="workerTypes"></worker-category-tile>
 
     <!-- TABLE -->
-    <worker-list-table [workers]="filteredWorkers" [workersCount]="workersCount" (view)="onViewWorker($event)"
-        (call)="onCallWorker($event)">
+    <worker-list-table [workers]="filteredWorkers()" [workersCount]="workersCount()" (view)="onViewWorker($event)"
+        (call)="onCallWorker($event)" [page]="page()" [size]="size()" (pageChange)="onPageChange($event)">
     </worker-list-table>
 </div>

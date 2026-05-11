@@ -47,41 +47,56 @@
 
         <!-- Skills -->
 
-        <div formArrayName="skills" >
+        <div formArrayName="skills">
+
             <div class="skills-header">
                 <label class="label-field">Skills</label>
+
                 @if(!categoryForm.disabled) {
                 <button type="button" class="btn-secondary btn-green" (click)="addSkill()">
-                    <span class="icon-mask icon-sm icon-plus"></span> Add Skills
+                    <span class="icon-mask icon-sm icon-plus"></span>
+                    Add Skill
                 </button>
                 }
-
             </div>
 
             @for (s of skillsFA.controls; track $index) {
-                
-            <div [formGroupName]="$index">
-                <mat-form-field class="gap-md" appearance="outline">
 
+            <div class="skill-row" [formGroupName]="$index">
+
+                <!-- Skill Name -->
+                <mat-form-field appearance="outline" class="skill-field">
                     <mat-icon matPrefix>bolt</mat-icon>
 
                     <input matInput placeholder="Skill Name" formControlName="skillName" />
 
-                    @if(!categoryForm.disabled) {
-
-                    <button type="button" class="btn-close" (click)="removeRow($index)">
-                        <span class="icon-mask icon-md icon-close"></span>
-                    </button>
-
-                    }
-
                     @if(isControlInvalid(s.get('skillName'))) {
-
-                    <mat-error> {{ getError(s.get('skillName'), 'Skill Name') }}</mat-error>
-
+                    <mat-error>
+                        {{ getError(s.get('skillName'), 'Skill Name') }}
+                    </mat-error>
                     }
-
                 </mat-form-field>
+
+                <!-- Skill Description -->
+                <mat-form-field appearance="outline" class="skill-field">
+                    <mat-icon matPrefix>description</mat-icon>
+
+                    <input matInput placeholder="Skill Description" formControlName="description" />
+
+                    @if(isControlInvalid(s.get('description'))) {
+                    <mat-error>
+                        {{ getError(s.get('description'), 'Description') }}
+                    </mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Delete -->
+                @if(!categoryForm.disabled) {
+                <button type="button" class="btn-icon-danger" (click)="removeRow($index, s.value)">
+                    <span class="icon-mask icon-md icon-close"></span>
+                </button>
+                }
+
             </div>
             }
         </div>

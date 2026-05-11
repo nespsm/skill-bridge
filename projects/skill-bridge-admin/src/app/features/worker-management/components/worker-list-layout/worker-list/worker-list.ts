@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 
 import { WorkerCategoryTile } from '../worker-category-title/worker-category-tile';
 import { WorkerListTable } from '../worker-list-table/worker-list-table';
@@ -11,96 +12,114 @@ import { CallDialog } from '../../../../../../../../shared/src/lib/ui/call-dialo
 
 @Component({
   selector: 'worker-list',
-  imports: [CommonModule, WorkerListTable, WorkerCategoryTile],
+  imports: [
+    CommonModule,
+    WorkerListTable,
+    WorkerCategoryTile,
+  ],
   templateUrl: './worker-list.html',
   styleUrl: './worker-list.scss',
 })
 export class WorkerList {
 
+  workers = signal<WorkerListData[]>([]);
+  workersCount = signal(0);
+  page = signal(0);
+  size = signal(10);
+  totalPages = signal(0);
+  loading = signal(false);
+  selectedStatus = signal('all');
 
-  workersCount: number = 1250;
+  filteredWorkers = computed(() => {
+    const status = this.selectedStatus();
+    const workers = this.workers();
+    if (status === 'all') return workers;
 
-  filteredWorkers: WorkerListData[] = []
-  workers: WorkerListData[] = [
-    {
-      id: 1,
-      workerId: "SKB-005876",
-      name: "Rajesh Kumar",
-      profileCompletion: 90,
-      role: "Mehcanic",
-      status: "Active",
-      interest: "Yes",
-      hiredAbroad: "Hired for Abroad",
-      createdDate: "12-12-2025",
-      passport: 'Yes',
-      mobileNumber: "9876543211",
-    },
-    {
-      id: 2,
-      workerId: "SKB-105876",
-      name: "Raj Kumar",
-      profileCompletion: 9,
-      role: "Carpenter",
-      status: "Inactive",
-      interest: "No",
-      hiredAbroad: "Not Hired for Abroad",
-      createdDate: "12-12-2025",
-      passport: 'No',
-      mobileNumber: "9876553211",
-    },
-    {
-      id: 3,
-      workerId: "SKB-115876",
-      name: "Rajnish Tiwari",
-      profileCompletion: 70,
-      role: "Guard",
-      status: "Active",
-      interest: "Yes",
-      hiredAbroad: "Hired for Abroad",
-      createdDate: "12-12-2025",
-      passport: 'Yes',
-      mobileNumber: "8876543211",
-    },
-    {
-      id: 4,
-      workerId: "SKB-109876",
-      name: "Rahul",
-      profileCompletion: 90,
-      role: "Painter",
-      status: "Pending",
-      interest: "Yes",
-      hiredAbroad: "Not Hired for Abroad",
-      createdDate: "12-12-2025",
-      passport: 'Yes',
-      mobileNumber: "7776543211",
-    },
-    {
-      id: 5,
-      workerId: "SKB-000222",
-      name: "Vikas Singh",
-      profileCompletion: 60,
-      role: "Electrician",
-      status: "Inactive",
-      interest: "Yes",
-      hiredAbroad: "Not Hired for Abroad",
-      createdDate: "12-12-2025",
-      passport: 'No',
-      mobileNumber: "8886543211",
-    },
-    {
-      id: 6,
-      workerId: "SKB-555876",
-      name: "Teg Bahadur",
-      profileCompletion: 25,
-      role: "Plumber",
-      status: "Active",
-      interest: "Yes",
-      hiredAbroad: "Not Hired for Abroad",
-      createdDate: "12-12-2025",
-      passport: 'No',
-      mobileNumber: "9986543211",
-    },
-  ];
+    return workers.filter(worker =>
+      worker.status.toLowerCase() === status.toLowerCase()
+    );
+  });
+
+  // workers: WorkerListData[] = [
+  //   {
+  //     id: 1,
+  //     workerId: "SKB-005876",
+  //     name: "Rajesh Kumar",
+  //     profileCompletion: 90,
+  //     role: "Mehcanic",
+  //     status: "Active",
+  //     interest: "Yes",
+  //     hiredAbroad: "Hired for Abroad",
+  //     createdDate: "12-12-2025",
+  //     passport: 'Yes',
+  //     mobileNumber: "9876543211",
+  //   },
+  //   {
+  //     id: 2,
+  //     workerId: "SKB-105876",
+  //     name: "Raj Kumar",
+  //     profileCompletion: 9,
+  //     role: "Carpenter",
+  //     status: "Inactive",
+  //     interest: "No",
+  //     hiredAbroad: "Not Hired for Abroad",
+  //     createdDate: "12-12-2025",
+  //     passport: 'No',
+  //     mobileNumber: "9876553211",
+  //   },
+  //   {
+  //     id: 3,
+  //     workerId: "SKB-115876",
+  //     name: "Rajnish Tiwari",
+  //     profileCompletion: 70,
+  //     role: "Guard",
+  //     status: "Active",
+  //     interest: "Yes",
+  //     hiredAbroad: "Hired for Abroad",
+  //     createdDate: "12-12-2025",
+  //     passport: 'Yes',
+  //     mobileNumber: "8876543211",
+  //   },
+  //   {
+  //     id: 4,
+  //     workerId: "SKB-109876",
+  //     name: "Rahul",
+  //     profileCompletion: 90,
+  //     role: "Painter",
+  //     status: "Pending",
+  //     interest: "Yes",
+  //     hiredAbroad: "Not Hired for Abroad",
+  //     createdDate: "12-12-2025",
+  //     passport: 'Yes',
+  //     mobileNumber: "7776543211",
+  //   },
+  //   {
+  //     id: 5,
+  //     workerId: "SKB-000222",
+  //     name: "Vikas Singh",
+  //     profileCompletion: 60,
+  //     role: "Electrician",
+  //     status: "Inactive",
+  //     interest: "Yes",
+  //     hiredAbroad: "Not Hired for Abroad",
+  //     createdDate: "12-12-2025",
+  //     passport: 'No',
+  //     mobileNumber: "8886543211",
+  //   },
+  //   {
+  //     id: 6,
+  //     workerId: "SKB-555876",
+  //     name: "Teg Bahadur",
+  //     profileCompletion: 25,
+  //     role: "Plumber",
+  //     status: "Active",
+  //     interest: "Yes",
+  //     hiredAbroad: "Not Hired for Abroad",
+  //     createdDate: "12-12-2025",
+  //     passport: 'No',
+  //     mobileNumber: "9986543211",
+  //   },
+  // ];
 
   workerTypes: WorkerCatType[] = [
     {
@@ -162,9 +181,10 @@ export class WorkerList {
   }
 
   listenQueryParams() {
-    this.route.queryParams.subscribe(params => {
 
-      if (!params['status']) {
+    this.route.queryParams.subscribe(params => {
+      const status = params['status'];
+      if (!status) {
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: { status: 'all' },
@@ -172,32 +192,57 @@ export class WorkerList {
         });
         return;
       }
-
-      this.loadWorkers(params['status']);
+      this.selectedStatus.set(status);
+      this.loadWorkers();
     });
   }
 
-  loadWorkers(status: string) {
+  loadWorkers() {
 
-    this.workerService.getWorker({ status: status }).subscribe({
-      next: (response) => {
+    this.loading.set(true);
+    const payload = {
+      page: this.page(),
+      size: this.size(),
+    };
 
-      },
-      error: (error: Error) => {
+    this.workerService
+      .seacrhWorker(payload)
+      .subscribe({
+        next: (response) => {
+          const result = response.result;
+          this.workersCount.set(result.totalRecords);
+          this.totalPages.set(result.totalPages);
+          this.workers.set(
+            result.data.map((w: any) => ({
+              id: w.id,
+              workerId: w.workerCode,
+              name: `${w.firstName} ${w.lastName}`,
+              role: '-',
+              profileCompletion: 0,
+              status: w.isAvailable
+                ? 'Active'
+                : 'Inactive',
+              interest: 'No',
+              hiredAbroad: 'No',
+              createdDate: '',
+              passport: 'No',
+              mobileNumber: '-'
+            }))
+          );
+          this.loading.set(false);
+        },
+        error: (error: Error) => {
+          console.error(error);
+          this.loading.set(false);
+        }
+      });
+  }
 
 
-
-      }
-    });
-
-    if (status === 'all') {
-      this.filteredWorkers = this.workers;
-      return;
-    }
-
-    this.filteredWorkers = this.workers.filter(worker =>
-      worker.status.toLowerCase() === status.toLowerCase()
-    );
+  onPageChange(event: PageEvent) {
+    this.page.set(event.pageIndex);
+    this.size.set(event.pageSize);
+    this.loadWorkers();
   }
 
 

@@ -88,5 +88,9 @@
                 }
             </tbody>
         </table>
+
+        <mat-paginator [length]="workersCount" [pageSize]="size" [pageIndex]="page" [pageSizeOptions]="[5,10,20,50]"
+            (page)="onPaginationChange($event)">
+        </mat-paginator>
     </div>
 </div>

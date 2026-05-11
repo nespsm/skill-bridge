@@ -17,6 +17,14 @@ export class MasterSkillService {
 
 
   addSkill(payload: any) {
-        return this.http.post<any>(`${this.skillsApi}/add`, payload);
-    }
+    return this.http.post<any>(`${this.skillsApi}/add`, payload);
+  }
+
+  updateSkill(payload: any) {
+    return this.http.post<any>(`${this.skillsApi}/update`, payload);
+  }
+
+  deleteSkill(payload: {id: number, skillName: string}) {
+    return this.http.post<any>(`${this.skillsApi}/delete`, payload);
+  }
 }
