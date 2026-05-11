@@ -16,7 +16,7 @@
     </div> -->
 
     <!-- TABLE CARD -->
-    <category-table [data]="categories" (edit)="openModal('edit-category',$event)"
+    <category-table [data]="categories()" (edit)="openModal('edit-category',$event)"
         (view)="openModal('view-category',$event)" (addSkill)="openModal('add-skills')"
         (addCatSkill)="openModal('add-category-skills',$event)" (addCategory)="openModal('add-category')"
         (delete)="delete($event)">

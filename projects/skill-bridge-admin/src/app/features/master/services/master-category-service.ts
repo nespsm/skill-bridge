@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -8,11 +9,11 @@ export class MasterCategoryService {
 
 
 
-    private categoryApi = 'master/category';
+    private categoryApi = `${environment.apiEndPoint}user/master/skill-category`;
     private http = inject(HttpClient);
 
     getCategories() {
-        return this.http.post<any>(`${this.categoryApi}/get`, {});
+        return this.http.get<any>(`${this.categoryApi}/list`);
     }
 
     deleteCategory(payload: any) {

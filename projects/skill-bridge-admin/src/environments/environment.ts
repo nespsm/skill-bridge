@@ -1,6 +1,6 @@
 export const environment = {
 
-  apiEndPoint : "http://localhost:8080/",
+  apiEndPoint : "http://52.172.248.45:8080/",
 
 
 };

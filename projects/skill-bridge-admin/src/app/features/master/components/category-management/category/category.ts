@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
@@ -32,7 +32,8 @@ export class Category {
   private skillService = inject(MasterSkillService);
   private overlay = inject(Overlay);
 
-  categories: CategoryType[] = [];
+  // categories: CategoryType[] = [];
+  categories = signal<CategoryType[]>([]);
 
   ngOnInit() {
     this.load();
@@ -40,41 +41,45 @@ export class Category {
 
   load() {
     this.categoryService.getCategories().subscribe(res => {
-      this.categories = res.result || [];
+      // this.categories = res.result || [];
+      this.categories.set(res.result ?? []);
     });
 
-    this.categories = [
-      { id: 1, categoryName: "Mechanic", description: "Mechanic Despciption" },
-      { id: 2, categoryName: "Carpenter", description: "Carpenter Despciption" },
-      { id: 3, categoryName: "Painter", description: "Painter Despciption" },
-      { id: 4, categoryName: "Guard", description: "Gaurd Despciption" },
-      { id: 5, categoryName: "Driver", description: "Driver Despciption" },
-      { id: 6, categoryName: "Electrician", description: "Electrician Despciption" },
-    ]
+    // this.categories = [
+    //   { id: 1, categoryName: "Mechanic", description: "Mechanic Despciption" },
+    //   { id: 2, categoryName: "Carpenter", description: "Carpenter Despciption" },
+    //   { id: 3, categoryName: "Painter", description: "Painter Despciption" },
+    //   { id: 4, categoryName: "Guard", description: "Gaurd Despciption" },
+    //   { id: 5, categoryName: "Driver", description: "Driver Despciption" },
+    //   { id: 6, categoryName: "Electrician", description: "Electrician Despciption" },
+    // ]
   }
 
   async openModal(mode: MasterModalMode, data?: CategoryType) {
-    const categories = mode === "add-skills" ? this.categories : null;
+    const categories = mode === "add-skills" ? this.categories() : null;
     let skills = null;
     if (!(mode === "add-category")) {
       try {
-        skills = data?.id
+
+        const skillsResponse = data?.id
           ? await firstValueFrom(this.skillService.getSkills({ categoryId: data.id }))
           : null;
-        skills = [
-          { id: 1, skillName: 'Primary Wiring', description: "Adding wirees" },
-          { id: 2, skillName: 'Primary Wiring', description: "Adding wirees" },
-          { id: 3, skillName: 'Primary Wiring', description: "Adding wirees" },
-          { id: 4, skillName: 'Primary Wiring', description: "Adding wirees" }
-        ];
+
+          skills = skillsResponse.result;
+        // skills = [
+        //   { id: 1, skillName: 'Primary Wiring', description: "Adding wirees" },
+        //   { id: 2, skillName: 'Primary Wiring', description: "Adding wirees" },
+        //   { id: 3, skillName: 'Primary Wiring', description: "Adding wirees" },
+        //   { id: 4, skillName: 'Primary Wiring', description: "Adding wirees" }
+        // ];
       }
       catch (e) {
-        skills = [
-          { id: 1, skillName: 'Primary Wiring', description: "Adding wirees" },
-          { id: 2, skillName: 'Primary Wiring', description: "Adding wirees" },
-          { id: 3, skillName: 'Primary Wiring', description: "Adding wirees" },
-          { id: 4, skillName: 'Primary Wiring', description: "Adding wirees" }
-        ]
+        // skills = [
+        //   { id: 1, skillName: 'Primary Wiring', description: "Adding wirees" },
+        //   { id: 2, skillName: 'Primary Wiring', description: "Adding wirees" },
+        //   { id: 3, skillName: 'Primary Wiring', description: "Adding wirees" },
+        //   { id: 4, skillName: 'Primary Wiring', description: "Adding wirees" }
+        // ]
       }
     }
     const ref = this.dialog.open(CategoryModal,
