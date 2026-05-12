@@ -104,7 +104,11 @@ export class CategoryModal {
 
 
   private patchCategory() {
-    this.categoryForm.patchValue(this.data);
+    this.categoryForm.patchValue({
+      categoryId: this.data.id,
+      categoryName: this.data.categoryName,
+      description: this.data.description,
+    });
   }
 
   private disableControls(fields: string[]) {
@@ -124,6 +128,10 @@ export class CategoryModal {
   }
 
   removeRow(index: number, skill: any) {
+    if(!skill.id) {
+      this.skillsFA.removeAt(index);
+      return;
+    }
     this.dialogService.confirm(`You want to delete ${skill.skillName} Skill?`, 'Are you sure!')
       .afterClosed()
       .subscribe(result => {
@@ -241,7 +249,7 @@ export class CategoryModal {
       .subscribe((res) => {
         const showSkillSuccessPopup = false;
         this.syncSkills(this.data.id, showSkillSuccessPopup);
-        this.dialogService.success(res.message);
+        this.dialogService.success("Category updated successfully!");
       });
   }
 

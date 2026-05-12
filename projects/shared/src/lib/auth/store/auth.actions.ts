@@ -76,11 +76,11 @@ export const sendEmailOtpFailure = createAction(
 export const register = createAction(
   '[Auth] Register',
   props<{
-    fullName: string;
-    emailOtp: string;
-    userIdentifier: string;
+    name: string;
+    // emailOtp: string;
+    email: string;
     password: string | null;
-    userType: string;
+    roleId: number;
   }>()
 );
 

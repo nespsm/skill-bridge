@@ -4,9 +4,12 @@
 .form-actions {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     gap: $space-md;
+    padding-top: 16px;
+    margin-top: 16px;
 }
+
 
 /* Divider */
 .divider {

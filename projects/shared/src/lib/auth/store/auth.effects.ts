@@ -144,11 +144,11 @@ export class AuthEffects {
       ofType(AuthActions.register),
       switchMap(payload =>
         this.authService.register(
-          payload.fullName,
-          payload.userIdentifier,
+          payload.name,
+          payload.email,
           payload.password!,
-          payload.userType,
-          payload.emailOtp
+          payload.roleId,
+          // payload.emailOtp
         ).pipe(
           map(res => {
             if (!res.status) throw new Error(res.message);

@@ -47,7 +47,7 @@
 
         <!-- Skills -->
 
-        <div formArrayName="skills">
+        <div class="skills-wrapper" formArrayName="skills">
 
             <div class="skills-header">
                 <label class="label-field">Skills</label>
@@ -60,45 +60,47 @@
                 }
             </div>
 
-            @for (s of skillsFA.controls; track $index) {
+            <div class="skills-list">
+                @for (s of skillsFA.controls; track $index) {
 
-            <div class="skill-row" [formGroupName]="$index">
+                <div class="skill-row" [formGroupName]="$index">
 
-                <!-- Skill Name -->
-                <mat-form-field appearance="outline" class="skill-field">
-                    <mat-icon matPrefix>bolt</mat-icon>
+                    <!-- Skill Name -->
+                    <mat-form-field appearance="outline" class="skill-field">
+                        <mat-icon matPrefix>bolt</mat-icon>
 
-                    <input matInput placeholder="Skill Name" formControlName="skillName" />
+                        <input matInput placeholder="Skill Name" formControlName="skillName" />
 
-                    @if(isControlInvalid(s.get('skillName'))) {
-                    <mat-error>
-                        {{ getError(s.get('skillName'), 'Skill Name') }}
-                    </mat-error>
+                        @if(isControlInvalid(s.get('skillName'))) {
+                        <mat-error>
+                            {{ getError(s.get('skillName'), 'Skill Name') }}
+                        </mat-error>
+                        }
+                    </mat-form-field>
+
+                    <!-- Skill Description -->
+                    <mat-form-field appearance="outline" class="skill-field">
+                        <mat-icon matPrefix>description</mat-icon>
+
+                        <input matInput placeholder="Skill Description" formControlName="description" />
+
+                        @if(isControlInvalid(s.get('description'))) {
+                        <mat-error>
+                            {{ getError(s.get('description'), 'Description') }}
+                        </mat-error>
+                        }
+                    </mat-form-field>
+
+                    <!-- Delete -->
+                    @if(!categoryForm.disabled) {
+                    <button type="button" class="btn-icon-danger" (click)="removeRow($index, s.value)">
+                        <span class="icon-mask icon-md icon-close"></span>
+                    </button>
                     }
-                </mat-form-field>
 
-                <!-- Skill Description -->
-                <mat-form-field appearance="outline" class="skill-field">
-                    <mat-icon matPrefix>description</mat-icon>
-
-                    <input matInput placeholder="Skill Description" formControlName="description" />
-
-                    @if(isControlInvalid(s.get('description'))) {
-                    <mat-error>
-                        {{ getError(s.get('description'), 'Description') }}
-                    </mat-error>
-                    }
-                </mat-form-field>
-
-                <!-- Delete -->
-                @if(!categoryForm.disabled) {
-                <button type="button" class="btn-icon-danger" (click)="removeRow($index, s.value)">
-                    <span class="icon-mask icon-md icon-close"></span>
-                </button>
+                </div>
                 }
-
             </div>
-            }
         </div>
 
         <!-- Actions -->

@@ -1,10 +1,43 @@
 .skill-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 4px;
 }
 
 .skill-field {
-  flex: 1;
+    flex: 1;
+    min-width: 0;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .skill-row {
+        flex-direction: column;
+    }
+
+    .btn-icon-danger {
+        align-self: flex-end;
+        margin-top: -8px;
+    }
+}
+
+
+.skills-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    /* OPTIONAL SCROLL FOR LARGE LIST */
+    max-height: 205px;
+
+    overflow-y: auto;
+
+    padding-right: 4px;
 }

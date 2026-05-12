@@ -1,5 +1,28 @@
+@use '../tokens/colors' as *;
+@use '../tokens/radius' as *;
+@use '../tokens/shadows' as *;
+
+// .modal-form {
+//     width: 100%;
+//     height: 100%;
+//     padding: 2rem;
+// }
+
 .modal-form {
+    position: relative;
+
     width: 100%;
-    height: 100%;
-    padding: 2rem;
+
+    background: $color-white;
+    box-shadow: $shadow-card;
+
+    padding: 28px;
+
+    /* IMPORTANT */
+    max-height: calc(100vh - 48px);
+
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
 }

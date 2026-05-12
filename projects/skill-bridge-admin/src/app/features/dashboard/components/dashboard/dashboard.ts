@@ -64,7 +64,6 @@ export class Dashboard {
     getTotalWorkersCount() {
         this.workerService.seacrhWorker({}).subscribe({
             next: (response) => {
-                debugger;
                 const result = response.result;
                 this.workersCount.set(result.totalRecords);
             },

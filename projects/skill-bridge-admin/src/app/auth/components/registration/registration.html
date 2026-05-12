@@ -28,23 +28,23 @@
         <div class="otp-row">
             <mat-form-field class="gap-md" appearance="outline">
                 <mat-icon matPrefix>mail</mat-icon>
-                <input matInput placeholder="Email Address or Mobile Number" formControlName="userIdentifier" />
+                <input matInput placeholder="Email Address or Mobile Number" formControlName="email" />
 
-                @if(isControlInvalid(registrationForm.get('userIdentifier'))) {
+                @if(isControlInvalid(registrationForm.get('email'))) {
                 <mat-error>
-                    {{ getError(registrationForm.get('userIdentifier'), 'Email or Mobile No') }}
+                    {{ getError(registrationForm.get('email'), 'Email or Mobile No') }}
                 </mat-error>
                 }
             </mat-form-field>
 
-            <button type="button" class="otp-btn" (click)="sendOtp()"
+            <!-- <button type="button" class="otp-btn" (click)="sendOtp()"
                 [disabled]="registrationForm.get('userIdentifier')?.invalid ||  (emailOtpSent$ | async)">
                 Get OTP
-            </button>
+            </button> -->
         </div>
 
         <!-- OTP boxes -->
-        @if ((emailOtpSent$ | async)) {
+        <!-- @if ((emailOtpSent$ | async)) {
         <div class="otp-inputs" formArrayName="otp">
             @for(control of otpControls; track $index) {
             <input [formControlName]="$index" maxlength="1" type="text" inputmode="numeric" autocomplete="one-time-code"
@@ -57,7 +57,7 @@
         <div class="otp-error">
             OTP is required
         </div>
-        }
+        } -->
 
         <!-- Password -->
         <mat-form-field class="gap-lg" appearance="outline">
@@ -84,5 +84,4 @@
         </button>
 
     </form>
-
 </div>
