@@ -39,7 +39,6 @@ export class WorkerDetails {
   loadWorker(id: number) {
     this.workerService.getWorkerProfile(id).subscribe({
       next: (response) => {
-        debugger;
         this.worker.set(response.result);
         this.worker.update(worker => ({
           ...worker!,

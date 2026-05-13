@@ -55,7 +55,7 @@ export class AuthService {
       })
       .pipe(
         switchMap((response: any) => {
-          return this.senD2FAData(response);
+          return this.sendSessionData(response);
         })
       );
   }
@@ -70,16 +70,24 @@ export class AuthService {
       })
       .pipe(
         switchMap((response: any) => {
-          return this.senD2FAData(response);
+          return this.sendSessionData(response);
         })
       );
   }
 
-  senD2FAData(response: any): Observable<any> {
+  // send2FAData(response: any): Observable<any> {
+  //   return of({
+  //     status: response.status,
+  //     message: response.message,
+  //     twoFactorData: response.twoFactorData
+  //   });
+  // }
+
+  sendSessionData(response: any): Observable<any> {
     return of({
       status: response.status,
       message: response.message,
-      twoFactorData: response.twoFactorData
+      sessionData: response.result
     });
   }
 

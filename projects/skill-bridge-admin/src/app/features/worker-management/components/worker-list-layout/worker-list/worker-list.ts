@@ -45,7 +45,7 @@ export class WorkerList {
     );
   });
 
-  workerTypes: WorkerCatType[] = [];
+  workersCategories = signal<WorkerCatType[]>([]);
   selectedCategoryId = signal<number | null>(null);
   selectedCategoryName = signal<string>("");
   selectedSkillId = signal<number | null>(null);
@@ -80,17 +80,18 @@ export class WorkerList {
         return;
       }
       this.selectedStatus.set(status);
-      this.loadWorkers();
+      const payload = {
+        page: this.page(),
+        size: this.size(),
+      };
+      this.loadWorkers(payload);
     });
   }
 
-  loadWorkers() {
+  loadWorkers(payload: any) {
 
     this.loading.set(true);
-    const payload = {
-      page: this.page(),
-      size: this.size(),
-    };
+
 
     this.workerService
       .seacrhWorker(payload)
@@ -128,7 +129,7 @@ export class WorkerList {
       .getCategoryStats()
       .subscribe({
         next: (response) => {
-          this.workerTypes = response.map((item: any, index: number) => {
+          this.workersCategories.set(response.map((item: any, index: number) => {
 
             const style =
               CATEGORY_STYLE_MAP[item.categoryName] || {
@@ -141,7 +142,7 @@ export class WorkerList {
               iconClass: style.iconClass,
               cardClass: style.cardClass
             };
-          });
+          }));
 
           this.loading.set(false);
         },
@@ -160,12 +161,25 @@ export class WorkerList {
     this.selectedCategoryId.set(category.categoryId);
 
     this.loadCategorySkills(category.categoryId);
+    const payload = {
+      page: this.page(),
+      size: this.size(),
+      categoryId: category.categoryId
+    };
+    this.loadWorkers(payload);
   }
 
-  onSkillSelect(skill: WorkerCatSkillType) {
 
+  onSkillSelect(skill: WorkerCatSkillType) {
     this.selectedSkillId.set(skill.skillId);
 
+    const payload = {
+      page: this.page(),
+      size: this.size(),
+      categoryId: this.selectedCategoryId(),
+      skillId: this.selectedSkillId()
+    };
+    this.loadWorkers(payload);
   }
 
   loadCategorySkills(categoryId: number) {
@@ -174,7 +188,6 @@ export class WorkerList {
       .getSkillStats(categoryId)
       .subscribe({
         next: (response) => {
-          debugger;
           this.workerCategorySkills.set(response.map((skill: any, index: number) => ({
             ...skill,
             iconClass: FALLBACK_ICONS[index % FALLBACK_ICONS.length],
@@ -194,7 +207,11 @@ export class WorkerList {
   onPageChange(event: PageEvent) {
     this.page.set(event.pageIndex);
     this.size.set(event.pageSize);
-    this.loadWorkers();
+    const payload = {
+      page: this.page(),
+      size: this.size(),
+    };
+    this.loadWorkers(payload);
   }
 
 

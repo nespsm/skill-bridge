@@ -1,13 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NavBarItem } from '../../models/layout.interfaces';
 import { NAVBAR_DATA } from '../../constants/nav-bar-data';
 import { Router, RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import * as AuthActions from '../../../../../../shared/src/lib/auth/store/auth.actions';
 import { UserTypes } from '../../../../../../shared/src/lib/auth/enums/user-type.enum';
+import { selectSessionData } from '../../../../../../shared/src/lib/auth/store/auth.selectors';
+import { TruncatePipe } from '../../../../../../shared/src/lib/pipes/truncate-pipe';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    TruncatePipe
+  ],
   templateUrl: './app-nav-bar.html',
   styleUrl: './app-nav-bar.scss',
 })
@@ -16,8 +25,10 @@ export class AppNavBar {
   collapsed: boolean = false;
   navBarData: NavBarItem[] = NAVBAR_DATA;
   currentUserType: UserTypes = UserTypes.ADMIN; // later get from store/auth service
-  
+
   private router: Router = inject(Router);
+  private store = inject(Store);
+  sessionData = this.store.selectSignal(selectSessionData);
 
 
   @Output() toggleSidebar = new EventEmitter<void>();
@@ -41,6 +52,11 @@ export class AppNavBar {
 
   logout() {
 
-    this.router.navigate(['auth/login']);  
+    this.store.dispatch(AuthActions.logout());
+    this.router.navigate(['auth/login']);
+  }
+
+  getRole() {
+    return this.sessionData().role.replace(/_/g, ' ');
   }
 }

@@ -43,8 +43,8 @@
 
                 @if(!collapsed) {
                 <div class="info">
-                    <strong>Jitu Chauhan</strong>
-                    <span class="color-ocean">Admin</span>
+                    <strong [title]="sessionData().email">{{sessionData().email | truncate : 9 }}</strong>
+                    <span class="color-ocean" [title]="getRole()">{{ getRole() | truncate : 7 }}</span>
                 </div>
                 }
             </div>

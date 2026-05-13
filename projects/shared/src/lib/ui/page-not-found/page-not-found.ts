@@ -21,7 +21,6 @@ export class PageNotFound {
     return this.sessionData$.pipe(
       map(userData => {
         if (userData && userData.userType)  return '/dashboard';
-        
         return '/auth/login';
       })
     );

@@ -28,7 +28,7 @@ export class AuthEffects {
 
             if(res.sessionData) {
               this.tokenService.saveSession(
-                res.data.sessionData
+                res.sessionData
               );
   
               return AuthActions.verifyOtpSuccess({
@@ -55,6 +55,7 @@ export class AuthEffects {
       switchMap(({ otp, userIdentifier }) =>
         this.authService.verifyOtp(otp, userIdentifier).pipe(
           map(res => {
+            
             this.tokenService.saveSession(
               res.data.sessionData
             );

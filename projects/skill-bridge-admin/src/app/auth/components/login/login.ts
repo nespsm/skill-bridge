@@ -114,7 +114,7 @@ export class Login {
 
     dialogRef.afterClosed().subscribe((otp: string | null) => {
       if (!otp) return;
-      this.router.navigate(['/dashboard']);
+      // this.router.navigate(['/dashboard']);
 
       // this.store.dispatch(
       //   AuthActions.verifyOtp({ otp, userIdentifier: loginData.userIdentifier })
