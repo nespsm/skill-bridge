@@ -64,9 +64,9 @@ export class AuthService {
   login(userIdentifier: string, password: string, userType: string): Observable<any> {
     return this.http.post<any>(`${this.loginApiUrl}`,
       {
-        userIdentifier,
+        username: userIdentifier,
         password: password,
-        userType: userType
+        // userType: userType
       })
       .pipe(
         switchMap((response: any) => {

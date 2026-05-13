@@ -1,3 +1,4 @@
+@if (worker(); as workerData) {
 <div class="container-worker">
     <!-- HEADER -->
     
@@ -9,9 +10,9 @@
         </div>
 
     </div>
-    <details-header [worker]="worker"> </details-header>
+    <details-header [worker]="workerData"> </details-header>
     <div class="card">
-        <details-media-card [worker]="worker" (edit)="toggleEdit()" (export)="exportWorker()">
+        <details-media-card [worker]="workerData" (edit)="toggleEdit()" (export)="exportWorker()">
 
         </details-media-card>
         @if(workerForm) {
@@ -19,3 +20,4 @@
         }
     </div>
 </div>
+}

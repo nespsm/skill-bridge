@@ -3,9 +3,10 @@
         <div class="form-header">
             <span>Personal Details</span>
         </div>
-        <form [formGroup]="form" class="mat-elevation-z8">
+        <form [formGroup]="form" class="mat-elevation-z8 pt-sm">
             <div class="form-grid">
                 <!-- Full Name -->
+                <label class="field-label">Full Name</label>
                 <mat-form-field class="gap-md full" appearance="outline">
                     <input matInput placeholder="Full Name" formControlName="name" />
                     @if(isControlInvalid(form.get('name'))) { <mat-error> {{ getError(form.get('name'), 'Full Name') }}

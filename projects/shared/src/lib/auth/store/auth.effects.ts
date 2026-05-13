@@ -20,9 +20,19 @@ export class AuthEffects {
       switchMap(({ userIdentifier, password, userType }) =>
         this.authService.login(userIdentifier, password, userType).pipe(
           map(res => {
-            if (res.twoFactorData) {
-              return AuthActions.loginRequires2FA({
-                twoFactorData: res.twoFactorData
+            // if (res.twoFactorData) {
+            //   return AuthActions.loginRequires2FA({
+            //     twoFactorData: res.twoFactorData
+            //   });
+            // }
+
+            if(res.sessionData) {
+              this.tokenService.saveSession(
+                res.data.sessionData
+              );
+  
+              return AuthActions.verifyOtpSuccess({
+                sessionData: res.sessionData
               });
             }
 

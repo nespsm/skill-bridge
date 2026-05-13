@@ -19,14 +19,14 @@ export class DetailsHeader {
   @Input() worker!: WorkerDetailsData;
 
 
-  updateStatus(status: string) {
+  updateStatus(status: boolean) {
 
-    this.worker.status = status;
+    this.worker.isActive = status;
   }
   
-  getStatusClass(status: string) {
+  getStatusClass(status: string | boolean) {
     
-    return status === 'Hired for Abroad' || status === 'Active' ? "btn-active" : "btn-inactive";
+    return status === 'Hired for Abroad' || status === true ? "btn-active" : "btn-inactive";
   }
   
   updateAbroadStatus(status: string) {

@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, inject, Input, signal } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DetailsTabs } from '../details-tabs/details-tabs';
 import { DetailsMediaCard } from '../details-media-card/details-media-card';
 import { DetailsHeader } from '../details-header/details-header';
 import { ActivatedRoute } from '@angular/router';
 import { WorkerManagementService } from '../../../services/worker-management-service';
-import { WorkerDetailsData } from '../../../models/worker.interfaces';
+import { WorkerDetailsData, WorkerSkill } from '../../../models/worker.interfaces';
+import { DialogService } from '../../../../../../../../shared/src/lib/services/dialog-service';
 
 @Component({
   selector: 'worker-details',
@@ -16,80 +17,101 @@ import { WorkerDetailsData } from '../../../models/worker.interfaces';
 })
 export class WorkerDetails {
 
-
-  worker: WorkerDetailsData = {
-    id: 1,
-    workerId: "SKB-005876",
-    name: "Rajesh Kumar",
-    profileCompletion: 90,
-    role: "Mehcanic",
-    status: "Active",
-    interest: "Yes",
-    hiredAbroad: "Hired for Abroad",
-    createdDate: "12-12-2025",
-    personalDetails: [],
-    passport: [],
-    skills: [],
-    documents: [],
-    visaMedical: {},
-    hiringHistory: [],
-    emergencyNotes: {},
-
-    mobileNumber: "9876543211",
-  };
+  worker = signal<WorkerDetailsData | null>(null);
+  workerId = signal<number>(0);
 
   workerForm!: FormGroup;
   isEditMode = false;
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private workerService = inject(WorkerManagementService);
+  private dialogService = inject(DialogService);
 
   ngOnInit() {
-    const id = this.route.snapshot.queryParams['workerId']!;
-    this.loadWorker(id);
-    this.buildForm(this.worker);
+    this.workerId.set(+this.route.snapshot.queryParams['workerId']!);
+    if (!this.workerId() && this.workerId() < 1) {
+      this.dialogService.error('Worker Id is not found!');
+      return;
+    }
+    this.loadWorker(this.workerId());
   }
 
-  loadWorker(id: string) {
-    this.workerService.getWorker({ id }).subscribe(worker => {
-      this.worker = worker;
-      this.buildForm(worker);
+  loadWorker(id: number) {
+    this.workerService.getWorkerProfile(id).subscribe({
+      next: (response) => {
+        debugger;
+        this.worker.set(response.result);
+        this.worker.update(worker => ({
+          ...worker!,
+          hiredAbroad: 'Hired for Abroad',
+          profileCompletion: "90",
+          createdDate: new Date().toISOString()
+        }));
+        this.buildForm(this.worker());
+      },
+      error: (err) => {
+        console.error('Failed to load worker', err);
+      }
     });
   }
 
-  buildForm(worker: WorkerDetailsData) {
+  buildForm(worker: WorkerDetailsData | null) {
     this.workerForm = this.fb.group({
       personalDetails: this.fb.group({
-        name: [{ value: "Rajesh Kumar", disabled: true }, [Validators.required]],
-        age: [{ value: "29", disabled: true }, [Validators.required]],
-        mobileNumber: [{ value: "9876543266", disabled: true }, [Validators.required]],
-        contactNumber: [{ value: "9876543212", disabled: true }, [Validators.required]],
-        aadhaar: [{ value: "9876 5451 5263", disabled: true }, [Validators.required]],
-        qualification: [{ value: "High School", disabled: true }, [Validators.required]],
-        address: [{ value: "C-165, Secotr-199, Delhi", disabled: true }, [Validators.required]],
-        passport: [{ value: "Yes", disabled: true }, [Validators.required]],
-        experience: [{ value: "5 years", disabled: true }, [Validators.required]],
+        name: [{ value: `${worker?.firstName} ${worker?.lastName}`, disabled: true }, [Validators.required]],
+        age: [{ value: worker?.age, disabled: true }, [Validators.required]],
+        mobileNumber: [{ value: worker?.phone, disabled: true }, [Validators.required]],
+        contactNumber: [{ value: worker?.phone, disabled: true }, [Validators.required]],
+        aadhaar: [{ value: worker?.aadhaar, disabled: true }, [Validators.required]],
+        qualification: [{ value: worker?.qualification, disabled: true }, [Validators.required]],
+        address: [{ value: worker?.address, disabled: true }, [Validators.required]],
+        passport: [{ value: worker?.passport, disabled: true }, [Validators.required]],
+        experience: [{ value: worker?.yearsOfExperience, disabled: true }, [Validators.required]],
       }),
       passport: this.fb.group({}),
-      skills: this.fb.array([]),
+      skills: this.fb.array(worker ? worker.workerSkills.map(skill => this.createSkillForm(skill)) : []),
       documents: this.fb.array([]),
       visaMedical: this.fb.group({}),
       hiringHistory: this.fb.array([]),
       emergencyNotes: this.fb.group({})
     });
   }
+
+
+  private createSkillForm(skill: WorkerSkill): FormGroup {
+    return this.fb.group({
+      id: [skill.id],
+      skillId: [skill.skill.id],
+      skillName: [
+        { value: skill.skill.skillName, disabled: true }
+      ],
+      categoryId: [skill.skill.category.id],
+      categoryName: [
+        { value: skill.skill.category.categoryName, disabled: true }
+      ]
+    });
+  }
+
   toggleEdit() {
     this.isEditMode = !this.isEditMode;
     this.isEditMode ? this.workerForm.enable() : this.workerForm.disable();
   }
 
-  exportWorker() {
-    this.workerService.exportWorker(this.worker.id).subscribe();
+  exportWorker(): void {
+    const worker = this.worker();
+    if (!worker) return;
+    this.workerService.exportWorker(this.workerId()).subscribe();
   }
 
-  save() {
-    if (this.workerForm.invalid) return;
-    this.workerService.updateWorker(this.worker.id, this.workerForm.value).subscribe();
+  save(): void {
+    const worker = this.worker();
+    if (!worker || this.workerForm.invalid) return;
+
+    this.workerService.updateWorker(this.workerId(), this.workerForm.getRawValue()).subscribe();
+  }
+
+  get skillsArray(): FormArray {
+    return this.workerForm.get('skills') as FormArray;
   }
 
 }

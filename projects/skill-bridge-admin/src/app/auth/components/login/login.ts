@@ -93,10 +93,10 @@ export class Login {
     }
     const { userIdentifier, password, userType } = this.loginForm.value;
 
-    this.open2FADialog(userIdentifier);
-    // this.store.dispatch(
-    //   AuthActions.login({ userIdentifier, password, userType })
-    // );
+    // this.open2FADialog(userIdentifier);
+    this.store.dispatch(
+      AuthActions.login({ userIdentifier, password, userType })
+    );
   }
 
 

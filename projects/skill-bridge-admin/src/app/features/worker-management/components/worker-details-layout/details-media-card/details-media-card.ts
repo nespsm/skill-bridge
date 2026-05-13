@@ -12,7 +12,7 @@ import { WorkerDetailsData } from '../../../models/worker.interfaces';
 })
 export class DetailsMediaCard {
 
-  @Input() worker!: any;
+  @Input() worker!: WorkerDetailsData;
   @Output() export: any = new EventEmitter<any>();
   @Output() edit: any = new EventEmitter<any>();
 

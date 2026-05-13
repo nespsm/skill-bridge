@@ -10,10 +10,15 @@ export class MasterCategoryService {
 
 
     private categoryApi = `${environment.apiEndPoint}user/master/skill-category`;
+    private categoryStatApi = `${environment.apiEndPoint}user/master/stats`;
     private http = inject(HttpClient);
 
     getCategories() {
         return this.http.get<any>(`${this.categoryApi}/list`);
+    }
+
+    getCategoryStats() {
+        return this.http.get<any>(`${this.categoryStatApi}/byCategory`);
     }
 
     deleteCategory(payload: any) {

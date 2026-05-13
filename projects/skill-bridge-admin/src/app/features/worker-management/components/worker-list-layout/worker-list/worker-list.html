@@ -16,7 +16,14 @@
     </div>
 
     <!-- WORKER TYPE CARDS -->
-    <worker-category-tile [workerTypes]="workerTypes"></worker-category-tile>
+    <worker-category-tile [workerTypes]="workerTypes" (categoryClick)="onCategorySelect($event)"></worker-category-tile>
+
+    @if (workerCategorySkills().length) {
+
+    <worker-category-skill-tile [skillCatName]="selectedCategoryName()" [skills]="workerCategorySkills()" (skillClick)="onSkillSelect($event)">
+    </worker-category-skill-tile>
+
+    }
 
     <!-- TABLE -->
     <worker-list-table [workers]="filteredWorkers()" [workersCount]="workersCount()" (view)="onViewWorker($event)"

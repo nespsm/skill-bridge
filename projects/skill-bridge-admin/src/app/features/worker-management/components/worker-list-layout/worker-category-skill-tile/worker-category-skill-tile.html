@@ -1,0 +1,31 @@
+<div class="page-header">
+    <h1 class="page-sub">
+        {{ skillCatName }} Skills:
+    </h1>
+</div>
+<div class="wrapper-slider">
+
+
+    <button class="nav-btn left" (click)="scrollLeft()">
+        <span class="icon-mask icon-sm icon-chevron-left"></span>
+    </button>
+
+    <div class="slider-container" #slider>
+        @for(skill of skills; track skill.skillId) {
+        <div class="skill-tile" [ngClass]="skill.cardClass" (click)="onSkillClick(skill)">
+            <span [ngClass]="skill.iconClass"></span>
+            <div class="wrapper-right-content">
+                <div class="count">
+                    {{ skill.workerCount }}
+                </div>
+                <div class="title" [title]="skill.skillName">
+                    {{ skill.skillName | truncate: 14 }}
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    <button class="nav-btn right" (click)="scrollRight()">
+        <span class="icon-mask icon-sm icon-chevron-right"></span>
+    </button>
+</div>

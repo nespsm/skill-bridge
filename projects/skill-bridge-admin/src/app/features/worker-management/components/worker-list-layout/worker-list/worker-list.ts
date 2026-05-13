@@ -6,9 +6,13 @@ import { PageEvent } from '@angular/material/paginator';
 
 import { WorkerCategoryTile } from '../worker-category-title/worker-category-tile';
 import { WorkerListTable } from '../worker-list-table/worker-list-table';
-import { WorkerCatType, WorkerListData } from '../../../models/worker.interfaces';
+import { WorkerCatSkillType, WorkerCatType, WorkerListData } from '../../../models/worker.interfaces';
 import { WorkerManagementService } from '../../../services/worker-management-service';
 import { CallDialog } from '../../../../../../../../shared/src/lib/ui/call-dialog/call-dialog';
+import { MasterCategoryService } from '../../../../master/services/master-category-service';
+import { CATEGORY_STYLE_MAP, FALLBACK_CARDS, FALLBACK_ICONS } from '../../../constants/worker-category-style.constants';
+import { WorkerCategorySkillTile } from '../worker-category-skill-tile/worker-category-skill-tile';
+import { MasterSkillService } from '../../../../master/services/master-skill-service';
 
 @Component({
   selector: 'worker-list',
@@ -16,6 +20,7 @@ import { CallDialog } from '../../../../../../../../shared/src/lib/ui/call-dialo
     CommonModule,
     WorkerListTable,
     WorkerCategoryTile,
+    WorkerCategorySkillTile
   ],
   templateUrl: './worker-list.html',
   styleUrl: './worker-list.scss',
@@ -40,131 +45,11 @@ export class WorkerList {
     );
   });
 
-  // workers: WorkerListData[] = [
-  //   {
-  //     id: 1,
-  //     workerId: "SKB-005876",
-  //     name: "Rajesh Kumar",
-  //     profileCompletion: 90,
-  //     role: "Mehcanic",
-  //     status: "Active",
-  //     interest: "Yes",
-  //     hiredAbroad: "Hired for Abroad",
-  //     createdDate: "12-12-2025",
-  //     passport: 'Yes',
-  //     mobileNumber: "9876543211",
-  //   },
-  //   {
-  //     id: 2,
-  //     workerId: "SKB-105876",
-  //     name: "Raj Kumar",
-  //     profileCompletion: 9,
-  //     role: "Carpenter",
-  //     status: "Inactive",
-  //     interest: "No",
-  //     hiredAbroad: "Not Hired for Abroad",
-  //     createdDate: "12-12-2025",
-  //     passport: 'No',
-  //     mobileNumber: "9876553211",
-  //   },
-  //   {
-  //     id: 3,
-  //     workerId: "SKB-115876",
-  //     name: "Rajnish Tiwari",
-  //     profileCompletion: 70,
-  //     role: "Guard",
-  //     status: "Active",
-  //     interest: "Yes",
-  //     hiredAbroad: "Hired for Abroad",
-  //     createdDate: "12-12-2025",
-  //     passport: 'Yes',
-  //     mobileNumber: "8876543211",
-  //   },
-  //   {
-  //     id: 4,
-  //     workerId: "SKB-109876",
-  //     name: "Rahul",
-  //     profileCompletion: 90,
-  //     role: "Painter",
-  //     status: "Pending",
-  //     interest: "Yes",
-  //     hiredAbroad: "Not Hired for Abroad",
-  //     createdDate: "12-12-2025",
-  //     passport: 'Yes',
-  //     mobileNumber: "7776543211",
-  //   },
-  //   {
-  //     id: 5,
-  //     workerId: "SKB-000222",
-  //     name: "Vikas Singh",
-  //     profileCompletion: 60,
-  //     role: "Electrician",
-  //     status: "Inactive",
-  //     interest: "Yes",
-  //     hiredAbroad: "Not Hired for Abroad",
-  //     createdDate: "12-12-2025",
-  //     passport: 'No',
-  //     mobileNumber: "8886543211",
-  //   },
-  //   {
-  //     id: 6,
-  //     workerId: "SKB-555876",
-  //     name: "Teg Bahadur",
-  //     profileCompletion: 25,
-  //     role: "Plumber",
-  //     status: "Active",
-  //     interest: "Yes",
-  //     hiredAbroad: "Not Hired for Abroad",
-  //     createdDate: "12-12-2025",
-  //     passport: 'No',
-  //     mobileNumber: "9986543211",
-  //   },
-  // ];
-
-  workerTypes: WorkerCatType[] = [
-    {
-
-      title: 'Mechanic',
-      count: 200,
-      iconClass: 'icon-mask icon-xl icon-mechanic',
-      cardClass: 'card-color-red-gd'
-    },
-    {
-
-      title: 'Electrician',
-      count: 300,
-      iconClass: 'icon-mask icon-xl icon-electrician',
-      cardClass: 'card-color-blue-gd'
-    },
-    {
-
-      title: 'Painter',
-      count: 250,
-      iconClass: 'icon-mask icon-xl icon-painter',
-      cardClass: 'card-color-green-gd'
-    },
-    {
-
-      title: 'Guard',
-      count: 150,
-      iconClass: 'icon-mask icon-xl icon-guard',
-      cardClass: 'card-color-gold-gd'
-    },
-    {
-
-      title: 'Driver',
-      count: 400,
-      iconClass: 'icon-mask icon-xl icon-driver',
-      cardClass: 'card-color-voilet-gd'
-    },
-    {
-
-      title: 'Carpenter',
-      count: 200,
-      iconClass: 'icon-mask icon-xl icon-mechanic',
-      cardClass: 'card-color-orange-gd'
-    },
-  ]
+  workerTypes: WorkerCatType[] = [];
+  selectedCategoryId = signal<number | null>(null);
+  selectedCategoryName = signal<string>("");
+  selectedSkillId = signal<number | null>(null);
+  workerCategorySkills = signal<WorkerCatSkillType[]>([]);
 
 
 
@@ -174,6 +59,8 @@ export class WorkerList {
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private workerService = inject(WorkerManagementService);
+  private categoryService = inject(MasterCategoryService);
+  private skillService = inject(MasterSkillService);
 
 
   ngOnInit() {
@@ -236,8 +123,73 @@ export class WorkerList {
           this.loading.set(false);
         }
       });
+
+    this.categoryService
+      .getCategoryStats()
+      .subscribe({
+        next: (response) => {
+          this.workerTypes = response.map((item: any, index: number) => {
+
+            const style =
+              CATEGORY_STYLE_MAP[item.categoryName] || {
+                iconClass: FALLBACK_ICONS[index % FALLBACK_ICONS.length],
+                cardClass: FALLBACK_CARDS[index % FALLBACK_CARDS.length]
+              };
+
+            return {
+              ...item,
+              iconClass: style.iconClass,
+              cardClass: style.cardClass
+            };
+          });
+
+          this.loading.set(false);
+        },
+        error: (error: Error) => {
+          console.error(error);
+          this.loading.set(false);
+        }
+      });
   }
 
+
+  onCategorySelect(category: WorkerCatType) {
+
+    this.selectedCategoryId.set(category.categoryId);
+    this.selectedCategoryName.set(category.categoryName);
+    this.selectedCategoryId.set(category.categoryId);
+
+    this.loadCategorySkills(category.categoryId);
+  }
+
+  onSkillSelect(skill: WorkerCatSkillType) {
+
+    this.selectedSkillId.set(skill.skillId);
+
+  }
+
+  loadCategorySkills(categoryId: number) {
+
+    this.skillService
+      .getSkillStats(categoryId)
+      .subscribe({
+        next: (response) => {
+          debugger;
+          this.workerCategorySkills.set(response.map((skill: any, index: number) => ({
+            ...skill,
+            iconClass: FALLBACK_ICONS[index % FALLBACK_ICONS.length],
+            cardClass: FALLBACK_CARDS[index % FALLBACK_CARDS.length]
+          })));
+
+          console.log("skills----", this.workerCategorySkills());
+        },
+
+        error: (error) => {
+          console.error(error);
+        }
+
+      });
+  }
 
   onPageChange(event: PageEvent) {
     this.page.set(event.pageIndex);

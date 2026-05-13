@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DetailsPersonalForm } from '../details-form/details-personal-form/details-personal-form';
 import { DetailsPassportForm } from '../details-form/details-passport-form/details-passport-form';
@@ -38,7 +38,9 @@ export class DetailsTabs {
 
   get passportFG(): FormGroup { return this.form.get('passport') as FormGroup; }
 
-  get skillsFG(): FormGroup { return this.form.get('skills') as FormGroup; }
+  get skillsFA(): FormArray {
+  return this.form.get('skills') as FormArray;
+}
 
   get documentsFG(): FormGroup { return this.form.get('documents') as FormGroup; }
 

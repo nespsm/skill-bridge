@@ -12,8 +12,8 @@ export class WorkerManagementService {
   private http = inject(HttpClient);
 
 
-  getWorker(payload: any) {
-    return this.http.post<any>(`${this.workerApi}/getWorker`, payload);
+  getWorkerProfile(workerId: number) {
+    return this.http.get<any>(`${this.workerApi}/getProfile?workerId=${workerId}`);
   }
 
   seacrhWorker(payload: any) {

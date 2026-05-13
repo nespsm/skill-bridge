@@ -1,1 +1,51 @@
-<p>details-skills-form works!</p>
+<div class="form-layout-skill">
+    <div class="wrapper-form">
+        <div class="header-skills">
+
+            <div class="form-header">
+                <span>Worker Skills</span>
+            </div>
+
+            <button class="btn-secondary btn-blue" (click)="addSkill()">
+                <span class="icon-mask icon-sm icon-plus color-white "></span> Add Skills
+            </button>
+
+        </div>
+
+        <!-- SKILLS -->
+
+        <div class="skills-container">
+            @for (skill of skillControls; track $index) {
+            <div class="skill-card" [formGroup]="skill">
+                <div class="skill-card-header">
+
+                    <div class="skill-index">
+                        Skill #{{ $index + 1 }}
+                    </div>
+
+                    <button class="btn-table-action badge-red" (click)="removeSkill($index)"> Delete </button>
+                </div>
+
+                <!-- FORM GRID -->
+
+                <div class="form-grid">
+                    <!-- CATEGORY -->
+                    <div>
+                        <label class="field-label">Category</label>
+                        <mat-form-field appearance="outline" class="gap-md full">
+                            <input matInput formControlName="categoryName">
+                        </mat-form-field>
+                    </div>
+                    <!-- SKILL -->
+                    <div>
+                        <label class="field-label"> Skill </label>
+                        <mat-form-field appearance="outline" class="gap-md full">
+                            <input matInput formControlName="skillName">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

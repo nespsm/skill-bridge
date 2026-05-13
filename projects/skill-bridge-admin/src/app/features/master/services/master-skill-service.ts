@@ -9,12 +9,17 @@ export class MasterSkillService {
 
 
   private skillsApi = `${environment.apiEndPoint}user/master/skills`;
+  private skillStatApi = `${environment.apiEndPoint}user/master/stats`;
+
   private http = inject(HttpClient);
 
   getSkills(payload: any) {
     return this.http.post<any>(`${this.skillsApi}/list`, payload);
   }
 
+  getSkillStats(categoryId: number) {
+    return this.http.get<any>(`${this.skillStatApi}/bySkill?categoryId=${categoryId}`);
+  }
 
   addSkill(payload: any) {
     return this.http.post<any>(`${this.skillsApi}/add`, payload);
@@ -24,7 +29,7 @@ export class MasterSkillService {
     return this.http.post<any>(`${this.skillsApi}/update`, payload);
   }
 
-  deleteSkill(payload: {id: number, skillName: string}) {
+  deleteSkill(payload: { id: number, skillName: string }) {
     return this.http.post<any>(`${this.skillsApi}/delete`, payload);
   }
 }

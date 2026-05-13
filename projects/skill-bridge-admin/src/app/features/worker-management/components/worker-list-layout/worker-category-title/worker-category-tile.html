@@ -1,13 +1,21 @@
+<div class="page-header">
+      <h1 class="page-sub">
+        Worker Categories:
+      </h1>
+  </div>
 <div class="container-grid-auto">
+
+
   @for(type of workerTypes; track $index) {
-  <div class="tile-card" [ngClass]="type.cardClass">
+  <div class="tile-card" [ngClass]="type.cardClass" (click)="onCategoryClick(type)">
 
-      <span [ngClass]="type.iconClass"></span>
+    <span [ngClass]="type.iconClass"></span>
 
-      <div class="wrapper-right-content">
-          <div class="count">{{ type.count }}</div>
-          <div class="title">{{ type.title }}</div>
+    <div class="wrapper-right-content">
+      <div class="count" [title]="type.workerCount">{{ type.workerCount }}</div>
+      <div class="title" [title]="type.categoryName"> {{ type.categoryName | truncate:12 }}
       </div>
+    </div>
 
   </div>
   }
