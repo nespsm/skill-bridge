@@ -157,6 +157,7 @@ export class WorkerList {
   onCategorySelect(category: WorkerCatType) {
 
     this.selectedCategoryId.set(category.categoryId);
+    this.selectedSkillId.set(null);
     this.selectedCategoryName.set(category.categoryName);
     this.selectedCategoryId.set(category.categoryId);
 
@@ -207,10 +208,18 @@ export class WorkerList {
   onPageChange(event: PageEvent) {
     this.page.set(event.pageIndex);
     this.size.set(event.pageSize);
-    const payload = {
+    const payload: {
+      page: number;
+      size: number;
+      categoryId?: number | null;
+      skillId?: number | null;
+    } = {
       page: this.page(),
-      size: this.size(),
+      size: this.size()
     };
+    if (this.selectedCategoryId()) payload.categoryId = this.selectedCategoryId();
+    if (this.selectedSkillId()) payload.skillId = this.selectedSkillId();
+
     this.loadWorkers(payload);
   }
 
