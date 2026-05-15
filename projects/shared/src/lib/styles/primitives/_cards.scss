@@ -57,21 +57,57 @@
 }
 
 .tile-card {
-  @extend .card;
-  height: 110px;
-  padding: 14px 16px;
-  border-radius: $radius-sm;
-  box-shadow: $shadow-card-light;
-  color: $color-white;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  position: relative;
+    @extend .card;
 
-  &:hover {
-    transform: translateY(-4px);
-  }
+    min-width: 220px;
+
+    flex-shrink: 0;
+
+    height: 110px;
+
+    padding: 14px 16px;
+
+    border-radius: $radius-sm;
+
+    box-shadow: $shadow-card-light;
+
+    color: $color-white;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    position: relative;
+
+    &:hover {
+        transform: translateY(-4px);
+    }
+}
+
+.worker-skill-tile {
+    backdrop-filter: blur(18px);
+    min-width: 180px;
+    max-width: 200px;
+    height: 90px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(30, 64, 175, 0.15);
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    }
 }
 
 .company-card {
@@ -103,11 +139,23 @@
 .card-color-blue-gd {
   background: linear-gradient(135deg, $color-blue-bright, $color-blue-dim);
 
+    &:hover {
+      color: $color-blue-dim;
+      background: $color-blue-light;
+    }
+}
+
+
+.card-color-blue-light {
+  background:
+    linear-gradient(135deg,#38bdf8,#0ea5e9);
+  color: $color-white;
   &:hover {
-    color: $color-blue-dim;
-    background: $color-blue-light;
+    color: #0284c7;
+    background: #e0f2fe;
   }
 }
+
 
 .card-color-green-gd {
   background: linear-gradient(135deg, $color-green-bright, $color-green);

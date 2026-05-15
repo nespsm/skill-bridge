@@ -24,7 +24,6 @@ export class AppNavBar {
 
   collapsed: boolean = false;
   navBarData: NavBarItem[] = NAVBAR_DATA;
-  currentUserType: UserTypes = UserTypes.ADMIN; // later get from store/auth service
 
   private router: Router = inject(Router);
   private store = inject(Store);
@@ -45,7 +44,7 @@ export class AppNavBar {
 
   get filteredNavItems(): NavBarItem[] {
     return this.navBarData.filter(item =>
-      item.usertype.includes(this.currentUserType)
+      item.usertype.includes(this.sessionData().role)
     );
   }
 

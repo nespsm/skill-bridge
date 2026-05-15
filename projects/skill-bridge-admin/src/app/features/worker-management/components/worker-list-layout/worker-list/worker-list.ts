@@ -8,11 +8,13 @@ import { WorkerCategoryTile } from '../worker-category-title/worker-category-til
 import { WorkerListTable } from '../worker-list-table/worker-list-table';
 import { WorkerCatSkillType, WorkerCatType, WorkerListData } from '../../../models/worker.interfaces';
 import { WorkerManagementService } from '../../../services/worker-management-service';
-import { CallDialog } from '../../../../../../../../shared/src/lib/ui/call-dialog/call-dialog';
 import { MasterCategoryService } from '../../../../master/services/master-category-service';
-import { CATEGORY_STYLE_MAP, FALLBACK_CARDS, FALLBACK_ICONS } from '../../../constants/worker-category-style.constants';
 import { WorkerCategorySkillTile } from '../worker-category-skill-tile/worker-category-skill-tile';
 import { MasterSkillService } from '../../../../master/services/master-skill-service';
+import { resolveIcon } from '../../../utilities/worker-management.utilities';
+import { CATEGORY_CARD_CLASS, SKILL_CARD_CLASS } from '../../../constants/worker-management.constants';
+import { CallDialog } from '../../../../../../../../shared/src/lib/ui/call-dialog/call-dialog';
+
 
 @Component({
   selector: 'worker-list',
@@ -129,20 +131,16 @@ export class WorkerList {
       .getCategoryStats()
       .subscribe({
         next: (response) => {
-          this.workersCategories.set(response.map((item: any, index: number) => {
+          this.workersCategories.set(
+            response.map((item: any) => ({
 
-            const style =
-              CATEGORY_STYLE_MAP[item.categoryName] || {
-                iconClass: FALLBACK_ICONS[index % FALLBACK_ICONS.length],
-                cardClass: FALLBACK_CARDS[index % FALLBACK_CARDS.length]
-              };
-
-            return {
               ...item,
-              iconClass: style.iconClass,
-              cardClass: style.cardClass
-            };
-          }));
+
+              iconClass: resolveIcon(item.categoryName),
+
+              cardClass: CATEGORY_CARD_CLASS
+            }))
+          );
 
           this.loading.set(false);
         },
@@ -189,11 +187,16 @@ export class WorkerList {
       .getSkillStats(categoryId)
       .subscribe({
         next: (response) => {
-          this.workerCategorySkills.set(response.map((skill: any, index: number) => ({
-            ...skill,
-            iconClass: FALLBACK_ICONS[index % FALLBACK_ICONS.length],
-            cardClass: FALLBACK_CARDS[index % FALLBACK_CARDS.length]
-          })));
+          this.workerCategorySkills.set(
+            response.map((skill: any) => ({
+
+              ...skill,
+
+              iconClass: resolveIcon(skill.skillName),
+
+              cardClass: SKILL_CARD_CLASS
+            }))
+          );
 
           console.log("skills----", this.workerCategorySkills());
         },

@@ -1,0 +1,88 @@
+<div class="container-modal">
+    <form class="modal-form mat-elevation-z8" [formGroup]="userForm" (ngSubmit)="submit()">
+        <button type="button" class="btn-close" (click)="closeModal()">
+            <span class="icon-mask icon-md icon-close"></span>
+        </button>
+        <!-- Header -->
+
+        <div class="brand-block">
+            <h2>Manage Category Details</h2>
+            <p class="subtitle">{{ modeName }}</p>
+        </div>
+
+        <!-- User Name  -->
+        <mat-form-field class="gap-md" appearance="outline">
+            <mat-icon matPrefix>person</mat-icon>
+
+            <input matInput type="text" formControlName="name" placeholder="User's Name" />
+            @if(isControlInvalid(userForm.get('name'))) {
+            <mat-error>
+                {{ getError(userForm.get('name'), `User's Name`) }}
+            </mat-error> }
+        </mat-form-field>
+
+        <!-- User Email  -->
+        <mat-form-field class="gap-md" appearance="outline">
+            <mat-icon matPrefix>email</mat-icon>
+
+            <input matInput type="email" formControlName="email" placeholder="Email" />
+            @if(isControlInvalid(userForm.get('email'))) {
+            <mat-error>
+                {{ getError(userForm.get('email'), `User's Email`) }}
+            </mat-error> }
+        </mat-form-field>
+
+        <mat-form-field class="gap-md" appearance="outline">
+            <mat-icon matPrefix>admin_panel_settings</mat-icon>
+
+            <mat-select formControlName="roleId" (selectionChange)="onRoleChange($event.value)">
+                <mat-option [value]="0" disabled="true">Please Select Role</mat-option>
+
+                @for(role of input.userRoles; track role.id) {
+                <mat-option [value]="role.id"> {{role.role}} </mat-option>
+                }
+            </mat-select>
+
+            @if(isControlInvalid(userForm.get('roleId'))) {
+            <mat-error>
+                {{ getError(userForm.get('roleId'), 'Role Name') }}
+            </mat-error> }
+        </mat-form-field>
+
+        <!-- password -->
+        <mat-form-field class="gap-xl" appearance="outline">
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput type="password" placeholder="Password" formControlName="password" />
+
+            @if(isControlInvalid(userForm.get('password'))) {
+            <mat-error> {{ getError(userForm.get('password'), 'password') }}
+
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <!-- password match -->
+        <mat-form-field class="gap-xl" appearance="outline">
+            <mat-icon matPrefix>verified_user</mat-icon>
+            <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
+
+            @if(isControlInvalid(userForm.get('confirmPassword'))) {
+            <mat-error> {{ getError(userForm.get('confirmPassword'), 'Confirm Password') }}
+
+            </mat-error>
+            }
+        </mat-form-field>
+
+
+        <!-- Actions -->
+        <div class="form-actions">
+            <button type="button" class="btn-cancel btn-form" (click)="closeModal()">
+                Cancel
+            </button>
+
+            <button type="submit" class="btn-primary btn-form" [disabled]="userForm.invalid">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>

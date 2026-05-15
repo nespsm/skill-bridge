@@ -1,4 +1,4 @@
-import { MasterModalMode } from "./modal-mode.type";
+import { MasterCatModalMode } from "./modal-mode.type";
 
 export interface CategoryType {
   id: number;
@@ -8,7 +8,7 @@ export interface CategoryType {
 
 
 export interface CatDialogInput {
-  mode: MasterModalMode;
+  mode: MasterCatModalMode;
   data?: CategoryType;
   skills?: any[];
   categories?: any[];

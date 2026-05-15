@@ -1,21 +1,48 @@
-<div class="page-header">
-      <h1 class="page-sub">
-        Worker Categories:
-      </h1>
+@if(workerTypes.length > 0) {
+<div>
+
+  <div class="page-header">
+    <h1 class="page-sub">
+      Worker Categories:
+    </h1>
   </div>
-<div class="container-grid-auto">
-  
-  @for(type of workerTypes; track $index) {
-  <div class="tile-card" [ngClass]="type.cardClass" (click)="onCategoryClick(type)">
 
-    <span [ngClass]="type.iconClass"></span>
+  <div class="wrapper-slider">
 
-    <div class="wrapper-right-content">
-      <div class="count" [title]="type.workerCount">{{ type.workerCount }}</div>
-      <div class="title" [title]="type.categoryName"> {{ type.categoryName | truncate:12 }}
+    <button class="nav-btn left" (click)="scrollLeft()">
+      <span class="icon-mask icon-sm icon-chevron-left"></span>
+    </button>
+
+    <div class="container-slider" #slider>
+
+      @for(type of workerTypes; track $index) {
+
+      <div class="tile-card" [ngClass]="type.cardClass" (click)="onCategoryClick(type)">
+
+        <span [ngClass]="type.iconClass"></span>
+
+        <div class="wrapper-right-content">
+
+          <div class="count" [title]="type.workerCount">
+            {{ type.workerCount }}
+          </div>
+
+          <div class="title" [title]="type.categoryName">
+            {{ type.categoryName | truncate:12 }}
+          </div>
+
+        </div>
+
       </div>
+
+      }
+
     </div>
 
+    <button class="nav-btn right" (click)="scrollRight()">
+      <span class="icon-mask icon-sm icon-chevron-right"></span>
+    </button>
+
   </div>
-  }
 </div>
+}

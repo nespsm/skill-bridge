@@ -221,3 +221,33 @@
   background: $color-red-dim;
   color: $color-white;
 }
+
+.nav-btn {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(30, 64, 175, 0.15);
+    color: #1e293b;
+    font-size: 28px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    &:hover {
+        transform: scale(1.06);
+        background: #f4f6f9;
+    }
+
+    &:active {
+        transform: scale(0.96);
+    }
+}

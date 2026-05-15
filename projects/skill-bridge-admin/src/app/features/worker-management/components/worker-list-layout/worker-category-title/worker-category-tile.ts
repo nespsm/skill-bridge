@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { WorkerCatType } from '../../../models/worker.interfaces';
@@ -17,5 +17,24 @@ export class WorkerCategoryTile {
 
   onCategoryClick(type: WorkerCatType) {
     this.categoryClick.emit(type);
+  }
+
+  @ViewChild('slider')
+  slider!: ElementRef<HTMLDivElement>;
+
+
+
+  scrollLeft() {
+    this.slider.nativeElement.scrollBy({
+      left: -300,
+      behavior: 'smooth'
+    });
+  }
+
+  scrollRight() {
+    this.slider.nativeElement.scrollBy({
+      left: 300,
+      behavior: 'smooth'
+    });
   }
 }

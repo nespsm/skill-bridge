@@ -6,14 +6,14 @@ export const NAVBAR_DATA: NavBarItem[] = [
     {
         name: 'Dashboard',
         link: 'dashboard',
-        usertype: [UserTypes.ADMIN],
+        usertype: [UserTypes.SUPER_ADMIN],
         activeClass: 'active',
         iconClass: 'icon-mask icon-md icon-chart-bar-square color-brown'
     },
     {
         name: 'Categories',
         link: 'master/categories',
-        usertype: [UserTypes.ADMIN],
+        usertype: [UserTypes.SUPER_ADMIN],
         activeClass: 'active',
         iconClass: 'icon-mask icon-md icon-tag color-voilet-bright'
     },
@@ -21,7 +21,7 @@ export const NAVBAR_DATA: NavBarItem[] = [
         name: 'Clients',
         link: 'clients/list',
         queryParams: { status: 'all' },  
-        usertype: [UserTypes.ADMIN],
+        usertype: [UserTypes.SUPER_ADMIN],
         activeClass: 'active',
         iconClass: 'icon-mask icon-md icon-user-group color-turquoise'
     },
@@ -29,14 +29,14 @@ export const NAVBAR_DATA: NavBarItem[] = [
         name: 'Workers',
         link: 'workers/list',
         queryParams: { status: 'all' },  
-        usertype: [UserTypes.ADMIN],
+        usertype: [UserTypes.SUPER_ADMIN],
         activeClass: 'active',
         iconClass: 'icon-mask icon-md icon-users color-mulbery'
     },
     {
         name: 'Approvals',
         link: 'request/approvals',
-        usertype: [UserTypes.ADMIN],
+        usertype: [UserTypes.SUPER_ADMIN],
         activeClass: 'active',
         iconClass: 'icon-mask icon-md icon-check-circle color-green-forest'
     },
@@ -44,10 +44,19 @@ export const NAVBAR_DATA: NavBarItem[] = [
         name: 'Job Requests',
         link: 'request/job-requests',
         usertype: [
-            UserTypes.ADMIN
+            UserTypes.SUPER_ADMIN
         ],
         activeClass: 'active',
         iconClass: 'icon-mask icon-md icon-document-chart-bar color-orange-dark'
+    },
+    {
+        name: 'Manage Users',
+        link: 'master/users',
+        usertype: [
+            UserTypes.SUPER_ADMIN
+        ],
+        activeClass: 'active',
+        iconClass: 'icon-mask icon-md icon-manage-user'
     },
 
 ];

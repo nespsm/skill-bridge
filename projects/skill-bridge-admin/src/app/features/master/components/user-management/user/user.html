@@ -1,0 +1,19 @@
+<div class="container-category">
+    <!-- HEADER -->
+
+
+
+    <div class="container-main-header">
+        <div class="main-brand-header">
+            <span class="logo bg-title">U</span>
+            <span>Users</span>
+        </div>
+
+    </div>
+
+    <!-- TABLE CARD -->
+    <user-table [data]="users()" (edit)="openModal('edit',$event)"
+        (view)="openModal('view',$event)" (add)="openModal('add')"
+        (delete)="delete($event)">
+    </user-table>
+</div>

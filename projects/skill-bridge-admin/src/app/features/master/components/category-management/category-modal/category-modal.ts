@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { FormErrorService } from '../../../../../../../../shared/src/lib/services/form-error-service';
 import { formatName } from '../../../../../../../../shared/src/lib/utils/common.utilities';
-import { MasterModalMode } from '../../../models/modal-mode.type';
+import { MasterCatModalMode } from '../../../models/modal-mode.type';
 import { CategoryType } from '../../../models/category.model';
 import { DialogService } from '../../../../../../../../shared/src/lib/services/dialog-service';
 import { SkillType } from '../../../models/skill.model';
@@ -41,7 +41,7 @@ export class CategoryModal {
   private dialogService = inject(DialogService);
   input: any = inject(MAT_DIALOG_DATA);
 
-  mode!: MasterModalMode;
+  mode!: MasterCatModalMode;
   modeName!: string;
   data!: CategoryType;
   categories!: any;
@@ -91,7 +91,7 @@ export class CategoryModal {
       this.skillsFA.push(this.createSkillForm());
     }
 
-    const configMap: Record<MasterModalMode, () => void> = {
+    const configMap: Record<MasterCatModalMode, () => void> = {
       'edit-category': () => this.patchCategory(),
       'view-category': () => { this.patchCategory(); this.categoryForm.disable(); },
       'add-category-skills': () => { this.patchCategory(); this.disableControls(['categoryName', 'description']); },
@@ -153,7 +153,7 @@ export class CategoryModal {
   // submit() {
   //   const value = this.categoryForm.getRawValue();
   //   const actionMap: Record<
-  //     MasterModalMode,
+  //     MasterCatModalMode,
   //     () => void> = {
   //     'add-category': () => this.categoryService.addCategory(value).subscribe(() => this.close(true)),
   //     'edit-category': () => this.categoryService.updateCategory({ ...value }).subscribe(() => this.close(true)),
@@ -167,7 +167,7 @@ export class CategoryModal {
 
   submit() {
 
-    const actionMap: Record<MasterModalMode, () => void> = {
+    const actionMap: Record<MasterCatModalMode, () => void> = {
       'add-category': () => this.handleAddCategory(),
 
       'edit-category': () => this.handleEditCategory(),

@@ -2,5 +2,6 @@
 export enum UserTypes {
   CLIENT = 'client',
   WORKER = 'worker',
-  ADMIN = 'admin'
+  ADMIN = 'admin',
+  SUPER_ADMIN = 'SUPER_ADMIN'
 }

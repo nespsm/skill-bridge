@@ -246,6 +246,14 @@
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.wrapper-slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 16px;
+}
+
 .wrapper-right-content {
     position: absolute;
     right: 16px;

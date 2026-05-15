@@ -11,6 +11,11 @@ export const masterRoutes: Routes = [
                 path: 'categories',
                 loadComponent: () =>
                     import('./components/category-management/category/category').then(c => c.Category),
+            },
+            {
+                path: 'users',
+                loadComponent: () =>
+                    import('./components/user-management/user/user').then(c => c.User),
             }
         ]
     }

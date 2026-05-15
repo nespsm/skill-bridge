@@ -12,7 +12,7 @@ import { MasterSkillService } from '../../../services/master-skill-service';
 import { CategoryModal } from '../category-modal/category-modal';
 import { CategoryTable } from '../category-table/category-table';
 import { CategoryType } from '../../../models/category.model';
-import { MasterModalMode } from '../../../models/modal-mode.type';
+import { MasterCatModalMode } from '../../../models/modal-mode.type';
 
 @Component({
   selector: 'category',
@@ -55,7 +55,7 @@ export class Category {
     // ]
   }
 
-  async openModal(mode: MasterModalMode, data?: CategoryType) {
+  async openModal(mode: MasterCatModalMode, data?: CategoryType) {
     const categories = mode === "add-skills" ? this.categories() : null;
     let skills = null;
     if (!(mode === "add-category")) {
