@@ -38,42 +38,90 @@ export function postalCodeValidator(): ValidatorFn {
 }
 
 
-export function passwordMatchValidator(password: string, confirmPassword: string): ValidatorFn {
+export function passwordMatchValidator(
+    passwordField: string,
+    confirmPasswordField: string
+): ValidatorFn {
+
     return (formGroup: AbstractControl): ValidationErrors | null => {
-        const pass = formGroup.get(password)?.value;
-        const confirmPass = formGroup.get(confirmPassword)?.value;
-        const isPasswordsValid = formGroup.get(password)?.valid && formGroup.get(confirmPassword)?.valid;
-        // Check if passwords match
-        return pass && confirmPass && isPasswordsValid && pass !== confirmPass ? { passwordMismatch: true } : null;
+
+        const passwordControl = formGroup.get(passwordField);
+        const confirmPasswordControl = formGroup.get(confirmPasswordField);
+
+        if (!passwordControl || !confirmPasswordControl) {
+            return null;
+        }
+
+        const password = passwordControl.value;
+        const confirmPassword = confirmPasswordControl.value;
+
+        // don't overwrite other errors
+        if (
+            confirmPasswordControl.errors &&
+            !confirmPasswordControl.errors['passwordMismatch']
+        ) {
+            return null;
+        }
+
+        // check mismatch
+        if (
+            password &&
+            confirmPassword &&
+            password !== confirmPassword
+        ) {
+
+            confirmPasswordControl.setErrors({
+                ...confirmPasswordControl.errors,
+                passwordMismatch: true
+            });
+
+        } else {
+
+            // remove only passwordMismatch error
+            if (confirmPasswordControl.hasError('passwordMismatch')) {
+
+                const errors = {
+                    ...confirmPasswordControl.errors
+                };
+
+                delete errors['passwordMismatch'];
+
+                confirmPasswordControl.setErrors(
+                    Object.keys(errors).length ? errors : null
+                );
+            }
+        }
+
+        return null;
     };
 }
 
 export function userIdentifierValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
+    return (control: AbstractControl): ValidationErrors | null => {
 
-    const value = control.value?.trim();
+        const value = control.value?.trim();
 
-    if (!value) return { required: true };
+        if (!value) return { required: true };
 
-    const emailRegex =
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const emailRegex =
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    const mobileRegex =
-      /^[6-9]\d{9}$/;
+        const mobileRegex =
+            /^[6-9]\d{9}$/;
 
-    // ✅ VALID EMAIL
-    if (emailRegex.test(value)) {
-      return null;
-    }
+        // ✅ VALID EMAIL
+        if (emailRegex.test(value)) {
+            return null;
+        }
 
-    // ✅ VALID MOBILE
-    if (mobileRegex.test(value)) {
-      return null;
-    }
+        // ✅ VALID MOBILE
+        if (mobileRegex.test(value)) {
+            return null;
+        }
 
-    // ❌ ANYTHING ELSE
-    return { invalidIdentifier: true };
-  };
+        // ❌ ANYTHING ELSE
+        return { invalidIdentifier: true };
+    };
 }
 
 

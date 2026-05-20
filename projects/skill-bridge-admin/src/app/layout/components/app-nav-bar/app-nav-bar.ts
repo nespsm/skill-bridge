@@ -41,16 +41,13 @@ export class AppNavBar {
     return this.collapsed ? 'collapsed' : '';
   }
 
-
   get filteredNavItems(): NavBarItem[] {
     return this.navBarData.filter(item =>
       item.usertype.includes(this.sessionData().role)
     );
   }
 
-
   logout() {
-
     this.store.dispatch(AuthActions.logout());
     this.router.navigate(['auth/login']);
   }

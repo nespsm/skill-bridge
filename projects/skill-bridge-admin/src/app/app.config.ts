@@ -11,6 +11,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authReducer } from '../../../shared/src/lib/auth/store/auth.reducer';
 import { AuthEffects } from '../../../shared/src/lib/auth/store/auth.effects';
 import { tokenInterceptor } from '../../../shared/src/lib/auth/interceptors/token-interceptor';
+import { loaderInterceptor } from '../../../shared/src/lib/auth/interceptors/loader-interceptor';
 import { environment } from '../environments/environment';
 import { AUTH_CONFIG } from '../../../shared/src/lib/auth/config/auth-config.token';
 import { UserTypes } from '../../../shared/src/lib/auth/enums/user-type.enum';
@@ -20,7 +21,10 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([tokenInterceptor])
+      withInterceptors([
+        tokenInterceptor,
+        loaderInterceptor
+      ])
     ),
 
     {

@@ -6,7 +6,7 @@
         <!-- Header -->
 
         <div class="brand-block">
-            <h2>Manage Category Details</h2>
+            <h2>Manage User Details</h2>
             <p class="subtitle">{{ modeName }}</p>
         </div>
 
@@ -43,33 +43,62 @@
                 }
             </mat-select>
 
-            @if(isControlInvalid(userForm.get('roleId'))) {
+            @if(isControlInvalid(userForm.get('roleName'))) {
             <mat-error>
-                {{ getError(userForm.get('roleId'), 'Role Name') }}
+                {{ getError(userForm.get('roleName'), 'Role Name') }}
             </mat-error> }
         </mat-form-field>
 
         <!-- password -->
         <mat-form-field class="gap-xl" appearance="outline">
             <mat-icon matPrefix>lock</mat-icon>
-            <input matInput type="password" placeholder="Password" formControlName="password" />
+            <input matInput type="password" [type]="hidePassword() ? 'password' : 'text'" placeholder="Password"
+                formControlName="password" />
+
+            <button mat-icon-button matSuffix type="button" (click)="togglePassword()">
+
+                <mat-icon>
+                    {{ hidePassword() ? 'visibility' : 'visibility_off' }}
+                </mat-icon>
+
+            </button>
 
             @if(isControlInvalid(userForm.get('password'))) {
-            <mat-error> {{ getError(userForm.get('password'), 'password') }}
 
+            <mat-error>
+                {{ getError(userForm.get('password'), 'Password') }}
             </mat-error>
+
             }
         </mat-form-field>
 
         <!-- password match -->
         <mat-form-field class="gap-xl" appearance="outline">
             <mat-icon matPrefix>verified_user</mat-icon>
-            <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
+            <input matInput type="password" [type]="hideConfirmPassword() ? 'password' : 'text'"
+                placeholder="Confirm Password" formControlName="confirmPassword" />
 
-            @if(isControlInvalid(userForm.get('confirmPassword'))) {
-            <mat-error> {{ getError(userForm.get('confirmPassword'), 'Confirm Password') }}
+            <button mat-icon-button matSuffix type="button" (click)="toggleConfirmPassword()">
 
+                <mat-icon>
+                    {{ hideConfirmPassword() ? 'visibility' : 'visibility_off' }}
+                </mat-icon>
+
+            </button>
+            @if(
+            userForm.get('confirmPassword')?.hasError('passwordMismatch') &&
+            userForm.get('confirmPassword')?.touched
+            ) {
+            <mat-error>
+                {{ getError(userForm.get('confirmPassword'), '') }}
             </mat-error>
+            }
+            @else if(isControlInvalid(userForm.get('confirmPassword'))) {
+
+            <mat-error>
+                {{ getError(userForm.get('confirmPassword'), 'Confirm Password') }}
+            </mat-error>
+
             }
         </mat-form-field>
 

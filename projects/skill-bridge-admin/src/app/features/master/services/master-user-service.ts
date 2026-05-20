@@ -21,7 +21,7 @@ export class MasterUserService {
     }
 
     getUsers() {
-        return this.http.get<any>(`${this.userAuthApi}/getUsers/v1.0`);
+        return this.http.get<any>(`${this.userAuthApi}/managedUsers/v1.0`);
     }
 
     getUserRoles() {

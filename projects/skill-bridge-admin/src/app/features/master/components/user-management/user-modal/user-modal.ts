@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,6 +13,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MasterUserModalMode } from '../../../models/modal-mode.type';
 import { UserData } from '../../../models/user.model';
 import { formatName } from '../../../../../../../../shared/src/lib/utils/common.utilities';
+import { emailValidator, passwordMatchValidator, passwordValidator, requiredTrim } from '../../../../../../../../shared/src/lib/auth/validators/auth.validators';
 
 @Component({
   selector: 'app-user-modal',
@@ -38,17 +39,34 @@ export class UserModal {
   input: any = inject(MAT_DIALOG_DATA);
 
   mode!: MasterUserModalMode;
+
+  hidePassword = signal(true);
+  hideConfirmPassword = signal(true);
   modeName!: string;
   data!: UserData;
   userRoles!: any;
   userForm = this.fb.group({
     id: [0, [Validators.required]],
-    name: ['', [Validators.required]],
-    email: ['', [Validators.required]],
-    roleId: [0, [Validators.required]],
+    name: ['', [
+      requiredTrim(),
+      Validators.minLength(3),
+      Validators.maxLength(50)
+    ]],
+    email: ['', [
+      requiredTrim(),
+      emailValidator()
+    ]],
+    roleId: [0, [
+      Validators.required
+    ]],
     roleName: ['', [Validators.required]],
-    password: ['', [Validators.required]],
+    password: ['', [
+      Validators.required,
+      passwordValidator()
+    ]],
     confirmPassword: ['', [Validators.required]],
+  }, {
+    validators: passwordMatchValidator('password', 'confirmPassword')
   });
 
 
@@ -68,6 +86,15 @@ export class UserModal {
   }
 
 
+
+
+  togglePassword() {
+    this.hidePassword.set(!this.hidePassword());
+  }
+
+  toggleConfirmPassword() {
+    this.hideConfirmPassword.set(!this.hideConfirmPassword());
+  }
 
   private applyModeConfiguration() {
     if (!(this.mode === 'view')) {
@@ -109,11 +136,13 @@ export class UserModal {
 
   submit() {
 
+    this.userForm.markAllAsTouched();
+
+    if (this.userForm.invalid) return;
+
     const actionMap: Record<MasterUserModalMode, () => void> = {
       'add': () => this.handleAddUser(),
-
       'edit': () => this.handleEditUser(),
-
       'view': () => { }
     };
 
@@ -147,7 +176,12 @@ export class UserModal {
     }
     this.userService.createUser(userPayload)
       .subscribe((res) => {
-        this.dialogService.success("User Created successfully!");
+        if (res.status === 200) {
+          this.dialogService.success(res.message);
+          this.closeModal();
+        } else {
+          this.dialogService.success(res.message);
+        }
       });
   }
 
