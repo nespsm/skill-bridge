@@ -8,7 +8,7 @@ import { environment } from '../../../../environments/environment';
 export class WorkerManagementService {
 
 
-  private workerApi = `${environment.apiEndPoint}user/master/workers`;
+  private workerApi = `${environment.apiEndPoint}/master/workers`;
   private http = inject(HttpClient);
 
 

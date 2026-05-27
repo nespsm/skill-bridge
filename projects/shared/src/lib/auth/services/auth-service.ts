@@ -14,8 +14,8 @@ export class AuthService {
   private router = inject(Router);
   private config = inject<AuthConfig>(AUTH_CONFIG);
 
-  private loginApiUrl = this.config.apiBaseUrl + "user/admin/auth/login/v1.0";
-  private signupApiUrl = this.config.apiBaseUrl + "user/admin/auth/createUsers/v1.0";
+  private loginApiUrl = this.config.apiBaseUrl + "/admin/auth/login/v1.0";
+  private signupApiUrl = this.config.apiBaseUrl + "/admin/auth/createUsers/v1.0";
   private verifyApiUrl = this.config.apiBaseUrl + "auth/verify-otp";
   private sendOtpApiUrl = this.config.apiBaseUrl + "auth/send-otp";
 

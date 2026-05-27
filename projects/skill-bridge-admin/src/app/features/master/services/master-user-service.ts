@@ -9,7 +9,7 @@ export class MasterUserService {
 
 
 
-    private userAuthApi = `${environment.apiEndPoint}user/admin/auth`;
+    private userAuthApi = `${environment.apiEndPoint}/admin/auth`;
     private http = inject(HttpClient);
 
     createUser(payload: any) {

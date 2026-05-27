@@ -6,8 +6,9 @@ import { DetailsMediaCard } from '../details-media-card/details-media-card';
 import { DetailsHeader } from '../details-header/details-header';
 import { ActivatedRoute } from '@angular/router';
 import { WorkerManagementService } from '../../../services/worker-management-service';
-import { WorkerDetailsData, WorkerSkill } from '../../../models/worker.interfaces';
 import { DialogService } from '../../../../../../../../shared/src/lib/services/dialog-service';
+import { WorkerProfile, WorkerProfileResponse } from '../../../models/worker.interfaces';
+import { WorkerProfileFormService } from '../../../services/worker-profile-form.service';
 
 @Component({
   selector: 'worker-details',
@@ -17,7 +18,7 @@ import { DialogService } from '../../../../../../../../shared/src/lib/services/d
 })
 export class WorkerDetails {
 
-  worker = signal<WorkerDetailsData | null>(null);
+  worker = signal<WorkerProfile | null>(null);
   workerId = signal<number>(0);
 
   workerForm!: FormGroup;
@@ -25,6 +26,7 @@ export class WorkerDetails {
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private workerService = inject(WorkerManagementService);
+  private workerProfileFormService = inject(WorkerProfileFormService);
   private dialogService = inject(DialogService);
 
   ngOnInit() {
@@ -33,16 +35,15 @@ export class WorkerDetails {
       this.dialogService.error('Worker Id is not found!');
       return;
     }
-    this.loadWorker(this.workerId());
+    this.loadWorkerData(this.workerId());
   }
 
-  loadWorker(id: number) {
+  loadWorkerData(id: number) {
     this.workerService.getWorkerProfile(id).subscribe({
-      next: (response) => {
+      next: (response: WorkerProfileResponse) => {
         this.worker.set(response.result);
         this.worker.update(worker => ({
           ...worker!,
-          hiredAbroad: 'Hired for Abroad',
           profileCompletion: "90",
           createdDate: new Date().toISOString()
         }));
@@ -54,41 +55,22 @@ export class WorkerDetails {
     });
   }
 
-  buildForm(worker: WorkerDetailsData | null) {
-    this.workerForm = this.fb.group({
-      personalDetails: this.fb.group({
-        name: [{ value: `${worker?.firstName} ${worker?.lastName}`, disabled: true }, [Validators.required]],
-        age: [{ value: worker?.age, disabled: true }, [Validators.required]],
-        mobileNumber: [{ value: worker?.phone, disabled: true }, [Validators.required]],
-        contactNumber: [{ value: worker?.phone, disabled: true }, [Validators.required]],
-        aadhaar: [{ value: worker?.aadhaar, disabled: true }, [Validators.required]],
-        qualification: [{ value: worker?.qualification, disabled: true }, [Validators.required]],
-        address: [{ value: worker?.address, disabled: true }, [Validators.required]],
-        passport: [{ value: worker?.passport, disabled: true }, [Validators.required]],
-        experience: [{ value: worker?.yearsOfExperience, disabled: true }, [Validators.required]],
-      }),
-      passport: this.fb.group({}),
-      skills: this.fb.array(worker ? worker.workerSkills.map(skill => this.createSkillForm(skill)) : []),
-      documents: this.fb.array([]),
-      visaMedical: this.fb.group({}),
-      hiringHistory: this.fb.array([]),
-      emergencyNotes: this.fb.group({})
-    });
+  buildForm(worker: WorkerProfile | null): void {
+    this.workerForm =
+      this.workerProfileFormService.buildForm(worker);
   }
 
+  get skillsFormArray(): FormArray {
+    return this.workerProfileFormService.getSkillsFormArray(
+      this.workerForm
+    );
+  }
 
-  private createSkillForm(skill: WorkerSkill): FormGroup {
-    return this.fb.group({
-      id: [skill.id],
-      skillId: [skill.skill.id],
-      skillName: [
-        { value: skill.skill.skillName, disabled: true }
-      ],
-      categoryId: [skill.skill.category.id],
-      categoryName: [
-        { value: skill.skill.category.categoryName, disabled: true }
-      ]
-    });
+  getSkillControls(index: number): FormArray {
+    return this.workerProfileFormService.getSkillControls(
+      this.workerForm,
+      index
+    );
   }
 
   toggleEdit() {
@@ -107,10 +89,6 @@ export class WorkerDetails {
     if (!worker || this.workerForm.invalid) return;
 
     this.workerService.updateWorker(this.workerId(), this.workerForm.getRawValue()).subscribe();
-  }
-
-  get skillsArray(): FormArray {
-    return this.workerForm.get('skills') as FormArray;
   }
 
 }

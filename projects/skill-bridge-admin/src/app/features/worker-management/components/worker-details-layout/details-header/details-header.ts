@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
-import { WorkerDetailsData } from '../../../models/worker.interfaces';
+import { WorkerProfile } from '../../../models/worker.interfaces';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { WorkerDetailsData } from '../../../models/worker.interfaces';
 })
 export class DetailsHeader {
 
-  @Input() worker!: WorkerDetailsData;
+  @Input() worker!: WorkerProfile;
 
 
   updateStatus(status: boolean) {
@@ -24,12 +24,12 @@ export class DetailsHeader {
     this.worker.isActive = status;
   }
   
-  getStatusClass(status: string | boolean) {
+  getStatusClass(status: string | boolean | null) {
     
     return status === 'Hired for Abroad' || status === true ? "btn-active" : "btn-inactive";
   }
   
   updateAbroadStatus(status: string) {
-    this.worker.hiredAbroad = status;
+    this.worker.abroadStatus = status;
   }
 }

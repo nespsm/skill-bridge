@@ -30,19 +30,19 @@
             </mat-menu>
         </div>
         <div class="active-status">
-            <button class="btn-status" [ngClass]="getStatusClass(worker.hiredAbroad)" mat-button
+            <button class="btn-status" [ngClass]="getStatusClass(worker.abroadStatus)" mat-button
                 [matMenuTriggerFor]="abroadMenu">
-                <span>{{worker.hiredAbroad}}</span>
+                <span>{{worker.abroadStatus}}</span>
                 <span>|</span>
                 <span class="icon-mask icon-sm icon-chevron-down color-white"></span>
             </button>
             <mat-menu #abroadMenu="matMenu">
-                @if(worker.hiredAbroad !== "Not Hired for Abroad") {
+                @if(worker.abroadStatus !== "Not Hired for Abroad") {
                 <button mat-menu-item (click)="updateAbroadStatus('Not Hired for Abroad')">
                     Not Hired for Abroad
                 </button>
                 }
-                @if(worker.hiredAbroad !== "Hired for Abroad") {
+                @if(worker.abroadStatus !== "Hired for Abroad") {
                 <button mat-menu-item (click)="updateAbroadStatus('Hired for Abroad')">
                     Hired for Abroad
                 </button>

@@ -31,22 +31,22 @@ import { DetailsEmergencyNotes } from '../details-form/details-emergency-notes/d
 })
 export class DetailsTabs {
 
-  @Input() form!: FormGroup;
+  @Input({ required: true }) form!: FormGroup;
+  
   @Input() editMode: boolean = false;
 
   get personalDetailsFG(): FormGroup { return this.form.get('personalDetails') as FormGroup; }
 
   get passportFG(): FormGroup { return this.form.get('passport') as FormGroup; }
 
-  get skillsFA(): FormArray {
-  return this.form.get('skills') as FormArray;
-}
+  get skillsFA(): FormArray { return this.form.get('skills') as FormArray;}
 
-  get documentsFG(): FormGroup { return this.form.get('documents') as FormGroup; }
+  get documentsFA(): FormArray { return this.form.get('documents') as FormArray; }
+
+  get hiringHistoryFA(): FormArray { return this.form.get('hiringHistory') as FormArray; }
 
   get visaMedicalFG(): FormGroup { return this.form.get('visaMedical') as FormGroup; }
-  
-  get hiringHistoryFG(): FormGroup { return this.form.get('hiringHistory') as FormGroup; }
+
 
   get emergencyNotesFG(): FormGroup { return this.form.get('emergencyNotes') as FormGroup; }
 

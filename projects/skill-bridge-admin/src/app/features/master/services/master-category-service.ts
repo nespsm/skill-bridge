@@ -9,8 +9,8 @@ export class MasterCategoryService {
 
 
 
-    private categoryApi = `${environment.apiEndPoint}user/master/skill-category`;
-    private categoryStatApi = `${environment.apiEndPoint}user/master/stats`;
+    private categoryApi = `${environment.apiEndPoint}/master/skill-category`;
+    private categoryStatApi = `${environment.apiEndPoint}/master/stats`;
     private http = inject(HttpClient);
 
     getCategories() {

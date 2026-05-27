@@ -123,11 +123,11 @@ export class Registration {
 
     this.store.dispatch(
       AuthActions.register({
-        fullName: this.registrationForm.value.fullName!,
-        emailOtp: this.getOtpValue(),
-        userIdentifier: this.registrationForm.value.userIdentifier!,
+        name: this.registrationForm.value.fullName!,
+        // emailOtp: this.getOtpValue(),
+        email: this.registrationForm.value.userIdentifier!,
         password: this.registrationForm.value.password!,
-        userType: this.registrationForm.value.userType!
+        roleId: +this.registrationForm.value.userType!
       })
     );
   }

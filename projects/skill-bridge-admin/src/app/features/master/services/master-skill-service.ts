@@ -8,8 +8,8 @@ import { environment } from '../../../../environments/environment';
 export class MasterSkillService {
 
 
-  private skillsApi = `${environment.apiEndPoint}user/master/skills`;
-  private skillStatApi = `${environment.apiEndPoint}user/master/stats`;
+  private skillsApi = `${environment.apiEndPoint}/master/skills`;
+  private skillStatApi = `${environment.apiEndPoint}/master/stats`;
 
   private http = inject(HttpClient);
 

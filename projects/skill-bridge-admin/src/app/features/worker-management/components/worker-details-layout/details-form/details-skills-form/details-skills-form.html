@@ -6,43 +6,58 @@
                 <span>Worker Skills</span>
             </div>
 
-            <button class="btn-secondary btn-blue" (click)="addSkill()">
-                <span class="icon-mask icon-sm icon-plus color-white "></span> Add Skills
-            </button>
-
         </div>
 
         <!-- SKILLS -->
 
         <div class="skills-container">
-            @for (skill of skillControls; track $index) {
-            <div class="skill-card" [formGroup]="skill">
-                <div class="skill-card-header">
 
-                    <div class="skill-index">
-                        Skill #{{ $index + 1 }}
-                    </div>
+            @for(category of categoryControls; track $index; let categoryIndex = $index) {
 
-                    <button class="btn-table-action badge-red" (click)="removeSkill($index)"> Delete </button>
+            <div class="category-card" [formGroup]="category">
+                <div class="category-header">
+                    <h3>
+                        {{ category.get('categoryName')?.value }}
+                    </h3>
                 </div>
 
-                <!-- FORM GRID -->
+                <button class="btn-secondary btn-blue" (click)="addSkill(categoryIndex)">
+                    <span class="icon-mask icon-sm icon-plus color-white "></span> Add Skills
+                </button>
 
-                <div class="form-grid">
-                    <!-- CATEGORY -->
-                    <div>
-                        <label class="field-label">Category</label>
-                        <mat-form-field appearance="outline" class="gap-md full">
-                            <input matInput formControlName="categoryName">
-                        </mat-form-field>
+                <div formArrayName="skills">
+
+                    @for(skill of getSkillControls(categoryIndex); track $index; let skillIndex = $index) {
+
+                    <div class="skill-card" [formGroup]="skill">
+
+                        <div class="skill-card-header">
+
+                            <div class="skill-index">
+                                Skill #{{ skillIndex + 1 }}
+                            </div>
+
+                            <button class="btn-table-action badge-red" (click)="removeSkill(categoryIndex, skillIndex)"> Delete </button>
+                        </div>
+                        <div class="form-grid">
+                            <div>
+                                <label class="field-label">Skill</label>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="skillName" />
+                                </mat-form-field>
+                            </div>
+
+                            <div>
+                                <label class="field-label">
+                                    Verified
+                                </label>
+
+                                <mat-checkbox formControlName="isVerified">
+                                </mat-checkbox>
+                            </div>
+                        </div>
                     </div>
-                    <!-- SKILL -->
-                    <div>
-                        <label class="field-label"> Skill </label>
-                        <mat-form-field appearance="outline" class="gap-md full">
-                            <input matInput formControlName="skillName">
-                        </mat-form-field>
-                    </div>
+                    }
                 </div>
             </div>
             }

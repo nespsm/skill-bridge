@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'details-skills-form',
@@ -15,7 +16,8 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatButtonModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule
   ],
   templateUrl: './details-skills-form.html',
   styleUrl: './details-skills-form.scss',
@@ -27,27 +29,36 @@ export class DetailsSkillsForm {
 
   private fb = inject(FormBuilder);
 
-  get skillControls(): FormGroup[] {
+
+  get categoryControls(): FormGroup[] {
     return this.skills.controls as FormGroup[];
+  }
+
+  getSkills(categoryIndex: number): FormArray {
+    return this.categoryControls[categoryIndex].get('skills') as FormArray;
+  }
+
+  getSkillControls(categoryIndex: number): FormGroup[] {
+    return this.getSkills(categoryIndex).controls as FormGroup[];
   }
 
 
 
-  addSkill(): void {
-
-    this.skills.push(
+  addSkill(categoryIndex: number): void {
+    this.getSkills(categoryIndex).push(
       this.fb.group({
-        id: [0],
         skillId: [null],
         skillName: [''],
-        categoryId: [null],
-        categoryName: ['']
+        isVerified: [false],
       })
     );
   }
 
-  removeSkill(index: number): void {
-    this.skills.removeAt(index);
+  removeSkill(
+    categoryIndex: number,
+    skillIndex: number
+  ): void {
+    this.getSkills(categoryIndex).removeAt(skillIndex);
   }
 
 }

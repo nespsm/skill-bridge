@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { WorkerDetailsData } from '../../../models/worker.interfaces';
+import { WorkerProfile } from '../../../models/worker.interfaces';
 
 
 @Component({
@@ -12,11 +12,11 @@ import { WorkerDetailsData } from '../../../models/worker.interfaces';
 })
 export class DetailsMediaCard {
 
-  @Input() worker!: WorkerDetailsData;
+  @Input() worker!: WorkerProfile;
   @Output() export: any = new EventEmitter<any>();
   @Output() edit: any = new EventEmitter<any>();
 
-  getThumb(worker: WorkerDetailsData) {
+  getThumb(worker: WorkerProfile) {
     if (worker.videoUrl) {
       return worker.videoThumb;
     } else {

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'details-documents-form',
@@ -9,6 +9,8 @@ import { FormGroup } from '@angular/forms';
 })
 export class DetailsDocumentsForm {
 
-  @Input() form!: FormGroup;
+    @Input({ required: true })
+    documents!: FormArray;
+  
 
 }
