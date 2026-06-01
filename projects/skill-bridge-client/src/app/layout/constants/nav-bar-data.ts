@@ -10,11 +10,13 @@ export const NAVBAR_DATA: NavBarItem[] = [
         activeClass: 'active',
         iconClass: 'icon-mask icon-md icon-chart-bar-square color-brown'
     },
+
     {
         name: 'Enquiries',
-        link: 'enquiries/list',
+        link: 'enquiry/list',
         usertype: [UserTypes.CLIENT],
         activeClass: 'active',
+        queryParams: { status: 'all' },
         iconClass: 'icon-mask icon-md icon-tag color-voilet-bright'
     }
 ];

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardAlerts } from './dashboard-alerts';
+import { ProfileManagement } from './profile-management';
 
-describe('DashboardAlerts', () => {
-  let component: DashboardAlerts;
-  let fixture: ComponentFixture<DashboardAlerts>;
+describe('ProfileManagement', () => {
+  let component: ProfileManagement;
+  let fixture: ComponentFixture<ProfileManagement>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardAlerts]
+      imports: [ProfileManagement]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DashboardAlerts);
+    fixture = TestBed.createComponent(ProfileManagement);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

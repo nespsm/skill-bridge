@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EnquiriesManagement } from './enquiries-management';
+import { EnquiryList } from './enquiry-list';
 
-describe('EnquiriesManagement', () => {
-  let component: EnquiriesManagement;
-  let fixture: ComponentFixture<EnquiriesManagement>;
+describe('EnquiryList', () => {
+  let component: EnquiryList;
+  let fixture: ComponentFixture<EnquiryList>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EnquiriesManagement]
+      imports: [EnquiryList]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EnquiriesManagement);
+    fixture = TestBed.createComponent(EnquiryList);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

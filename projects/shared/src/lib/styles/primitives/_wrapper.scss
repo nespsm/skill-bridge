@@ -172,6 +172,15 @@
     }
 }
 
+.wrapper-bell {
+    cursor: pointer;
+    color: $color-grey-black;
+    transition: all 0.15s ease;
+
+    &:hover {
+    transform: translateY(-1px);
+  }
+}
 
 .wrapper-profile {
     @extend .wrapper-status-group;

@@ -9,3 +9,11 @@
 }
 
 
+.app-shell {
+    min-height: 100vh;
+    background: $color-client-bg;
+}
+
+.app-content {
+    padding: 14px 24px 24px;
+}

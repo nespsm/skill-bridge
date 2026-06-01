@@ -18,7 +18,7 @@ import * as AuthActions from '../../../../../../shared/src/lib/auth/store/auth.a
   selector: 'app-header',
   imports: [
     RouterModule,
-    TitleCasePipe,
+    // TitleCasePipe,
     AppNavBar,
     MatMenuModule,
     MatIconModule,
@@ -45,7 +45,7 @@ export class AppHeader implements OnInit {
 
   goToProfile(event: MouseEvent) {
     // event.stopPropagation();
-    this.router.navigate(['user/profile']);
+    this.router.navigate(['user/details']);
     // Navigate to profile page
   }
 

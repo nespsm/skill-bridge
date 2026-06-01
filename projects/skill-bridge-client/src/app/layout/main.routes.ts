@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
 import { dashboardRoutes } from "../features/dashboard/dashboard.routes";
-import { enquiriesRoutes } from "../features/enquiries/enquiries.routes";
+import { profileRoutes } from "../features/profile/profile.routes";
+import { enquiryRoutes } from "../features/enquiry/enquiry.routes";
 
 
 export const mainRoutes: Routes = [
@@ -17,7 +18,11 @@ export const mainRoutes: Routes = [
             },
             {
                 path: 'enquiry',
-                loadChildren: () => enquiriesRoutes
+                loadChildren: () => enquiryRoutes
+            },
+            {
+                path: 'user',
+                loadChildren: () => profileRoutes
             },
         ]
     }

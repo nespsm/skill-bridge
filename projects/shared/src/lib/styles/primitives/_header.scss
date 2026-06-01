@@ -62,3 +62,80 @@
     padding: 0 0 8px 12px;
 }
 
+
+%app-header-base {
+    @extend %header-base;
+
+    box-sizing: border-box;
+    background-color: $color-client-bg;
+    height: 80px;
+    padding: 0 2rem 0 3rem;
+}
+
+.app-header {
+    @extend %app-header-base;
+}
+
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 6rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.header-logo {
+    color: $color-black;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.header-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.header-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #d9d9d9;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.dashboard-card-header {
+    @extend .card-header;
+    align-items: stretch;
+    height: 100%;
+}
+
+.header-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.header-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: #000;
+}
+
+.header-email {
+    font-size: 13px;
+    font-weight: 500;
+    color: #787878;
+}

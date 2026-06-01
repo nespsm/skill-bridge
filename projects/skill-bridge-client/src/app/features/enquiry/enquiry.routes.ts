@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
 
-export const enquiriesRoutes: Routes = [
+export const enquiryRoutes: Routes = [
     {
         path: '',
-        loadComponent: () => import("./components/enquiries-management/enquiries-management")
-            .then(c => c.EnquiriesManagement),
+        loadComponent: () => import("./components/enquiry-management/enquiry-management")
+            .then(c => c.EnquiryManagement),
         children: [
 
             { path: '', pathMatch: 'full', redirectTo: 'list' },
             {
                 path: 'list',
-                loadComponent: () => import("./components/enquiries-list/enquiries-list")
-                    .then(c => c.EnquiriesList),
+                loadComponent: () => import("./components/enquiry-list/enquiry-list")
+                    .then(c => c.EnquiryList),
             },
             {
                 path: 'create',
@@ -20,8 +20,8 @@ export const enquiriesRoutes: Routes = [
             },
             {
                 path: 'details/:id',
-                loadComponent: () => import("./components/enquiries-details/enquiries-details")
-                    .then(c => c.EnquiriesDetails),
+                loadComponent: () => import("./components/enquiry-details/enquiry-details")
+                    .then(c => c.EnquiryDetails),
             }
             
         ]

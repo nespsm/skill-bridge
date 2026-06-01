@@ -1,8 +1,14 @@
 <!-- Navigation Links -->
 <nav class="nav-links">
     @for (item of filteredNavItems; track $index) {
-    <a class="application d-flex rounded-0" [routerLink]="item.link" routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }" tabindex="0">
+    <a [routerLink]="item.link" routerLinkActive="active"
+        [routerLinkActiveOptions]="{
+        paths: 'exact',
+        queryParams: 'ignored',
+        fragment: 'ignored',
+        matrixParams: 'ignored'
+    }" [queryParams]="item.queryParams">
+
         {{ item.name }}
     </a>
     }

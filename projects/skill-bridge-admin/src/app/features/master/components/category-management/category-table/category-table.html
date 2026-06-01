@@ -1,5 +1,4 @@
 <div class="container-table">
-
     <div class="filter-bar">
         <div class="wrapper-search">
             <input type="text" placeholder="Search category..." [ngModel]="searchText()"
@@ -7,25 +6,26 @@
         </div>
 
         <div class="wrapper-btn">
-
             <button class="btn-icon" (click)="toggleSort()">
                 <span class="icon-mask icon-md icon-sort"></span>
-                <span>
-                    {{ sortLabel() }}
-                </span>
+                <span>{{ sortLabel() }}</span>
             </button>
 
             <button class="btn-secondary btn-green" (click)="addCategory.emit()">
-                <span class="icon-mask icon-sm icon-plus color-white "></span> Add Category
+                <span class="icon-mask icon-sm icon-plus color-white">
+                </span>
+                Add Category
             </button>
+
             <button class="btn-secondary btn-blue" (click)="addSkill.emit()">
-                <span class="icon-mask icon-sm icon-plus color-white "></span> Add Skills
+                <span class="icon-mask icon-sm icon-plus color-white">
+                </span>
+                Add Skills
             </button>
         </div>
     </div>
 
     <div class="table-card">
-
         <table class="table-primary">
             <thead>
                 <tr>
@@ -40,21 +40,13 @@
                         Actions
                     </th>
                 </tr>
-
             </thead>
-
             <tbody>
-
-                @for (row of categories(); track row.id) {
-
+                @for (row of paginatedCategories(); track row.id) {
                 <tr>
-
                     <td>{{ row.categoryName }}</td>
-
                     <td>{{ row.description }}</td>
-
                     <td>
-
                         <div class="action-btn">
 
                             <button class="btn-table-action btn-view" (click)="view.emit(row)">
@@ -64,17 +56,18 @@
                             <button class="btn-table-action btn-add" (click)="addCatSkill.emit(row)">
                                 Add Skills
                             </button>
+
                             <button class="btn-table-action btn-edit" (click)="edit.emit(row)">
                                 Edit
                             </button>
+
                             <button class="btn-table-action badge-red" (click)="deleteCategory(row)">
                                 Delete
                             </button>
                         </div>
                     </td>
                 </tr>
-                }
-                @empty {
+                } @empty {
                 <tr>
                     <td colspan="3" class="text-center pt-lg">
                         No categories found.
@@ -83,5 +76,8 @@
                 }
             </tbody>
         </table>
+        <mat-paginator [length]="filteredCount()" [pageSize]="size()" [pageIndex]="page()"
+            [pageSizeOptions]="[5, 10, 20, 50]" [showFirstLastButtons]="true" (page)="onPaginationChange($event)">
+        </mat-paginator>
     </div>
 </div>

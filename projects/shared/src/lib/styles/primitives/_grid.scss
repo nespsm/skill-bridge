@@ -6,6 +6,21 @@
   gap: 2px $space-sm; // assuming 2px equivalent is $space-2xs
 }
 
+.dashboard-grid {
+    display: grid;
+    gap: 24px;
+    align-items: stretch;
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: 1200px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
 .full {
   grid-column: 1 / -1; // cleaner way to span 2 columns
 }
