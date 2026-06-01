@@ -28,6 +28,7 @@
   }
 }
 
+
 .btn-primary {
   @extend .btn;
 
@@ -36,6 +37,19 @@
   border-radius: $radius-md;
   color: $color-white;
   background: $color-primary-btn;
+  box-shadow: $shadow-btn;
+
+
+}
+
+.btn-primary-2 {
+  @extend .btn;
+
+  width: 100%;
+  height: 2.8rem;
+  border-radius: $radius-md;
+  color: $color-white;
+  background: $color-primary-btn-2;
   box-shadow: $shadow-btn;
 
 

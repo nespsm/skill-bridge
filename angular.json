@@ -95,7 +95,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/skill-bridge-client/public"
+                "input": "projects/shared/src/lib/public"
               }
             ],
             "styles": [

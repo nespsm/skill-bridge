@@ -57,6 +57,6 @@ export class AppHeader implements OnInit {
 
   createEnquiry(event: MouseEvent) {
     event.stopPropagation();
-    this.router.navigate(['/enquiries/create']);
+    this.router.navigate(['/enquiry/create']);
   }
 }

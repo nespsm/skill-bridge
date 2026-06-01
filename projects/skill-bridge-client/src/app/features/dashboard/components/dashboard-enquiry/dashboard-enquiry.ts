@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'dashboard-enquiry',
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   templateUrl: './dashboard-enquiry.html',
   styleUrl: './dashboard-enquiry.scss',

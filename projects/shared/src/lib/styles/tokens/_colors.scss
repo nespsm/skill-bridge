@@ -6,6 +6,8 @@ $color-blue-light: #dbeafe;
 $color-blue-bright: #3b82f6;
 $color-blue-dim: #2563eb;
 $color-blue-deep: #4f46e5;
+$color-dark-blue-dim: #334cc5;
+$color-dark-blue: #283EB1;
 $color-indigo: #6366F1;
 
 $color-ocean: #0284C7;
@@ -60,5 +62,6 @@ $color-bg-muted: #f8fafc;
 $color-hover: #f3f4f6;
 
 $color-primary-btn: linear-gradient(135deg,  $color-blue-deep, $color-blue-bright);
+$color-primary-btn-2: linear-gradient(135deg,  $color-dark-blue, $color-dark-blue-dim);
 $color-green-blue: linear-gradient(135deg,  $color-green, $color-blue-bright);
 $color-bg-auth: radial-gradient(circle at top, $color-bg-muted-2, $color-bg-muted);

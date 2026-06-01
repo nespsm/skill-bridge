@@ -1,47 +1,43 @@
 import { Component, computed, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DashboardStat } from '../../models/dashboard.interfaces';
-import { DashboardAlerts } from '../dashboard-alerts/dashboard-alerts';
-import { DashboardEnquiry } from '../dashboard-enquiry/dashboard-enquiry';
+import { IDashboardCard } from '../../models/dashboard.interfaces';
+import { DashboardCard } from '../dashboard-card/dashboard-card';
 
 @Component({
     selector: 'dashboard',
-    imports: [RouterModule, DashboardAlerts, DashboardEnquiry],
+    imports: [RouterModule, DashboardCard],
     templateUrl: './dashboard.html',
     styleUrl: './dashboard.scss',
 })
 export class Dashboard {
     equiriesCount = signal(0);
-    enquiries = computed<DashboardStat[]>(() => [
-
+    dashboardCards = computed<IDashboardCard[]>(() => [
         {
             title: 'Total Enquiries',
             value: this.equiriesCount(),
-            route: '/enquires/list',
-            iconClass: 'icon-mask icon-lg icon-users color-blue-deep',
-            cardClass: 'card-bg-blue-light',
+            route: '/enquiry/list',
+            iconClass: 'icon-mask icon-xxl icon-inquiry color-dark-blue',
+            cardClass: 'card-default',
             queryParams: { status: 'all' }
         },
 
         {
             title: 'Pending Enquiries',
             value: 50,
-            route: '/workers/list',
-            iconClass: 'icon-mask icon-lg icon-pending color-orange',
-            cardClass: 'card-bg-orange-light',
+            route: '/enquiry/list',
+            iconClass: 'icon-mask icon-xxl icon-pending color-orange',
+            cardClass: 'card-default',
             queryParams: { status: 'pending' }
-        }
-    ]);
-
-    alerts = computed<DashboardStat[]>(() => [
+        },
         {
             title: 'New Alerts',
             value: 250,
-            route: '/request/alerts',
-            iconClass: 'icon-mask icon-lg icon-alert color-red',
-            cardClass: 'card-bg-red-light'
+            route: '/alerts',
+                cardClass: 'card-alert',
+            iconClass: 'icon-mask icon-xxl icon-alert color-red',
         }
     ]);
+
 
     ngOnInit() {
         // this.getTotalWorkersCount();

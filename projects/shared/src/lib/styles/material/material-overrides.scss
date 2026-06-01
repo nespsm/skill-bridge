@@ -158,3 +158,16 @@
   border-top-width: 5px !important;
   border-color: $color-ocean;
 }
+
+    .mdc-button__label {
+        cursor: pointer;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0 !important;
+        min-width: unset !important;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }

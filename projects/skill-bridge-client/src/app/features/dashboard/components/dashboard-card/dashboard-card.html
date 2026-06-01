@@ -1,0 +1,38 @@
+<!-- <div class="dashboard-card" [class]="card.cardClass" [routerLink]="card.route" [queryParams]="card.queryParams">
+    <div class="card-header">
+        <span [class]="card.iconClass"></span>
+        <div class="card-content">
+            <p class="card-title">
+                {{ card.title }}
+            </p>
+            <h3 class="card-value">
+                {{ card.value }}
+            </h3>
+        </div>
+    </div>
+</div> -->
+
+
+<div
+    class="dashboard-card"
+    [ngClass]="[card.cardClass || 'card-default']"
+    [routerLink]="card.route"
+    [queryParams]="card.queryParams">
+
+    <div class="card-header">
+
+        <div class="card-content">
+            <p class="card-title">
+                {{ card.title }}
+            </p>
+
+            <h3 class="card-value">
+                {{ card.value }}
+            </h3>
+        </div>
+
+        <span [class]="card.iconClass"></span>
+
+    </div>
+
+</div>

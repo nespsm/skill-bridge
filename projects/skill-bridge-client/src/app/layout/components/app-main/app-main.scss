@@ -1,16 +1,8 @@
-/* Sidebar collapsed */
-.sidebar-collapsed {
-    grid-template-columns: 72px 1fr;
+.app-shell {
+    min-height: 100vh;
+    background: #EFF0F5;
 }
 
-
-/* Content */
-.content {
-    flex: 1;
+.app-content {
     padding: 24px;
-    overflow-y: auto;
-    background: #f7f7f8;
-
-    position: relative;
-
 }

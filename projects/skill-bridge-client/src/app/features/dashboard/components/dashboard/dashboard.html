@@ -1,18 +1,18 @@
-<div class="dashboard py-5">
+<div class="dashboard pt-xs">
+
     <div class="container-fluid">
+
         <div class="page-hd">
-            <h1>Dashboard</h1>
+            <h1>Client Dashboard</h1>
         </div>
 
-        <!-- wallet balance  -->
-        <div class="row mb-4">
-            <div class="col-lg-7 col-md-12 col-12 my-2">
-                <dashboard-enquiry [enquiries]="enquiries()"></dashboard-enquiry>
-            </div>
-            <div class="col-lg-7 col-md-12 col-12 my-2">
-                <dashboard-alerts [alerts]="alerts()"></dashboard-alerts>
-            </div>
-        </div>
+        <div class="dashboard-grid">
 
+            @for(card of dashboardCards(); track card.title) {
+                <dashboard-card
+                    [card]="card">
+                </dashboard-card>
+            }
+        </div>
     </div>
 </div>

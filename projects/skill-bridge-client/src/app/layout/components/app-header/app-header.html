@@ -30,54 +30,55 @@
 
 
 <header class="app-header">
-    <!-- Logo -->
+  <!-- Logo -->
 
-    <div class="left-section">
-        <div class="logo">Skill Bridge</div>
-        <app-nav-bar></app-nav-bar>
-    </div>
+  <div class="left-section">
+    <div class="logo">Skill Bridge</div>
+    <app-nav-bar></app-nav-bar>
+  </div>
 
 
 
-    <!-- Right Section -->
-    <div class="right-section">
-        <!-- Create Button -->
-        <button class="create-btn" (click)='createEnquiry($event)'>
-            <img src="/icons/plus-circle.svg" alt="rocket"  class="icon-rocket"> Submit Enquiry
-        </button>
+  <!-- Right Section -->
+  <div class="right-section">
+    <!-- Create Button -->
+    <button class="create-btn" (click)='createEnquiry($event)'>
+      <span class="icon-mask icon-md-sm icon-plus"></span> <span> Submit Enquiry </span>
+    </button>
 
-        <!-- Notification Icon -->
-        <span class="icon">
-            <img src="/icons/bell-alert.svg" (click)='showNotification()' alt="notification" width="30" height="30">
-        </span>
+    <!-- Notification Icon -->
+    <span class="notification-icon pt-xs" (click)='showNotification()'>
+      <span class="icon-mask icon-md icon-alert"></span>
+    </span>
 
-        <!-- Profile Dropdown -->
-        <button mat-button [matMenuTriggerFor]="profileMenu" class="profile">
-            <div class="avatar">
-                <img src="/icons/profile.svg" alt="Profile" width="55" height="55">
-            </div>
-            <div class="info">
-                <span class="name">Nishant Soam</span>
-                <span class="email">nishant@gmail.com</span>
-                <!-- <span class="name">{{ sessionData().name | titlecase }}</span>
+    <!-- Profile Dropdown -->
+    <button mat-button [matMenuTriggerFor]="profileMenu" class="header-profile">
+      <div class="avatar">
+        <span class="icon-mask icon-lg icon-user-circle"></span>
+      </div>
+      <div class="header-info">
+        <span class="h-name">Nishant Soam</span>
+        <span class="h-email">nishant@gmail.com</span>
+        <!-- <span class="name">{{ sessionData().name | titlecase }}</span>
                 <span class="email">{{sessionData().email}}</span> -->
-            </div>
-            <div class="dropdown-icon">
-                <img src="/icons/chevron-down.svg" alt="Rupee" width="24" height="24">
-            </div>
-        </button>
+      </div>
+      <div class="dropdown-icon">
 
-        <mat-menu #profileMenu="matMenu" xPosition="before" [overlapTrigger]="false" class="profile-menu">
-            <button mat-menu-item (click)="goToProfile($event)">
-                <mat-icon>person</mat-icon>
-                <span>Profile</span>
-            </button>
-            <button mat-menu-item type="button" (click)="logout()">
-                <mat-icon>logout</mat-icon>
-                <span>Logout</span>
-            </button>
-        </mat-menu>
+        <span class="icon-mask icon-sm icon-chevron-down color-black"></span>
+      </div>
+    </button>
+
+    <mat-menu #profileMenu="matMenu" xPosition="before" [overlapTrigger]="false" class="profile-menu">
+      <button mat-menu-item (click)="goToProfile($event)">
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item type="button" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
 
 
-    </div>
+  </div>
 </header>

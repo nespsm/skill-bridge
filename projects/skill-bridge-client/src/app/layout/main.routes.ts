@@ -16,7 +16,7 @@ export const mainRoutes: Routes = [
                 loadChildren: () => dashboardRoutes
             },
             {
-                path: 'enquiries',
+                path: 'enquiry',
                 loadChildren: () => enquiriesRoutes
             },
         ]

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardNotification } from './dashboard-notification';
+import { DashboardCard } from './dashboard-card';
 
-describe('DashboardNotification', () => {
-  let component: DashboardNotification;
-  let fixture: ComponentFixture<DashboardNotification>;
+describe('DashboardCard', () => {
+  let component: DashboardCard;
+  let fixture: ComponentFixture<DashboardCard>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardNotification]
+      imports: [DashboardCard]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DashboardNotification);
+    fixture = TestBed.createComponent(DashboardCard);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
