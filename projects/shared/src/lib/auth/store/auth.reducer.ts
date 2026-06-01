@@ -3,19 +3,21 @@ import * as AuthActions from './auth.actions';
 import { initialAuthState } from './auth.state';
 
 export const authReducer = createReducer(
-  initialAuthState,
 
+  initialAuthState,
+  
   on(AuthActions.login, state => ({
     ...state,
     loading: true,
     error: null
   })),
 
-  on(AuthActions.loginRequires2FA, (state, { twoFactorData }) => ({
+  on(AuthActions.loginSuccess, (state, { sessionData }) => ({
     ...state,
     loading: false,
-    requiresTwoFactor: true,
-    twoFactorData
+    isAuthenticated: true,
+    sessionData,
+    error: null
   })),
 
   on(AuthActions.loginFailure, (state, { error }) => ({
@@ -25,51 +27,8 @@ export const authReducer = createReducer(
   })),
 
 
-  on(AuthActions.verifyOtp, state => ({
-    ...state,
-    loading: true
-  })),
 
-  on(AuthActions.verifyOtpSuccess, (state, { sessionData }) => ({
-    ...state,
-    sessionData,
-    loading: false,
-    isAuthenticated: true,
-    requiresTwoFactor: false,
-    twoFactorData: null
-  })),
-
-  on(AuthActions.verifyOtpFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error
-  })),
-
-  on(AuthActions.logout, () => initialAuthState),
-
-
-
-
-
-
-
-  on(AuthActions.sendEmailOtp, state => ({
-    ...state,
-    loading: true,
-    error: null
-  })),
-
-  on(AuthActions.sendEmailOtpSuccess, state => ({
-    ...state,
-    loading: false,
-    emailOtpSent: true
-  })),
-
-  on(AuthActions.sendEmailOtpFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error
-  })),
+  // REGISTER
 
   on(AuthActions.register, state => ({
     ...state,
@@ -77,26 +36,24 @@ export const authReducer = createReducer(
     error: null
   })),
 
-  on(AuthActions.registerRequires2FA, (state, { twoFactorData }) => ({
+  on(AuthActions.registerSuccess, (state, { sessionData }) => ({
     ...state,
     loading: false,
-    twoFactorData
+    isAuthenticated: true,
+    sessionData,
+    error: null
   })),
 
-  on(AuthActions.verifyOtpRegisterFailure, (state, { error }) => ({
+  on(AuthActions.registerFailure, (state, { error }) => ({
     ...state,
     loading: false,
     error
   })),
 
 
-  on(AuthActions.resetEmailOtpState, state => ({
-    ...state,
-    emailOtpSent: false
-  })),
 
+  // REHYDRATE
 
-  // auth.reducer.ts
   on(AuthActions.rehydrateAuthSuccess, (state, { sessionData }) => ({
     ...state,
     isAuthenticated: true,
@@ -107,4 +64,8 @@ export const authReducer = createReducer(
   on(AuthActions.rehydrateAuthFailure, () => initialAuthState),
 
 
+
+  // LOGOUT
+
+  on(AuthActions.logout, () => initialAuthState)
 );

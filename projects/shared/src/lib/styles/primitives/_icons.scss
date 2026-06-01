@@ -145,8 +145,8 @@
 }
 
 .icon-close {
-  mask-image: url('/icons/x-circle.svg');
-  -webkit-mask-image: url('/icons/x-circle.svg');
+  mask-image: url('/icons/x-circle.svg') !important;
+  -webkit-mask-image: url('/icons/x-circle.svg') !important;
 }
 
 .icon-workers {

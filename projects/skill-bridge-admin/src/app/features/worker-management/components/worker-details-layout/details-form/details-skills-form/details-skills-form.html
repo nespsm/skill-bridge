@@ -11,19 +11,20 @@
         <!-- SKILLS -->
 
         <div class="skills-container">
-
             @for(category of categoryControls; track $index; let categoryIndex = $index) {
 
             <div class="category-card" [formGroup]="category">
-                <div class="category-header">
-                    <h3>
-                        {{ category.get('categoryName')?.value }}
-                    </h3>
-                </div>
+                <div class="category-top">
+                    <div class="category-header">
+                        <h4>
+                            Category #{{ category.get('categoryName')?.value }}
+                        </h4>
+                    </div>
 
-                <button class="btn-secondary btn-blue" (click)="addSkill(categoryIndex)">
-                    <span class="icon-mask icon-sm icon-plus color-white "></span> Add Skills
-                </button>
+                    <button class="btn-secondary btn-blue" (click)="addSkill(categoryIndex)">
+                        <span class="icon-mask icon-sm icon-plus color-white "></span> Add Skills
+                    </button>
+                </div>
 
                 <div formArrayName="skills">
 
@@ -37,11 +38,11 @@
                                 Skill #{{ skillIndex + 1 }}
                             </div>
 
-                            <button class="btn-table-action badge-red" (click)="removeSkill(categoryIndex, skillIndex)"> Delete </button>
+                            <button class="btn-table-action badge-red" (click)="removeSkill(categoryIndex, skillIndex)">
+                                Delete </button>
                         </div>
                         <div class="form-grid">
                             <div>
-                                <label class="field-label">Skill</label>
                                 <mat-form-field appearance="outline">
                                     <input matInput formControlName="skillName" />
                                 </mat-form-field>

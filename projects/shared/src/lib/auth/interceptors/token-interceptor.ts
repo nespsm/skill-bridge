@@ -13,17 +13,18 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   const publicUrls = [
     '/auth/login',
-    '/auth/register'
+    '/company/login',
+    '/company/register'
   ];
 
   const isPublicApi = publicUrls.some(url =>
     req.url.includes(url)
   );
 
-  if (!sessionData?.token && !isPublicApi) {
-    router.navigate(['/auth/login']);
-    return EMPTY;
-  }
+  // if (!sessionData?.token && !isPublicApi) {
+  //   router.navigate(['/auth/login']);
+  //   return EMPTY;
+  // }
 
   // Attach token
   if (sessionData?.token) {

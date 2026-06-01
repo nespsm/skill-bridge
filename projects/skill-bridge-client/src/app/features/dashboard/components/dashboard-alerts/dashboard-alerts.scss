@@ -1,0 +1,29 @@
+.orders {
+    background-color: #283EB1;
+    padding: 3rem;
+    border: 1px solid #283EB1;
+    border-radius: 1.6rem;
+}
+
+.orders h3 {
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 2.2rem;
+    line-height: 100%;
+}
+
+.orders p {
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.8rem;
+    color: #CED6FF;
+}
+
+@media screen and (min-width:1367px) {
+    .orders {
+        min-height: 250px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: anchor-center;
+    }
+}

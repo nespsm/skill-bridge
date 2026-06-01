@@ -181,6 +181,7 @@ export class UserModal {
           this.closeModal();
         } else {
           this.dialogService.success(res.message);
+          this.closeModal();
         }
       });
   }

@@ -1,6 +1,4 @@
 export const environment = {
-
-  apiEndPoint : "http://52.172.248.45:8080/user",
-
+  apiEndPoint : "https://52.172.248.45/user",
 
 };

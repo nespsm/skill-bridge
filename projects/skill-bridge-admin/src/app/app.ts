@@ -19,6 +19,6 @@ export class App {
   private store = inject(Store);
 
   ngOnInit() {
-    this.store.dispatch(AuthActions.rehydrateAuth());
+    // this.store.dispatch(AuthActions.rehydrateAuth());
   }
 }

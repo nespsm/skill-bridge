@@ -7,8 +7,6 @@ import { environment } from '../../../../environments/environment';
 })
 export class MasterCategoryService {
 
-
-
     private categoryApi = `${environment.apiEndPoint}/master/skill-category`;
     private categoryStatApi = `${environment.apiEndPoint}/master/stats`;
     private http = inject(HttpClient);

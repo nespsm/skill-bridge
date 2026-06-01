@@ -5,10 +5,15 @@ export type MasterCatModalMode =
     | 'add-skills'
     | 'add-category-skills';
 
-    
+
 export type MasterUserModalMode =
     | 'add'
     | 'edit'
     | 'view'
 
-    
+
+export type SortOption =
+    | ''
+    | 'name-asc'
+    | 'name-desc';
+

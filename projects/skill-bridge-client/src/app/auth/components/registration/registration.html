@@ -3,82 +3,166 @@
 }
 
 <div class="auth-card">
-    <!-- Header -->
+
+    <!-- HEADER -->
     <div class="brand-block">
         <h2>Client Registration</h2>
-        <div class="subtitle">Create your account</div>
+        <div class="subtitle">
+            Create your company account
+        </div>
     </div>
+
+
+
+
 
     <form class="mat-elevation-z8" [formGroup]="registrationForm" (ngSubmit)="register()">
 
-        <!-- Full Name -->
+        <!-- COMPANY NAME -->
         <mat-form-field class="sb-field full-width" appearance="outline">
-            <mat-icon matPrefix>person</mat-icon>
-            <input matInput placeholder="Full Name" formControlName="fullName" />
+            <mat-icon matPrefix>business</mat-icon>
 
-            @if(isControlInvalid(registrationForm.get('fullName'))) {
+            <input matInput placeholder="Company Name" formControlName="companyName" />
+
+            @if (isControlInvalid(registrationForm.get('companyName'))) {
             <mat-error>
-                {{ getError(registrationForm.get('fullName'), 'Full Name') }}
+                {{ getError(registrationForm.get('companyName'), 'Company Name') }}
             </mat-error>
             }
         </mat-form-field>
 
-        <!-- Email / Mobile + OTP button -->
-        <div class="otp-row">
-            <mat-form-field class="sb-field full-width" appearance="outline">
-                <mat-icon matPrefix>mail</mat-icon>
-                <input matInput placeholder="Email Address or Mobile Number" formControlName="userIdentifier" />
 
-                @if(isControlInvalid(registrationForm.get('userIdentifier'))) {
-                <mat-error>
-                    {{ getError(registrationForm.get('userIdentifier'), 'Email or Mobile No') }}
-                </mat-error>
-                }
-            </mat-form-field>
 
-            <button type="button" class="otp-btn" (click)="sendOtp()"
-                [disabled]="registrationForm.get('userIdentifier')?.invalid ||  (emailOtpSent$ | async)">
-                Get OTP
-            </button>
-        </div>
 
-        <!-- OTP boxes -->
-        <div class="otp-inputs" formArrayName="otp">
-            @if (emailOtpSent$ | async) {
-            @for(control of otpControls; track $index) {
-            <input [formControlName]="$index" maxlength="1" type="text" inputmode="numeric" autocomplete="one-time-code"
-                appOtpInput [otpIndex]="$index" [otpArray]="otpArray" />
-            }
-            }
-        </div>
 
-        @if (isOtpInvalid()) {
-        <div class="otp-error">
-            OTP is required
-        </div>
-        }
-
-        <!-- Password -->
+        <!-- COUNTRY -->
         <mat-form-field class="sb-field full-width" appearance="outline">
+            <mat-icon matPrefix>public</mat-icon>
+
+            <input matInput placeholder="Country" formControlName="country" />
+
+            @if (isControlInvalid(registrationForm.get('country'))) {
+            <mat-error>
+                {{ getError(registrationForm.get('country'), 'Country') }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+
+
+
+
+        <!-- REGISTRATION NUMBER -->
+        <mat-form-field class="sb-field full-width" appearance="outline">
+            <mat-icon matPrefix>badge</mat-icon>
+
+            <input matInput placeholder="Registration Number" formControlName="registrationNo" />
+
+            @if (isControlInvalid(registrationForm.get('registrationNo'))) {
+            <mat-error>
+                {{ getError(registrationForm.get('registrationNo'), 'Registration Number') }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+
+
+
+
+        <!-- ADDRESS -->
+        <mat-form-field class="sb-field full-width" appearance="outline">
+            <mat-icon matPrefix>location_on</mat-icon>
+
+            <textarea matInput rows="3" placeholder="Company Address" formControlName="address"></textarea>
+
+            @if (isControlInvalid(registrationForm.get('address'))) {
+            <mat-error>
+                {{ getError(registrationForm.get('address'), 'Address') }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+
+
+
+
+        <!-- ADMIN NAME -->
+        <mat-form-field class="sb-field full-width" appearance="outline">
+            <mat-icon matPrefix>person</mat-icon>
+
+            <input matInput placeholder="Admin Name" formControlName="adminName" />
+
+            @if (isControlInvalid(registrationForm.get('adminName'))) {
+            <mat-error>
+                {{ getError(registrationForm.get('adminName'), 'Admin Name') }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+
+
+
+
+        <!-- ADMIN EMAIL -->
+        <mat-form-field class="sb-field full-width" appearance="outline">
+            <mat-icon matPrefix>mail</mat-icon>
+
+            <input matInput type="email" placeholder="Admin Email" formControlName="adminEmail" />
+
+            @if (isControlInvalid(registrationForm.get('adminEmail'))) {
+            <mat-error>
+                {{ getError(registrationForm.get('adminEmail'), 'Admin Email') }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+
+
+
+
+        <!-- ADMIN PHONE -->
+        <mat-form-field class="sb-field full-width" appearance="outline">
+            <mat-icon matPrefix>phone</mat-icon>
+
+            <input matInput type="tel" placeholder="Admin Phone Number" formControlName="adminPhone" />
+
+            @if (isControlInvalid(registrationForm.get('adminPhone'))) {
+            <mat-error>
+                {{ getError(registrationForm.get('adminPhone'), 'Admin Phone') }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+
+
+
+
+        <!-- PASSWORD -->
+        <mat-form-field class="sb-field full-width gap-lg" appearance="outline">
             <mat-icon matPrefix>lock</mat-icon>
-            <input matInput placeholder="Password (Optional)" [type]="hidePassword ? 'password' : 'text'"
-                formControlName="password" />
-            <button mat-icon-button matSuffix type="button" (click)="togglePassword()"
-                [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'" tabindex="-1">
+
+            <input matInput placeholder="Admin Password" [type]="hidePassword ? 'password' : 'text'"
+                formControlName="adminPassword" />
+
+            <button mat-icon-button matSuffix type="button" tabindex="-1" (click)="togglePassword()">
                 <mat-icon>
                     {{ hidePassword ? 'visibility' : 'visibility_off' }}
                 </mat-icon>
             </button>
 
-            @if(isControlInvalid(registrationForm.get('password'))) {
+            @if (isControlInvalid(registrationForm.get('adminPassword'))) {
             <mat-error>
-                {{ getError(registrationForm.get('password'), 'Password') }}
+                {{ getError(registrationForm.get('adminPassword'), 'Password') }}
             </mat-error>
             }
         </mat-form-field>
 
-        <!-- Submit -->
-        <button class="btn-primary" [disabled]="registrationForm.invalid">
+
+
+
+
+        <!-- SUBMIT -->
+        <button type="submit" class="btn-primary" [disabled]="registrationForm.invalid">
             Register
         </button>
 

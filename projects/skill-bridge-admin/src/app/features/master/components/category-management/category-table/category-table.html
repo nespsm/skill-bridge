@@ -2,18 +2,19 @@
 
     <div class="filter-bar">
         <div class="wrapper-search">
-            <input type="text" placeholder="Search category..." />
+            <input type="text" placeholder="Search category..." [ngModel]="searchText()"
+                (ngModelChange)="updateSearch($event)" />
         </div>
 
         <div class="wrapper-btn">
-            <button class="btn-icon">
-                <span class="icon-mask icon-md icon-funnel"></span>
-                <span>Filter</span>
-            </button>
-            <button class="btn-icon">
+
+            <button class="btn-icon" (click)="toggleSort()">
                 <span class="icon-mask icon-md icon-sort"></span>
-                <span>Sort</span>
+                <span>
+                    {{ sortLabel() }}
+                </span>
             </button>
+
             <button class="btn-secondary btn-green" (click)="addCategory.emit()">
                 <span class="icon-mask icon-sm icon-plus color-white "></span> Add Category
             </button>
@@ -23,29 +24,60 @@
         </div>
     </div>
 
-
     <div class="table-card">
+
         <table class="table-primary">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>
+                        Name
+                        <small>
+                            ({{ filteredCount() }}/{{ totalCategories() }})
+                        </small>
+                    </th>
                     <th>Description</th>
-                    <th class="col-action">Actions</th>
+                    <th class="col-action">
+                        Actions
+                    </th>
                 </tr>
+
             </thead>
+
             <tbody>
-                @for (row of data; track $index) {
+
+                @for (row of categories(); track row.id) {
+
                 <tr>
+
                     <td>{{ row.categoryName }}</td>
+
                     <td>{{ row.description }}</td>
+
                     <td>
+
                         <div class="action-btn">
-                            <button class="btn-table-action btn-view" (click)="view.emit(row)"> View </button>
-                            <button class="btn-table-action btn-add" (click)="addCatSkill.emit(row)"> Add Skills
+
+                            <button class="btn-table-action btn-view" (click)="view.emit(row)">
+                                View
                             </button>
-                            <button class="btn-table-action btn-edit" (click)="edit.emit(row)"> Edit </button>
-                            <button class="btn-table-action badge-red" (click)="deleteCategory(row)"> Delete </button>
+
+                            <button class="btn-table-action btn-add" (click)="addCatSkill.emit(row)">
+                                Add Skills
+                            </button>
+                            <button class="btn-table-action btn-edit" (click)="edit.emit(row)">
+                                Edit
+                            </button>
+                            <button class="btn-table-action badge-red" (click)="deleteCategory(row)">
+                                Delete
+                            </button>
                         </div>
+                    </td>
+                </tr>
+                }
+                @empty {
+                <tr>
+                    <td colspan="3" class="text-center pt-lg">
+                        No categories found.
                     </td>
                 </tr>
                 }

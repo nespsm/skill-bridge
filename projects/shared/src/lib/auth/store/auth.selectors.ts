@@ -13,16 +13,19 @@ export const selectAuthLoading =
 export const selectAuthError =
   createSelector(selectAuthState, state => state.error);
 
-export const selectRequiresTwoFactor =
-  createSelector(selectAuthState, s => s.requiresTwoFactor);
-
-export const selectTwoFactorData =
-  createSelector(selectAuthState, s => s.twoFactorData);
-
 export const selectSessionData =
   createSelector(selectAuthState, s => s.sessionData);
 
-export const selectEmailOtpSent =
-  createSelector(selectAuthState, s => s.emailOtpSent);
+
+// export const selectRequiresTwoFactor =
+//   createSelector(selectAuthState, s => s.requiresTwoFactor);
+
+// export const selectTwoFactorData =
+//   createSelector(selectAuthState, s => s.twoFactorData);
+
+
+// export const selectEmailOtpSent =
+//   createSelector(selectAuthState, s => s.emailOtpSent);
+
 
 

@@ -56,8 +56,6 @@ export class Registration {
   private store = inject(Store);
 
   loading$ = this.store.select(AuthSelectors.selectAuthLoading);
-  emailOtpSent$ = this.store.select(AuthSelectors.selectEmailOtpSent);
-  twoFactorData$ = this.store.select(AuthSelectors.selectTwoFactorData);
 
   hidePassword = true;
 
@@ -72,7 +70,6 @@ export class Registration {
 
 
   ngOnInit() {
-    this.listenToStoreSelectors();
     this.listenFormControlChanges();
   }
 
@@ -82,15 +79,10 @@ export class Registration {
     .valueChanges
     .subscribe(() => {
       // this.otpArray.reset();
-      this.store.dispatch(AuthActions.resetEmailOtpState());
+      // this.store.dispatch(AuthActions.resetEmailOtpState());
     });
   }
 
-  listenToStoreSelectors() {
-    this.twoFactorData$.subscribe(data => {
-      if (data) this.open2FADialog(data);
-    });
-  }
 
   // get otpControls() {
   //   return (this.registrationForm.get('otp') as FormArray).controls;
@@ -122,15 +114,15 @@ export class Registration {
     // this.otpArray.markAllAsTouched();
     if (this.registrationForm.invalid) return;
 
-    this.store.dispatch(
-      AuthActions.register({
-        name: this.registrationForm.value.fullName!,
-        // emailOtp: this.getOtpValue(),
-        email: this.registrationForm.value.email!,
-        password: this.registrationForm.value.password!,
-        roleId: 1
-      })
-    );
+    // this.store.dispatch(
+    //   AuthActions.register({
+    //     name: this.registrationForm.value.fullName!,
+    //     // emailOtp: this.getOtpValue(),
+    //     email: this.registrationForm.value.email!,
+    //     password: this.registrationForm.value.password!,
+    //     roleId: 1
+    //   })
+    // );
   }
 
 
@@ -150,9 +142,9 @@ export class Registration {
     dialogRef.afterClosed().subscribe((otp: string | null) => {
       if (!otp) return;
 
-      this.store.dispatch(
-        AuthActions.verifyOtp({ otp, userIdentifier: signupData.email })
-      );
+      // this.store.dispatch(
+      //   AuthActions.verifyOtp({ otp, userIdentifier: signupData.email })
+      // );
     });
   }
 

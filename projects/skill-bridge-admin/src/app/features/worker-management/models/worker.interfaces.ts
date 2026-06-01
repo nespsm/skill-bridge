@@ -1,5 +1,4 @@
 export interface WorkerCatType {
-
     categoryId: number;
     categoryName: string;
     workerCount: number;
@@ -19,7 +18,6 @@ export interface WorkerCatSkillType {
 }
 
 export interface WorkerListData {
-
     id: number,
     workerId: string,
     name: string,

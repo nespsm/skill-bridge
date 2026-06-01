@@ -17,6 +17,7 @@ export class DialogService {
     });
   }
 
+  
   success(message: string, title = 'Success') {
     return this.open({ type: 'success', title, message });
   }

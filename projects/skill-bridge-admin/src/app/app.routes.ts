@@ -7,12 +7,12 @@ import { mainRoutes } from './layout/main.routes';
 export const routes: Routes = [
     {
         path: '',
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
         loadChildren: () => mainRoutes
     },
     {
         path: 'auth',
-        canActivate: [guestGuard],
+        // canActivate: [guestGuard],
         loadChildren: () => authRoutes
     },
     {

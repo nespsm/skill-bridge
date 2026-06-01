@@ -6,6 +6,7 @@ import { catchError, map, of, switchMap, tap } from "rxjs";
 import * as AuthActions from './auth.actions';
 import { inject } from "@angular/core";
 import { AuthService } from "../services/auth-service";
+import { DialogService } from "../../services/dialog-service";
 
 @Injectable({ providedIn: 'root' })
 export class AuthEffects {
@@ -13,31 +14,27 @@ export class AuthEffects {
   private authService = inject(AuthService);
   private tokenService = inject(TokenService);
   private router = inject(Router);
+  private dialogService = inject(DialogService);
 
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.login),
       switchMap(({ userIdentifier, password, userType }) =>
         this.authService.login(userIdentifier, password, userType).pipe(
+
           map(res => {
-            // if (res.twoFactorData) {
-            //   return AuthActions.loginRequires2FA({
-            //     twoFactorData: res.twoFactorData
-            //   });
-            // }
-
-            if(res.sessionData) {
-              this.tokenService.saveSession(
-                res.sessionData
-              );
-  
-              return AuthActions.verifyOtpSuccess({
-                sessionData: res.sessionData
-              });
+            debugger;
+            if (!res.sessionData) {
+              throw new Error(res.message);
             }
-
-            throw new Error('Invalid login response');
+            this.tokenService.saveSession(
+              res.sessionData
+            );
+            return AuthActions.loginSuccess({
+              sessionData: res.sessionData
+            });
           }),
+
           catchError(err =>
             of(AuthActions.loginFailure({
               error: err.error?.message || 'Login failed'
@@ -49,24 +46,38 @@ export class AuthEffects {
   );
 
 
-  verifyOtp$ = createEffect(() =>
+  register$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.verifyOtp),
-      switchMap(({ otp, userIdentifier }) =>
-        this.authService.verifyOtp(otp, userIdentifier).pipe(
+      ofType(AuthActions.register),
+      switchMap(payload =>
+        this.authService.register(
+          payload.companyName,
+          payload.registrationNo,
+          payload.country,
+          payload.address,
+          payload.adminName,
+          payload.adminEmail,
+          payload.adminPassword,
+          payload.adminPhone
+        ).pipe(
+
           map(res => {
-            
+            if (!res.sessionData) {
+              throw new Error(res.message);
+            }
+
             this.tokenService.saveSession(
-              res.data.sessionData
+              res.sessionData
             );
 
-            return AuthActions.verifyOtpSuccess({
-              sessionData: res.data.sessionData
+            return AuthActions.registerSuccess({
+              sessionData: res.sessionData
             });
           }),
+
           catchError(err =>
-            of(AuthActions.verifyOtpFailure({
-              error: err.error?.message || 'OTP verification failed'
+            of(AuthActions.registerFailure({
+              error: err.error?.message || 'Registration failed'
             }))
           )
         )
@@ -74,35 +85,67 @@ export class AuthEffects {
     )
   );
 
-  loginSuccessRedirect$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActions.verifyOtpSuccess),
-        tap((otpSuccess) => this.authService.routeToDashboard(otpSuccess.sessionData))
-      ),
-    { dispatch: false }
-  );
 
-  loginFailureRedirect$ = createEffect(
+  authSuccessRedirect$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActions.verifyOtpFailure),
-        tap(({ error }) => {
-          console.error('OTP Verification failed. Redirecting to login: ', error);
-          this.router.navigate(['/auth/login']);
+        ofType(
+          AuthActions.loginSuccess,
+          AuthActions.registerSuccess
+        ),
+
+        tap(({ sessionData }) => {
+          this.authService.routeToDashboard(sessionData);
         })
       ),
     { dispatch: false }
   );
 
+
+  loginFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginFailure),
+
+        tap(({ error }) => {
+          debugger;
+          console.error('Login Failed:', error);
+          this.dialogService.error(error);
+
+        })
+      ),
+    { dispatch: false }
+  );
+
+
+  registerFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.registerFailure),
+
+        tap(({ error }) => {
+          
+          console.error('Register Failed:', error);
+
+          this.dialogService.error(error);
+
+        })
+      ),
+    { dispatch: false }
+  );
 
 
   logout$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(AuthActions.logout),
+
         tap(() => {
+
+          // CLEAR STORAGE
           this.tokenService.clearTokens();
+
+          // REDIRECT
           this.router.navigate(['/auth/login']);
         })
       ),
@@ -113,99 +156,29 @@ export class AuthEffects {
 
 
 
+  /*
+  |--------------------------------------------------------------------------
+  | REHYDRATE AUTH (APP REFRESH FIX)
+  |--------------------------------------------------------------------------
+  */
 
-
-
-
-
-
-
-  sendEmailOtp$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.sendEmailOtp),
-      switchMap(({ userIdentifier, userType }) => {
-        // return of(AuthActions.sendEmailOtpSuccess());
-        return this.authService.sendEmailOtp(userIdentifier, userType).pipe(
-          map(() => AuthActions.sendEmailOtpSuccess()),
-          catchError(err =>
-            of(AuthActions.sendEmailOtpFailure({
-              error: err.message || 'Email OTP failed'
-            }))
-          )
-        ); 
-      }
-      )
-    )
-  );
-
-
-  sendEmailOtpFailure$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.sendEmailOtpFailure),
-      tap(({ error }) => {
-        console.error(error);
-      })
-    ),
-    { dispatch: false }
-  );
-
-
-  register$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.register),
-      switchMap(payload =>
-        this.authService.register(
-          payload.name,
-          payload.email,
-          payload.password!,
-          payload.roleId,
-          // payload.emailOtp
-        ).pipe(
-          map(res => {
-            if (!res.status) throw new Error(res.message);
-            return AuthActions.registerRequires2FA(res.twoFactorData);
-          }),
-          catchError(err =>
-            of(AuthActions.verifyOtpRegisterFailure({
-              error: err.message || 'Register failed'
-            }))
-          )
-        )
-      )
-    )
-  );
-
-
-
-  verifyOtpRegisterFailure$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.verifyOtpRegisterFailure),
-      tap(({ error }) => {
-        console.error(error);
-        this.router.navigate(['/auth/register']);
-      })
-    ),
-    { dispatch: false }
-  );
-
-
-
-
-
-  // auth.effects.ts
   rehydrateAuth$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.rehydrateAuth),
+
       map(() => {
+
         const session = this.tokenService.getSession();
 
-        if (session && session.token) {
-          return AuthActions.rehydrateAuthSuccess({ sessionData: session });
+        if (session?.token) {
+
+          return AuthActions.rehydrateAuthSuccess({
+            sessionData: session
+          });
         }
 
         return AuthActions.rehydrateAuthFailure();
       })
     )
   );
-
 }

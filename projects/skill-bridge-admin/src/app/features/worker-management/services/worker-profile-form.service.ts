@@ -61,7 +61,7 @@ export class WorkerProfileFormService {
         return this.fb.group({
             skillId: [skill.skillId],
             skillName: [{ value: skill.skillName, disabled: true, },],
-            isVerified: [skill.isVerified],
+            isVerified: [{ value: skill.isVerified, disabled: true, },],
         });
     }
 

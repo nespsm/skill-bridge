@@ -57,21 +57,21 @@ export class Login {
   loginForm!: FormGroup;
 
   loading$ = this.store.select(AuthSelectors.selectAuthLoading);
-  twoFactorData$ = this.store.select(AuthSelectors.selectTwoFactorData);
+  // twoFactorData$ = this.store.select(AuthSelectors.selectTwoFactorData);
 
 
 
   ngOnInit(): void {
     // Initialize login form
     this.initializeForm();
-    this.listenToStoreSelectors();
+    // this.listenToStoreSelectors();
   }
 
-  listenToStoreSelectors() {
-    this.twoFactorData$.subscribe(data => {
-      if (data) this.open2FADialog(data);
-    });
-  }
+  // listenToStoreSelectors() {
+  //   this.twoFactorData$.subscribe(data => {
+  //     if (data) this.open2FADialog(data);
+  //   });
+  // }
 
   initializeForm() {
     this.loginForm = this.fb.group({
@@ -100,27 +100,27 @@ export class Login {
   }
 
 
-  private open2FADialog(loginData: any) {
-    const dialogRef = this.dialog.open(TwoFactorAuth, {
-      width: '650px',
-      maxHeight: '90vh',
-      disableClose: true,
-      autoFocus: false,
-      restoreFocus: false,
-      scrollStrategy: this.overlay.scrollStrategies.block(),
-      panelClass: 'app-dialog',
-      data: { userIdentifier: loginData.userIdentifier }
-    });
+  // private open2FADialog(loginData: any) {
+  //   const dialogRef = this.dialog.open(TwoFactorAuth, {
+  //     width: '650px',
+  //     maxHeight: '90vh',
+  //     disableClose: true,
+  //     autoFocus: false,
+  //     restoreFocus: false,
+  //     scrollStrategy: this.overlay.scrollStrategies.block(),
+  //     panelClass: 'app-dialog',
+  //     data: { userIdentifier: loginData.userIdentifier }
+  //   });
 
-    dialogRef.afterClosed().subscribe((otp: string | null) => {
-      if (!otp) return;
-      // this.router.navigate(['/dashboard']);
+  //   dialogRef.afterClosed().subscribe((otp: string | null) => {
+  //     if (!otp) return;
+  //     // this.router.navigate(['/dashboard']);
 
-      // this.store.dispatch(
-      //   AuthActions.verifyOtp({ otp, userIdentifier: loginData.userIdentifier })
-      // );
-    });
-  }
+  //     // this.store.dispatch(
+  //     //   AuthActions.verifyOtp({ otp, userIdentifier: loginData.userIdentifier })
+  //     // );
+  //   });
+  // }
 
 
 

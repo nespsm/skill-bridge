@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, of, switchMap } from 'rxjs';
 import { AuthConfig } from '../interfaces/auth.interfaces';
 import { AUTH_CONFIG } from '../config/auth-config.token';
+import { UserTypes } from '../enums/user-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -37,21 +38,30 @@ export class AuthService {
 
 
 
-  
+
   register(
-    name: string,
-    userIdentifier: string,
-    password: string,
-    roleId: number,
-    // emailOtp: string,
+    companyName: string,
+    registrationNo: string,
+    country: string,
+    address: string,
+    adminName: string,
+    adminEmail: string,
+    adminPassword: string,
+    adminPhone: string
   ): Observable<any> {
+    if (this.config.userType === UserTypes.CLIENT) {
+      this.signupApiUrl = this.config.apiBaseUrl + '/auth/company/register';
+    }
     return this.http.post<any>(`${this.signupApiUrl}`,
       {
-        name,
-        email:userIdentifier,
-        password: password,
-        roleId
-        // emailOtp: emailOtp
+        companyName,
+        registrationNo,
+        country,
+        address,
+        adminName,
+        adminEmail,
+        adminPassword,
+        adminPhone
       })
       .pipe(
         switchMap((response: any) => {
@@ -62,12 +72,17 @@ export class AuthService {
 
 
   login(userIdentifier: string, password: string, userType: string): Observable<any> {
-    return this.http.post<any>(`${this.loginApiUrl}`,
-      {
-        username: userIdentifier,
-        password: password,
-        // userType: userType
-      })
+    const payload =
+      this.config.userType === UserTypes.CLIENT
+        ? { email: userIdentifier, password }
+        : { username: userIdentifier, password };
+
+    this.loginApiUrl =
+      this.config.userType === UserTypes.CLIENT
+        ? `${this.config.apiBaseUrl}/auth/company/login`
+        : `${this.config.apiBaseUrl}/admin/auth/login/v1.0`;
+
+    return this.http.post<any>(`${this.loginApiUrl}`, payload)
       .pipe(
         switchMap((response: any) => {
           return this.sendSessionData(response);
