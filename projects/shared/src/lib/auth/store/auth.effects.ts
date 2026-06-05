@@ -23,7 +23,6 @@ export class AuthEffects {
         this.authService.login(userIdentifier, password, userType).pipe(
 
           map(res => {
-            debugger;
             if (!res.sessionData) {
               throw new Error(res.message);
             }
@@ -108,7 +107,6 @@ export class AuthEffects {
         ofType(AuthActions.loginFailure),
 
         tap(({ error }) => {
-          debugger;
           console.error('Login Failed:', error);
           this.dialogService.error(error);
 

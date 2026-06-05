@@ -71,7 +71,9 @@ export class User {
         panelClass: 'app-dialog',
         data: { mode, data, userRoles }
       });
-    ref.afterClosed().subscribe(ok => { if (ok) this.load(); });
+    ref.afterClosed().subscribe(ok => { 
+      if (ok) this.load(); 
+    });
   }
 
   delete(row: UserData) {

@@ -3,40 +3,51 @@
     <div class="wrapper-form">
 
         <div class="form-header">
-            <span>Document Details</span>
+            <span>Bank Details</span>
         </div>
 
-        <form [formGroup]="documents" class="mat-elevation-z8 pt-sm">
+        <form [formGroup]="workerBankDetailsFG"
+              class="mat-elevation-z8 pt-sm">
 
             <div class="form-grid">
 
                 <div>
                     <label class="field-label">
-                        Driving License No.
+                        Bank Name
                     </label>
 
                     <mat-form-field class="gap-md" appearance="outline">
-                        <input matInput formControlName="drivingLicenseNo" />
+                        <input matInput formControlName="bankName" />
                     </mat-form-field>
                 </div>
 
                 <div>
                     <label class="field-label">
-                        Aadhaar Number
+                        Account Holder Name
                     </label>
 
                     <mat-form-field class="gap-md" appearance="outline">
-                        <input matInput formControlName="aadharNo" />
+                        <input matInput formControlName="accountHolderName" />
                     </mat-form-field>
                 </div>
 
                 <div>
                     <label class="field-label">
-                        PAN Number
+                        Account Number
                     </label>
 
                     <mat-form-field class="gap-md" appearance="outline">
-                        <input matInput formControlName="panNo" />
+                        <input matInput formControlName="accountNumber" />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <label class="field-label">
+                        IFSC Code
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="ifscCode" />
                     </mat-form-field>
                 </div>
 

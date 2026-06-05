@@ -1,26 +1,41 @@
 <mat-tab-group class="worker-tabs">
-    <mat-tab label="Personal Details"> <details-personal-form [form]="personalDetailsFG">
+    <mat-tab label="Personal Details"> 
+        <details-personal-form [personalDetailsFG]="personalDetailsFG">
         </details-personal-form>
     </mat-tab>
+
     <mat-tab label="Passport">
-        <details-passport-form [form]="passportFG"> </details-passport-form>
+        <details-passport-form [passportFG]="passportFG"> </details-passport-form>
     </mat-tab>
+
     <mat-tab label="Skills">
         <details-skills-form [skills]="skillsFA">
         </details-skills-form>
-    </mat-tab> <mat-tab label="Documents">
-        <details-documents-form [documents]="documentsFA">
+    </mat-tab> 
 
-        </details-documents-form>
+    <mat-tab label="Documents">
+        <details-documents-form [documents]="documentsFG"></details-documents-form>
     </mat-tab>
+
+    <mat-tab label="Certificates">
+        <details-certificate [workerCertificatesFA]="workerCertificatesFA"></details-certificate>
+    </mat-tab>
+
+    
     <mat-tab label="Visa & Medical">
-        <details-visa-medical-form [form]="visaMedicalFG"> </details-visa-medical-form>
+        <details-visa-medical-form [visaMedicalFG]="visaMedicalFG"> </details-visa-medical-form>
     </mat-tab>
+    
     <mat-tab label="Hiring History">
         <details-hiring-history [hiringHistory]="hiringHistoryFA">
         </details-hiring-history>
     </mat-tab>
+    
     <mat-tab label="Emergency Contact & Notes">
-        <details-emergency-notes [form]="emergencyNotesFG"> </details-emergency-notes>
+        <details-emergency-notes [emergencyNotesFG]="emergencyNotesFG"> </details-emergency-notes>
+    </mat-tab>
+
+    <mat-tab label="Bank Details">
+        <details-bank-info [workerBankDetailsFG]="workerBankDetailsFG"></details-bank-info>
     </mat-tab>
 </mat-tab-group>

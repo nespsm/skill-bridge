@@ -1,1 +1,90 @@
-<p>details-hiring-history works!</p>
+<div class="wrapper-form">
+
+    <div class="form-header">
+        <span>Hiring History</span>
+    </div>
+
+    @if (historyControls.length > 0) {
+
+    <div class="history-wrapper">
+
+        @for (
+        history of historyControls;
+        track $index
+        ) {
+
+        <div class="history-card mat-elevation-z2" [formGroup]="history">
+
+            <div class="card-title">
+                Employment #{{ $index + 1 }}
+            </div>
+
+            <div class="form-grid">
+
+                <div>
+                    <label class="field-label">
+                        Company Name
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="companyName" />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <label class="field-label">
+                        Start Date
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="startDate" />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <label class="field-label">
+                        End Date
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="endDate" />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <label class="field-label">
+                        Rating
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="rating" />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <label class="field-label">
+                        Location
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="location" />
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+    } @else {
+
+    <div class="text-center">
+        No hiring history available.
+    </div>
+
+    }
+
+</div>

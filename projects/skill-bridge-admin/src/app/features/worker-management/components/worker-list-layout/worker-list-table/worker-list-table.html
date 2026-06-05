@@ -10,25 +10,29 @@
     <div class="filter-bar">
 
         <div class="wrapper-search">
-            <input type="text" placeholder="Search category..." />
+            <input type="text" placeholder="Search worker..." [(ngModel)]="searchKey"
+                (ngModelChange)="onSearchChange($event)" />
         </div>
 
 
 
-        <!-- <div class="wrapper-btn">
-            <button class="btn-icon">
-                <span class="icon-mask icon-md icon-funnel"></span>
-                <span>Filter</span>
-            </button>
-            <button class="btn-icon">
-                <span class="icon-mask icon-md icon-sort"></span>
-                <span>Sort</span>
+        <div class="wrapper-btn">
+            <button class="btn-icon" type="button">
+                <!-- <span class="icon-mask icon-md icon-sort"></span> -->
+                <span>Sort:</span>
             </button>
 
-            <button class="btn-green">
-                <span class="icon-mask icon-sm icon-export-doc"></span> Export
-            </button>
-        </div> -->
+            <mat-form-field class="gap-md" appearance="outline">
+                <mat-select [(ngModel)]="sortBy" (ngModelChange)="onSortChange($event)">
+                    <mat-option value="">Default</mat-option>
+                    <mat-option value="rating">Rating</mat-option>
+                    <mat-option value="yearsOfExperience">
+                        Years of Experience
+                    </mat-option>
+
+                </mat-select>
+            </mat-form-field>
+        </div>
 
     </div>
 
@@ -40,7 +44,9 @@
                     <th>Name</th>
                     <th>Role</th>
                     <th>Phone</th>
-                    <th>Passport</th>
+                    <th>Rating</th>
+                    <th>YOE</th>
+                    <!-- <th>Passport</th> -->
                     <th>Interest</th>
                     <th>Status</th>
                     <th>Abroad</th>
@@ -53,11 +59,13 @@
                     <td>{{ worker.name }}</td>
                     <td>{{ worker.role }}</td>
                     <td>{{ worker.mobileNumber }}</td>
-                    <td>
+                    <td>{{ worker.rating }}</td>
+                    <td>{{ worker.yearsOfExperience }}</td>
+                    <!-- <td>
                         <span class="passport-badge" [ngClass]="getBadgeClass(worker.passport)">
                             {{ worker.passport }}
                         </span>
-                    </td>
+                    </td> -->
                     <td>
                         <span class="badge" [ngClass]="getBadgeClass(worker.interest)">
                             {{ worker.interest }}

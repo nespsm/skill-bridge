@@ -176,12 +176,12 @@ export class UserModal {
     }
     this.userService.createUser(userPayload)
       .subscribe((res) => {
-        if (res.status === 200) {
+        if (res.status === '200') {
           this.dialogService.success(res.message);
-          this.closeModal();
+          this.closeModal(true);
         } else {
-          this.dialogService.success(res.message);
-          this.closeModal();
+          this.dialogService.error(res.message);
+          // this.closeModal();
         }
       });
   }
@@ -189,7 +189,7 @@ export class UserModal {
 
 
 
-  closeModal() { this.close(); }
+  closeModal(status: boolean) { this.close(status); }
 
 
   private close(status?: boolean) { this.dialogRef.close(status); }

@@ -1,54 +1,111 @@
-@if(worker) {
-
+@if (worker) {
 
 <div class="header">
+
     <div class="wrapper-meta">
+
         <div class="name-row">
-            <h2>{{worker.firstName}} {{worker.lastName}}</h2> <span class="worker-id">Worker ID: {{worker.workerCode}}</span>
+            <h2>
+                {{ worker.firstName }} {{ worker.lastName }}
+            </h2>
+
+            <span class="worker-id">
+                Worker ID: {{ worker.workerCode }}
+            </span>
         </div>
-        <div class="progress-wrapper"> <span>Profile Completion</span>
-            <div class="progress-bar-wrapper"> <span class="color-active">  90% </span>
-                <!-- {{ worker.profileCompletion }} -->
+
+        <div class="progress-wrapper">
+
+            <span>
+                Profile Completion
+            </span>
+
+            <div class="progress-bar-wrapper">
+                <span class="color-active">
+                    90%
+                </span>
             </div>
+
         </div>
+
     </div>
+
     <div class="wrapper-status-group">
+
+        <!-- ACTIVE / INACTIVE -->
+
         <div class="active-status">
-            <button class="btn-status" [ngClass]="getStatusClass(worker.isActive)" mat-button
+
+            <button class="btn-status" mat-button [ngClass]="getStatusClass(currentActiveStatus)"
                 [matMenuTriggerFor]="statusMenu">
-                <span>{{worker.isActive ? "Active" : "Inactive"}}</span>
+
+                <span>
+                    {{ currentActiveStatus ? 'Active' : 'Inactive' }}
+                </span>
+
                 <span>|</span>
-                <span class="icon-mask icon-sm icon-chevron-down color-white"></span>
+
+                <span class="icon-mask icon-sm icon-chevron-down color-white">
+                </span>
+
             </button>
+
             <mat-menu #statusMenu="matMenu">
-                @if(worker.isActive !== true) {
-                <button mat-menu-item (click)="updateStatus(true)">Active</button>
+
+                @if (!currentActiveStatus) {
+                <button mat-menu-item (click)="updateStatus(true)">
+                    Active
+                </button>
                 }
-                @if(worker.isActive !== false) {
-                <button mat-menu-item (click)="updateStatus(false)">Inactive</button>
+
+                @if (currentActiveStatus) {
+                <button mat-menu-item (click)="updateStatus(false)">
+                    Inactive
+                </button>
                 }
+
             </mat-menu>
+
         </div>
-        <!-- <div class="active-status">
-            <button class="btn-status" [ngClass]="getStatusClass(worker.abroadStatus)" mat-button
+
+        <!-- ABROAD STATUS -->
+
+        <div class="active-status">
+
+            <button class="btn-status" mat-button [ngClass]="getStatusClass(currentAbroadStatus)"
                 [matMenuTriggerFor]="abroadMenu">
-                <span>{{worker.abroadStatus}}</span>
+
+                <span>
+                    {{ currentAbroadStatus }}
+                </span>
+
                 <span>|</span>
-                <span class="icon-mask icon-sm icon-chevron-down color-white"></span>
+
+                <span class="icon-mask icon-sm icon-chevron-down color-white">
+                </span>
+
             </button>
+
             <mat-menu #abroadMenu="matMenu">
-                @if(worker.abroadStatus !== "Not Hired for Abroad") {
-                <button mat-menu-item (click)="updateAbroadStatus('Not Hired for Abroad')">
-                    Not Hired for Abroad
+
+                @if (currentAbroadStatus !== 'Interested') {
+                <button mat-menu-item (click)="updateAbroadStatus('Interested')">
+                    Interested
                 </button>
                 }
-                @if(worker.abroadStatus !== "Hired for Abroad") {
-                <button mat-menu-item (click)="updateAbroadStatus('Hired for Abroad')">
-                    Hired for Abroad
+
+                @if (currentAbroadStatus !== 'Not Interested') {
+                <button mat-menu-item (click)="updateAbroadStatus('Not Interested')">
+                    Not Interested
                 </button>
                 }
+
             </mat-menu>
-        </div> -->
+
+        </div>
+
     </div>
+
 </div>
+
 }

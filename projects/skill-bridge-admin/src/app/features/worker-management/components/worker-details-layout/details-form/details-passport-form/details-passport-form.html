@@ -1,1 +1,41 @@
-<p>details-passport-form works!</p>
+<div class="form-layout-skill">
+    <div class="wrapper-form">
+
+        <div class="form-header">
+            <span>Passport Details</span>
+        </div>
+
+        <form [formGroup]="passportFG" class="mat-elevation-z8 pt-sm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label class="field-label">Passport Number</label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="passportNumber" />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <label class="field-label">Issue Date</label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="issueDate" />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <label class="field-label">Expiry Date</label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="expiryDate" />
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>

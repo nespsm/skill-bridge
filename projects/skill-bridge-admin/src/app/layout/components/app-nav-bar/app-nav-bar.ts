@@ -42,11 +42,11 @@ export class AppNavBar {
   }
 
   get filteredNavItems(): NavBarItem[] {
-    // return this.navBarData.filter(item =>
-    //   item.usertype.includes(this.sessionData().role)
-    // );
+    return this.navBarData.filter(item =>
+      item.usertype.includes(this.sessionData().role)
+    );
 
-    return this.navBarData;
+    // return this.navBarData;
   }
 
   logout() {
@@ -55,7 +55,7 @@ export class AppNavBar {
   }
 
   getRole() {
-    return '';
+    // return '';
     return this.sessionData().role.replace(/_/g, ' ');
   }
 }

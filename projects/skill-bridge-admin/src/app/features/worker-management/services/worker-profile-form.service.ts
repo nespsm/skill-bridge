@@ -5,7 +5,7 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { Skill, SkillCategory, WorkerProfile } from '../models/worker.interfaces';
+import { Skill, SkillCategory, VisaMedial, WorkerDocument, WorkerProfile } from '../models/worker.interfaces';
 
 
 @Injectable({
@@ -17,12 +17,15 @@ export class WorkerProfileFormService {
     buildForm(worker: WorkerProfile | null): FormGroup {
         return this.fb.group({
             personalDetails: this.createPersonalDetailsGroup(worker),
-            passport: this.fb.group({}),
+            passport: this.createPassportGroup(worker),
             skills: this.fb.array(worker?.skill?.map((skillCategory) => this.createSkillCategoryForm(skillCategory)) || []),
-            documents: this.fb.array([]),
-            visaMedical: this.fb.group({}),
-            hiringHistory: this.fb.array([]),
-            emergencyNotes: this.fb.group({}),
+            documents: this.createDocumentsGroup(worker?.workerDocuments),
+            hiringHistory: this.fb.array(worker?.hiringHistory?.map((history) => this.createHiringHistoryGroup(history)) || []),
+            visaMedical: this.createVisaMedicalGroup(worker?.visaMedical),
+            emergencyNotes: this.createEmergencyNotesGroup(worker),
+            workerBankDetails: this.createBankDetailsGroup(worker),
+            workerCertificates: this.fb.array(worker?.workerCertificates?.map((certificates) => this.createCertificatesGroup(certificates)) || []),
+
         });
     }
 
@@ -57,6 +60,18 @@ export class WorkerProfileFormService {
         });
     }
 
+    private createHiringHistoryGroup(
+        history: any
+    ): FormGroup {
+        return this.fb.group({
+            companyName: [history.companyName],
+            startDate: [{ value: history.startDate, disabled: true, },],
+            endDate: [{ value: history.endDate, disabled: true, },],
+            rating: [{ value: history.rating, disabled: true, },],
+            location: [{ value: history.location, disabled: true, },],
+        });
+    }
+
     private createSkillForm(skill: Skill): FormGroup {
         return this.fb.group({
             skillId: [skill.skillId],
@@ -74,5 +89,96 @@ export class WorkerProfileFormService {
         index: number
     ): FormArray {
         return this.getSkillsFormArray(form).at(index).get('skills') as FormArray;
+    }
+
+
+
+
+
+    private createDocumentsGroup(
+        documents: WorkerDocument | any
+    ): FormGroup {
+        return this.fb.group({
+            workerId: [{ value: documents?.workerId ?? '', disabled: true }],
+            drivingLicenseNo: [{ value: documents?.drivingLicenseNo ?? '', disabled: true }],
+            aadharNo: [{ value: documents?.aadharNo ?? '', disabled: true }],
+            panNo: [{ value: documents?.panNo ?? '', disabled: true }]
+        });
+    }
+
+
+    private createVisaMedicalGroup(
+        visaMedical: VisaMedial | any
+    ): FormGroup {
+        return this.fb.group({
+            abroadStatus: [{ value: visaMedical?.abroadStatus ?? '', disabled: true }],
+            preferredCountry: [{ value: visaMedical?.preferredCountry ?? '', disabled: true }]
+        });
+    }
+
+
+    private createEmergencyNotesGroup(
+        worker: WorkerProfile | null
+    ): FormGroup {
+
+        return this.fb.group({
+            contactName: [{ value: worker?.emergencyContact?.contactName ?? '', disabled: true }],
+            relation: [{ value: worker?.emergencyContact?.relation ?? '', disabled: true }],
+            contactNumber: [{ value: worker?.emergencyContact?.contactNumber ?? '', disabled: true }],
+            internalNotes: [{ value: worker?.emergencyContact?.internalNotes ?? '', disabled: true }]
+        });
+    }
+
+    private createCertificatesGroup(
+        certificates: any
+    ): FormGroup {
+
+        return this.fb.group({
+            id: [{ value: certificates?.id ?? '', disabled: true }],
+            startDate: [{ value: certificates?.startDate ?? '', disabled: true }],
+            endDate: [{ value: certificates?.endDate ?? '', disabled: true }],
+            certification: this.createCertificationSubGroup(certificates.certification),
+        });
+    }
+
+    private createCertificationSubGroup(
+        certificatesDetails: any
+    ): FormGroup {
+
+        return this.fb.group({
+            certificationId: [{ value: certificatesDetails?.certificationId ?? '', disabled: true }],
+            certificationName: [{ value: certificatesDetails?.certificationName ?? '', disabled: true }],
+            certificationDescription: [{ value: certificatesDetails?.certificationDescription ?? '', disabled: true }],
+            certificationType: [{ value: certificatesDetails?.certificationType ?? '', disabled: true }],
+            certificationCategory: [{ value: certificatesDetails?.certificationCategory ?? '', disabled: true }],
+            creationDate: [{ value: certificatesDetails?.creationDate ?? '', disabled: true }],
+            active: [{ value: certificatesDetails?.active ?? '', disabled: true }],
+        });
+    }
+
+    private createBankDetailsGroup(
+        worker: WorkerProfile | null
+    ): FormGroup {
+
+        return this.fb.group({
+            workerId: [{ value: worker?.workerBankDetails?.workerId ?? '', disabled: true }],
+            bankName: [{ value: worker?.workerBankDetails?.bankName ?? '', disabled: true }],
+            accountHolderName: [{ value: worker?.workerBankDetails?.accountHolderName ?? '', disabled: true }],
+            accountNumber: [{ value: worker?.workerBankDetails?.accountNumber ?? '', disabled: true }],
+            ifscCode: [{ value: worker?.workerBankDetails?.ifscCode ?? '', disabled: true }]
+        });
+    }
+
+
+
+
+    private createPassportGroup(
+        worker: WorkerProfile | null
+    ): FormGroup {
+        return this.fb.group({
+            passportNumber: [{ value: '', disabled: true }],
+            issueDate: [{ value: '', disabled: true }],
+            expiryDate: [{ value: '', disabled: true }]
+        });
     }
 }

@@ -1,6 +1,6 @@
 <div class="container-modal">
     <form class="modal-form mat-elevation-z8" [formGroup]="userForm" (ngSubmit)="submit()">
-        <button type="button" class="btn-close" (click)="closeModal()">
+        <button type="button" class="btn-close" (click)="closeModal(false)">
             <span class="icon-mask icon-md icon-close"></span>
         </button>
         <!-- Header -->
@@ -105,7 +105,7 @@
 
         <!-- Actions -->
         <div class="form-actions">
-            <button type="button" class="btn-cancel btn-form" (click)="closeModal()">
+            <button type="button" class="btn-cancel btn-form" (click)="closeModal(false)">
                 Cancel
             </button>
 

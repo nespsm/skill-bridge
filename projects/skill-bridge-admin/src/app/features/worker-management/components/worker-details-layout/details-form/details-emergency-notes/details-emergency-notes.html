@@ -1,1 +1,64 @@
-<p>details-emergency-notes works!</p>
+<div class="form-layout-skill">
+
+    <div class="wrapper-form">
+
+        <div class="form-header">
+            <span>Emergency Contact</span>
+        </div>
+
+        <form [formGroup]="emergencyNotesFG"
+              class="mat-elevation-z8 pt-sm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label class="field-label">
+                        Contact Name
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="contactName" />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <label class="field-label">
+                        Relation
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="relation" />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <label class="field-label">
+                        Contact Number
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="contactNumber" />
+                    </mat-form-field>
+                </div>
+
+                <div class="full">
+                    <label class="field-label">
+                        Notes
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <textarea
+                            matInput
+                            rows="4"
+                            formControlName="internalNotes">
+                        </textarea>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

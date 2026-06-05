@@ -5,17 +5,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'details-visa-medical-form',
+  selector: 'details-bank-info',
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule 
   ],
-  templateUrl: './details-visa-medical-form.html',
-  styleUrl: './details-visa-medical-form.scss',
+  templateUrl: './details-bank-info.html',
+  styleUrl: './details-bank-info.scss',
 })
-export class DetailsVisaMedicalForm {
+export class DetailsBankInfo {
 
-  @Input() visaMedicalFG!: FormGroup;
+    @Input() workerBankDetailsFG!: FormGroup;
+
 }

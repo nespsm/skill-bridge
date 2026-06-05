@@ -6,15 +6,21 @@ import { PageEvent } from '@angular/material/paginator';
 
 import { WorkerCategoryTile } from '../worker-category-title/worker-category-tile';
 import { WorkerListTable } from '../worker-list-table/worker-list-table';
-import { WorkerCatSkillType, WorkerCatType, WorkerListData } from '../../../models/worker.interfaces';
+import {
+  WorkerCatSkillType,
+  WorkerCatType,
+  WorkerListData
+} from '../../../models/worker.interfaces';
 import { WorkerManagementService } from '../../../services/worker-management-service';
 import { MasterCategoryService } from '../../../../master/services/master-category-service';
 import { WorkerCategorySkillTile } from '../worker-category-skill-tile/worker-category-skill-tile';
 import { MasterSkillService } from '../../../../master/services/master-skill-service';
 import { resolveIcon } from '../../../utilities/worker-management.utilities';
-import { CATEGORY_CARD_CLASS, SKILL_CARD_CLASS } from '../../../constants/worker-management.constants';
+import {
+  CATEGORY_CARD_CLASS,
+  SKILL_CARD_CLASS
+} from '../../../constants/worker-management.constants';
 import { CallDialog } from '../../../../../../../../shared/src/lib/ui/call-dialog/call-dialog';
-
 
 @Component({
   selector: 'worker-list',
@@ -25,7 +31,7 @@ import { CallDialog } from '../../../../../../../../shared/src/lib/ui/call-dialo
     WorkerCategorySkillTile
   ],
   templateUrl: './worker-list.html',
-  styleUrl: './worker-list.scss',
+  styleUrl: './worker-list.scss'
 })
 export class WorkerList {
 
@@ -35,44 +41,49 @@ export class WorkerList {
   size = signal(10);
   totalPages = signal(0);
   loading = signal(false);
+
   selectedStatus = signal('all');
+
+  workersCategories = signal<WorkerCatType[]>([]);
+  workerCategorySkills = signal<WorkerCatSkillType[]>([]);
+
+  selectedCategoryId = signal<number | null>(null);
+  selectedCategoryName = signal('');
+  selectedSkillId = signal<number | null>(null);
+
+  searchKey = signal('');
+  sortBy = signal('');
 
   filteredWorkers = computed(() => {
     const status = this.selectedStatus();
     const workers = this.workers();
-    if (status === 'all') return workers;
 
-    return workers.filter(worker =>
-      worker.status.toLowerCase() === status.toLowerCase()
+    if (status === 'all') {
+      return workers;
+    }
+
+    return workers.filter(
+      worker =>
+        worker.status.toLowerCase() === status.toLowerCase()
     );
   });
-
-  workersCategories = signal<WorkerCatType[]>([]);
-  selectedCategoryId = signal<number | null>(null);
-  selectedCategoryName = signal<string>("");
-  selectedSkillId = signal<number | null>(null);
-  workerCategorySkills = signal<WorkerCatSkillType[]>([]);
-
-
-
-
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private dialog = inject(MatDialog);
+
   private workerService = inject(WorkerManagementService);
   private categoryService = inject(MasterCategoryService);
   private skillService = inject(MasterSkillService);
 
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.listenQueryParams();
   }
 
-  listenQueryParams() {
-
+  private listenQueryParams(): void {
     this.route.queryParams.subscribe(params => {
       const status = params['status'];
+
       if (!status) {
         this.router.navigate([], {
           relativeTo: this.route,
@@ -81,27 +92,58 @@ export class WorkerList {
         });
         return;
       }
+
       this.selectedStatus.set(status);
-      const payload = {
-        page: this.page(),
-        size: this.size(),
-      };
-      this.loadWorkers(payload);
+
+
+      this.loadCategoryStats();
+      this.loadWorkers(this.buildPayload());
     });
   }
 
-  loadWorkers(payload: any) {
+  private buildPayload() {
 
+    const payload: any = {
+      page: this.page(),
+      size: this.size()
+    };
+
+    const categoryId = this.selectedCategoryId();
+    const skillId = this.selectedSkillId();
+    const searchKey = this.searchKey().trim();
+    const sortBy = this.sortBy().trim();
+
+    if (categoryId !== null) {
+      payload.categoryId = categoryId;
+    }
+
+    if (skillId !== null) {
+      payload.skillId = skillId;
+    }
+
+    if (searchKey) {
+      payload.searchKey = searchKey;
+    }
+
+    if (sortBy) {
+      payload.sortBy = sortBy;
+    }
+
+    return payload;
+  }
+
+  loadWorkers(payload: any): void {
     this.loading.set(true);
-
 
     this.workerService
       .seacrhWorker(payload)
       .subscribe({
         next: (response) => {
           const result = response.result;
+
           this.workersCount.set(result.totalRecords);
           this.totalPages.set(result.totalPages);
+
           this.workers.set(
             result.data.map((w: any) => ({
               id: w.id,
@@ -109,9 +151,7 @@ export class WorkerList {
               name: `${w.firstName} ${w.lastName}`,
               role: '-',
               profileCompletion: 0,
-              status: w.isAvailable
-                ? 'Active'
-                : 'Inactive',
+              status: w.isAvailable ? 'Active' : 'Inactive',
               interest: 'No',
               hiredAbroad: 'No',
               createdDate: '',
@@ -119,6 +159,7 @@ export class WorkerList {
               mobileNumber: '-'
             }))
           );
+
           this.loading.set(false);
         },
         error: (error: Error) => {
@@ -127,61 +168,52 @@ export class WorkerList {
         }
       });
 
+
+  }
+
+  private loadCategoryStats(): void {
     this.categoryService
       .getCategoryStats()
       .subscribe({
         next: (response) => {
           this.workersCategories.set(
             response.map((item: any) => ({
-
               ...item,
-
               iconClass: resolveIcon(item.categoryName),
-
               cardClass: CATEGORY_CARD_CLASS
             }))
           );
-
-          this.loading.set(false);
         },
         error: (error: Error) => {
           console.error(error);
-          this.loading.set(false);
         }
       });
   }
 
+  onCategorySelect(category: WorkerCatType): void {
 
-  onCategorySelect(category: WorkerCatType) {
+    this.page.set(0);
 
     this.selectedCategoryId.set(category.categoryId);
-    this.selectedSkillId.set(null);
     this.selectedCategoryName.set(category.categoryName);
-    this.selectedCategoryId.set(category.categoryId);
+
+    this.selectedSkillId.set(null);
 
     this.loadCategorySkills(category.categoryId);
-    const payload = {
-      page: this.page(),
-      size: this.size(),
-      categoryId: category.categoryId
-    };
-    this.loadWorkers(payload);
+
+    this.loadWorkers(this.buildPayload());
   }
 
+  onSkillSelect(skill: WorkerCatSkillType): void {
 
-  onSkillSelect(skill: WorkerCatSkillType) {
+    this.page.set(0);
+
     this.selectedSkillId.set(skill.skillId);
 
-    const payload = {
-      page: this.page(),
-      size: this.size(),
-      categoryId: this.selectedCategoryId(),
-      skillId: this.selectedSkillId()
-    };
-    this.loadWorkers(payload);
+    this.loadWorkers(this.buildPayload());
   }
 
-  loadCategorySkills(categoryId: number) {
+  private loadCategorySkills(categoryId: number): void {
 
     this.skillService
       .getSkillStats(categoryId)
@@ -189,52 +221,56 @@ export class WorkerList {
         next: (response) => {
           this.workerCategorySkills.set(
             response.map((skill: any) => ({
-
               ...skill,
-
               iconClass: resolveIcon(skill.skillName),
-
               cardClass: SKILL_CARD_CLASS
             }))
           );
-
-          console.log("skills----", this.workerCategorySkills());
         },
-
         error: (error) => {
           console.error(error);
         }
-
       });
   }
 
-  onPageChange(event: PageEvent) {
+  onSearchChanged(value: string): void {
+
+    this.page.set(0);
+
+    this.searchKey.set(value);
+
+    this.loadWorkers(this.buildPayload());
+  }
+
+  onSortChanged(sortBy: string): void {
+
+    this.page.set(0);
+
+    this.sortBy.set(sortBy);
+
+    this.loadWorkers(this.buildPayload());
+  }
+
+  onPageChange(event: PageEvent): void {
+
     this.page.set(event.pageIndex);
     this.size.set(event.pageSize);
-    const payload: {
-      page: number;
-      size: number;
-      categoryId?: number | null;
-      skillId?: number | null;
-    } = {
-      page: this.page(),
-      size: this.size()
-    };
-    if (this.selectedCategoryId()) payload.categoryId = this.selectedCategoryId();
-    if (this.selectedSkillId()) payload.skillId = this.selectedSkillId();
 
-    this.loadWorkers(payload);
+    this.loadWorkers(this.buildPayload());
   }
 
-
-  onViewWorker(id: number) {
-    this.router.navigate(['/workers/details'], {
-      queryParams: { workerId: id }
-    });
+  onViewWorker(id: number): void {
+    this.router.navigate(
+      ['/workers/details'],
+      {
+        queryParams: {
+          workerId: id
+        }
+      }
+    );
   }
 
-
-  onCallWorker(worker: WorkerListData) {
+  onCallWorker(worker: WorkerListData): void {
     this.dialog.open(CallDialog, {
       data: {
         name: worker.name,

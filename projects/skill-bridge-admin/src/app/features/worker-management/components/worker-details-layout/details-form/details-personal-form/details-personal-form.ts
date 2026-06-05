@@ -29,7 +29,7 @@ export class DetailsPersonalForm {
 
   private formError = inject(FormErrorService);
 
-  @Input() form!: FormGroup;
+  @Input() personalDetailsFG!: FormGroup;
 
 
   getError(control: any, fieldName: string): string | null {
@@ -37,7 +37,7 @@ export class DetailsPersonalForm {
   }
 
   isFormInvalid(): boolean {
-    return this.formError.isFormInvalid(this.form);
+    return this.formError.isFormInvalid(this.personalDetailsFG);
   }
 
 

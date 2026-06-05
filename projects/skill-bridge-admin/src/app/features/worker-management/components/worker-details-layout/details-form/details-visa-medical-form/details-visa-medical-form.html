@@ -1,1 +1,40 @@
-<p>details-visa-medical-form works!</p>
+<div class="form-layout-skill">
+
+    <div class="wrapper-form">
+
+        <div class="form-header">
+            <span>Visa & Medical</span>
+        </div>
+
+        <form [formGroup]="visaMedicalFG"
+              class="mat-elevation-z8 pt-sm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label class="field-label">
+                        Abroad Status
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="abroadStatus" />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <label class="field-label">
+                        Preferred Country
+                    </label>
+
+                    <mat-form-field class="gap-md" appearance="outline">
+                        <input matInput formControlName="preferredCountry" />
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

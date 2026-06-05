@@ -9,45 +9,51 @@ import { DetailsDocumentsForm } from '../details-form/details-documents-form/det
 import { DetailsVisaMedicalForm } from '../details-form/details-visa-medical-form/details-visa-medical-form';
 import { DetailsHiringHistory } from '../details-form/details-hiring-history/details-hiring-history';
 import { DetailsEmergencyNotes } from '../details-form/details-emergency-notes/details-emergency-notes';
+import { DetailsCertificate } from "../details-form/details-certificate/details-certificate";
+import { DetailsBankInfo } from '../details-form/details-bank-info/details-bank-info';
 
 
 @Component({
   selector: 'details-tabs',
   imports: [
-
     CommonModule,
     MatTabsModule,
-
     DetailsPersonalForm,
     DetailsPassportForm,
     DetailsSkillsForm,
     DetailsDocumentsForm,
     DetailsVisaMedicalForm,
     DetailsHiringHistory,
-    DetailsEmergencyNotes
-  ],
+    DetailsEmergencyNotes,
+    DetailsCertificate,
+    DetailsBankInfo,
+],
   templateUrl: './details-tabs.html',
   styleUrl: './details-tabs.scss',
 })
 export class DetailsTabs {
 
   @Input({ required: true }) form!: FormGroup;
-  
+
   @Input() editMode: boolean = false;
 
   get personalDetailsFG(): FormGroup { return this.form.get('personalDetails') as FormGroup; }
 
   get passportFG(): FormGroup { return this.form.get('passport') as FormGroup; }
 
-  get skillsFA(): FormArray { return this.form.get('skills') as FormArray;}
+  get skillsFA(): FormArray { return this.form.get('skills') as FormArray; }
 
-  get documentsFA(): FormArray { return this.form.get('documents') as FormArray; }
+  get documentsFG(): FormGroup { return this.form.get('documents') as FormGroup; }
 
   get hiringHistoryFA(): FormArray { return this.form.get('hiringHistory') as FormArray; }
 
   get visaMedicalFG(): FormGroup { return this.form.get('visaMedical') as FormGroup; }
 
-
   get emergencyNotesFG(): FormGroup { return this.form.get('emergencyNotes') as FormGroup; }
+
+  get workerBankDetailsFG(): FormGroup { return this.form.get('workerBankDetails') as FormGroup; }
+
+
+  get workerCertificatesFA(): FormArray { return this.form.get('workerCertificates') as FormArray;}
 
 }

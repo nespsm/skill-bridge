@@ -1,0 +1,153 @@
+<div class="form-layout-skill">
+    <div class="wrapper-form">
+
+        <div class="form-header">
+            <span>Certificates</span>
+        </div>
+
+        @if(certificateControls.length > 0) {
+        <div class="certificates-wrapper">
+
+            @for (
+            certificate of certificateControls;
+            track $index
+            ) {
+
+            <div class="certificate-card" [formGroup]="certificate">
+
+                <div class="card-title">
+                    Certificate #{{ $index + 1 }}
+                </div>
+
+                <div class="form-grid">
+
+                    <!-- Parent Fields -->
+
+                    <div>
+                        <label class="field-label">
+                            Record ID
+                        </label>
+
+                        <mat-form-field appearance="outline">
+                            <input matInput [value]="certificate.get('id')?.value">
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <label class="field-label">
+                            Start Date
+                        </label>
+
+                        <mat-form-field appearance="outline">
+                            <input matInput [value]="certificate.get('startDate')?.value">
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <label class="field-label">
+                            End Date
+                        </label>
+
+                        <mat-form-field appearance="outline">
+                            <input matInput [value]="certificate.get('endDate')?.value">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="form-grid" formGroupName="certification">
+
+                    <div>
+                        <label class="field-label">
+                            Certification ID
+                        </label>
+
+                        <mat-form-field appearance="outline">
+                            <input matInput formControlName="certificationId">
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <label class="field-label">
+                            Certification Name
+                        </label>
+
+                        <mat-form-field appearance="outline">
+                            <input matInput formControlName="certificationName">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="full">
+                        <label class="field-label">
+                            Description
+                        </label>
+
+                        <mat-form-field appearance="outline">
+                            <textarea matInput rows="3" formControlName="certificationDescription">
+                        </textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <label class="field-label">
+                            Type
+                        </label>
+
+                        <mat-form-field appearance="outline">
+                            <input matInput formControlName="certificationType">
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <label class="field-label">
+                            Category
+                        </label>
+
+                        <mat-form-field appearance="outline">
+                            <input matInput formControlName="certificationCategory">
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <label class="field-label">
+                            Created On
+                        </label>
+
+                        <mat-form-field appearance="outline">
+                            <input matInput formControlName="creationDate">
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <label class="field-label">
+                            Active
+                        </label>
+
+                        <mat-form-field appearance="outline">
+                            <input matInput [value]="
+                              certificate
+                                .get('certification.active')
+                                ?.value
+                                ? 'Yes'
+                                : 'No'
+                            ">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+        } @else {
+
+        <div class="text-center">
+            No certificates available.
+        </div>
+
+        }
+
+    </div>
+</div>

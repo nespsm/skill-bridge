@@ -1,34 +1,36 @@
 export interface WorkerCatType {
-    categoryId: number;
-    categoryName: string;
-    workerCount: number;
-    iconClass: string;
-    cardClass: string;
-    queryParams?: any;
+  categoryId: number;
+  categoryName: string;
+  workerCount: number;
+  iconClass: string;
+  cardClass: string;
+  queryParams?: any;
 }
 
 export interface WorkerCatSkillType {
 
-    skillId: number;
-    skillName: string;
-    workerCount: number;
+  skillId: number;
+  skillName: string;
+  workerCount: number;
 
-    iconClass?: string;
-    cardClass?: string;
+  iconClass?: string;
+  cardClass?: string;
 }
 
 export interface WorkerListData {
-    id: number,
-    workerId: string,
-    name: string,
-    profileCompletion: number,
-    role: string,
-    mobileNumber: string,
-    status: string,
-    hiredAbroad: string,
-    interest: string,
-    createdDate: string,
-    passport: string,
+  id: number,
+  workerId: string,
+  name: string,
+  profileCompletion: number,
+  role: string,
+  mobileNumber: string,
+  status: string,
+  hiredAbroad: string,
+  interest: string,
+  createdDate: string,
+  passport: string,
+  rating: string,
+  yearsOfExperience: string,
 }
 
 
@@ -69,13 +71,16 @@ export interface WorkerProfile {
   failedLoginAttempts: number;
   isAccountLocked: boolean;
 
-  workerCertificates: WorkerCertificate[];
-  workerBankDetails: WorkerBankDetails | null;
   workerPersonalDetails: WorkerPersonalDetails | null;
-  abroadStatus: string | null;
+  abroadStatus: AbroadStatus | null;
+  visaMedical: VisaMedial | null
   emergencyContact: EmergencyContact | null;
-  workerDocuments: WorkerDocument[] | null;
+  workerDocuments: WorkerDocument | null;
+  passport: WorkerPassport | null;
+  workerCertificates: WorkerCertificate[] | null;
+  workerBankDetails: WorkerBankDetails | null;
 
+  hiringHistory: HiringHistory[] | null;
   skill: SkillCategory[];
 
 
@@ -117,17 +122,68 @@ export interface Skill {
  */
 
 export interface WorkerCertificate {
-  [key: string]: any;
+  id: number;
+  certification: ICertification;
+  startDate: string;
+  endDate: string;
+}
+
+export interface WorkerPassport {
+  passportNumber: string;
+  issueDate: string;
+  expiryDate: string;
+}
+
+export interface ICertification {
+  certificationId: number;
+  certificationName: string;
+  certificationDescription: string;
+  certificationType: string;
+  certificationCategory: string;
+  active: boolean;
+  creationDate: Date;
 }
 
 export interface WorkerBankDetails {
-  [key: string]: any;
+  workerId: number;
+  bankName: string;
+  accountHolderName: string;
+  accountNumber: string,
+  ifscCode: string;
+}
+
+export interface HiringHistory {
+  companyName: string;
+  startDate: string;
+  endDate: string;
+  rating: string;
+  location: string;
 }
 
 export interface EmergencyContact {
-  [key: string]: any;
+  contactName: string;
+  relation: string;
+  contactNumber: string;
+  internalNotes: string;
+}
+
+export interface AbroadStatus {
+  workerId: number;
+  abroadStatus: string | null;
+  country: string;
 }
 
 export interface WorkerDocument {
-  [key: string]: any;
+  workerId: number;
+  drivingLicenseNo: string;
+  aadharNo: string;
+  panNo: string;
+
+}
+
+
+
+export interface VisaMedial {
+  abroadStatus: string;
+  preferredCountry: string;
 }
