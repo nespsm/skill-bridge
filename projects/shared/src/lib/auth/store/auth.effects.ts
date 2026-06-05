@@ -36,7 +36,7 @@ export class AuthEffects {
 
           catchError(err =>
             of(AuthActions.loginFailure({
-              error: err.error?.message || 'Login failed'
+              error: err || 'Login failed'
             }))
           )
         )
